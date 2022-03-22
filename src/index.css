@@ -1,3 +1,9 @@
+:root {
+    --color-primary-darkest: #315a5a;
+    --color-primary-dark: #527b7b;
+    --color-primary-light: #dbeff0;
+}
+
 * {
     box-sizing: border-box;
 }

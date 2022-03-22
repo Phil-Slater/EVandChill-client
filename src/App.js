@@ -7,10 +7,12 @@ import HomePage from "./components/Home/HomePage";
 function App() {
     return (
         <div className="App">
-            <Header />
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-            </Routes>
+            <div className="app-container">
+                <Header />
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                </Routes>
+            </div>
         </div>
     );
 }

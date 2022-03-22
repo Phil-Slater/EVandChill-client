@@ -1,0 +1,11 @@
+.App,
+.app-container {
+    display: flex;
+}
+
+.app-container {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    transition: width 0.5s;
+}
