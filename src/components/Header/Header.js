@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import logoSm from "./evandchill-lo.png";
 import "./Header.css";
 import MenuIcon from "./MenuIcon";
+import SearchBox from "./SearchBox";
 
 const Header = () => {
     return (
@@ -11,10 +12,7 @@ const Header = () => {
             <Link to="/">
                 <img src={logoSm} alt="EV and Chill logo" />
             </Link>
-            <div>
-                <input type="text" placeholder="Search Box" />
-                <button>Search</button>
-            </div>
+            <SearchBox />
             <MenuIcon />
         </header>
     );
