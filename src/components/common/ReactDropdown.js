@@ -17,7 +17,7 @@ const ReactDropdown = ({ onChange, options, defaultText }) => {
     };
 
     const handleChange = (value, text, icon) => {
-        const e = { target: value };
+        const e = { target: { value } };
         onChange(e);
         setSelectedOption({ value, text, icon });
         setOpened(false);

@@ -17,8 +17,8 @@
 }
 
 .react-dd .fa-solid:not(.fa-caret-down) {
-    margin-right: 1rem;
-    font-size: 1.2rem;
+    margin-right: 0.75rem;
+    font-size: 0.9rem;
 }
 
 .react-dd-selected .fa-caret-down {
@@ -64,5 +64,10 @@
 @media screen and (min-width: 600px) {
     .react-dd {
         font-size: 1rem;
+    }
+
+    .react-dd .fa-solid:not(.fa-caret-down) {
+        margin-right: 1rem;
+        font-size: 1.2rem;
     }
 }
