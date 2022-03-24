@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function Register(props) {
   const [user, setUser] = useState([]);
+  const navigate = useNavigate();
   const handleTextChange = (e) => {
     setUser({
       ...user,
@@ -20,6 +20,7 @@ function Register(props) {
       body: JSON.stringify(user),
     });
     const responseJson = await response.json();
+    navigate('/login');
     if (responseJson.error) {
         console.log(responseJson.error)
     }
