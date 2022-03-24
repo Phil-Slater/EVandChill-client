@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "./store/actions/actionCreators";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import { useRef } from "react";
+import PageContainer from "./components/common/PageContainer";
 
 function App() {
     const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
         <div className="App" onClick={detectMenuActive}>
             <div className="app-container">
                 <Header />
+
                 <SwitchTransition mode="out-in">
                     <CSSTransition
                         key={location.pathname}
@@ -32,11 +34,16 @@ function App() {
                         timeout={400}
                         nodeRef={nodeRef}
                     >
-                        <Routes location={location}>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/register" element={<Register />} />
-                        </Routes>
+                        <PageContainer>
+                            <Routes location={location}>
+                                <Route path="/" element={<HomePage />} />
+                                <Route path="/login" element={<Login />} />
+                                <Route
+                                    path="/register"
+                                    element={<Register />}
+                                />
+                            </Routes>
+                        </PageContainer>
                     </CSSTransition>
                 </SwitchTransition>
             </div>
