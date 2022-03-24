@@ -1,24 +1,33 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../../store/actions/actionCreators";
 
 const MenuIcon = () => {
     const dispatch = useDispatch();
+    const isMenuActive = useSelector((state) => state.display.isMenuActive);
 
     const [active, setActive] = useState(false);
     const [transition, setTransition] = useState(false);
 
+    const initiateTransition = () => {
+        setTransition(true);
+        setTimeout(() => {
+            setActive(!active);
+            setTransition(false);
+        }, 250);
+    };
+
     const handleMenuClick = () => {
         if (!transition) {
-            setTransition(true);
+            initiateTransition();
             dispatch(toggleMenu());
-            setTimeout(() => {
-                setActive(!active);
-                setTransition(false);
-            }, 250);
         }
     };
+
+    if (isMenuActive !== active && !transition) {
+        initiateTransition();
+    }
 
     return (
         <div
