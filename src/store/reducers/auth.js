@@ -1,12 +1,27 @@
+import * as actionTypes from "../actions/actionTypes";
+
 const initialState = {
-    user: null,
+  users: [],
 };
 
-const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        default:
-            return state;
-    }
+const authReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.ON_AUTH:
+      console.log(action);
+      return {
+        ...state,
+        isAuthenticated: action.payload !== null,
+      };
+    case actionTypes.LOGOUT_USER:
+      return {
+        ...state,
+        user: null,
+      }
+    default:
+      return state;
+  }
 };
 
-export default reducer;
+export default authReducer;
+
+

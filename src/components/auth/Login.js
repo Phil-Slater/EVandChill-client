@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import "./Auth.css";
+import axios from "axios";
 
 function Login(props) {
     const [user, setUser] = useState([]);
@@ -16,21 +15,20 @@ function Login(props) {
     };
 
     const handleLogin = async () => {
-        const response = await fetch("http://localhost:8080/login", {
+        const response = await axios({
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
+            url: "/user/login",
+            data: { username: user.username, password: user.password },
         });
-        const responseJson = await response.json();
-        if (!responseJson.error) {
-            const token = responseJson.token;
+        const responseData = response.data;
+        console.log("RESPONSE", responseData);
+        if (!responseData.error) {
+            const token = responseData.token;
             localStorage.setItem("username", user.username);
-            localStorage.setItem("userId", responseJson.user.id);
+            localStorage.setItem("userId", responseData.user.id);
             localStorage.setItem("jsonwebtoken", token);
             props.onLogin(token);
-            navigate(`/users/${responseJson.user.id}/profile`);
+            navigate(`/users/${responseData.user._id}/profile`);
         }
     };
 
