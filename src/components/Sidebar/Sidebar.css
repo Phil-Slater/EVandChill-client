@@ -1,6 +1,7 @@
 .sidebar-menu {
     display: flex;
     flex-direction: column;
+    row-gap: 1.5rem;
     width: 0;
     font-size: 1.2rem;
     align-items: center;
@@ -12,6 +13,37 @@
 
 .sidebar-menu.active {
     width: 20.5rem;
+}
+
+.sidebar-menu hr {
+    width: 75%;
+}
+
+.sidebar-menu :is(h1, h2) {
+    border-bottom: 2px solid white;
+    padding: 0 1rem 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-menu a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.sidebar-settings {
+    margin-top: auto;
+}
+.sidebar-footer {
+    margin-top: 0.25rem;
+    display: flex;
+    font-size: 0.8rem;
+    width: 75%;
+    justify-content: space-between;
+}
+
+.sidebar-footer a {
+    font-weight: normal;
 }
 
 @media screen and (max-width: 599px) {
