@@ -1,0 +1,73 @@
+.react-dd {
+    padding: 0.5rem;
+    border: 2px solid var(--color-primary-dark);
+    width: 100%;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.react-dd:hover,
+.react-dd.active {
+    background-color: var(--color-primary-light);
+}
+
+.react-dd-selected p {
+    display: flex;
+    align-items: center;
+}
+
+.react-dd .fa-solid:not(.fa-caret-down) {
+    margin-right: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.react-dd-selected .fa-caret-down {
+    margin-left: auto;
+}
+
+.react-dd p {
+    margin: 0;
+}
+
+.react-dd-selected i {
+    margin-left: 0.5rem;
+}
+
+.react-dd-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+}
+
+.react-dd-options {
+    position: relative;
+    top: 0.5rem;
+    background-color: white;
+    border: 2px solid var(--color-primary-dark);
+    width: 100%;
+    height: min-content;
+}
+
+.react-dd-option {
+    padding: 0.5rem;
+}
+
+.react-dd-option:hover {
+    background-color: var(--color-primary-light);
+}
+
+.react-dd-option:active {
+    background-color: var(--color-primary-dark);
+    color: white;
+}
+
+@media screen and (min-width: 600px) {
+    .react-dd {
+        font-size: 1rem;
+    }
+
+    .react-dd .fa-solid:not(.fa-caret-down) {
+        margin-right: 1rem;
+        font-size: 1.2rem;
+    }
+}
