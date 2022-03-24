@@ -2,6 +2,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./components/Home/HomePage";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                 </Routes>
             </div>
+            <Sidebar />
         </div>
     );
 }
