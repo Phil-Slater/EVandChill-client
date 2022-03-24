@@ -1,0 +1,5 @@
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    width: 40rem;
+}
