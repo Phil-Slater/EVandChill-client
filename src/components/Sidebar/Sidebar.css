@@ -1,5 +1,29 @@
 .sidebar-menu {
     display: flex;
     flex-direction: column;
-    width: 40rem;
+    width: 0;
+    font-size: 1.2rem;
+    align-items: center;
+    background-color: var(--color-primary-darkest);
+    color: var(--color-primary-lightest);
+    transition: width 0.5s;
+    overflow: hidden;
+}
+
+.sidebar-menu.active {
+    width: 20.5rem;
+}
+
+@media screen and (max-width: 599px) {
+    .sidebar-menu {
+        position: fixed;
+        left: 0;
+        height: 100vh;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .sidebar-menu {
+        position: static;
+    }
 }
