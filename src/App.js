@@ -12,7 +12,6 @@ import Profile from "./components/Profile/Profile";
 import { clearErrors, toggleMenu } from "./store/actions/actionCreators";
 import PageContainer from "./components/common/PageContainer";
 
-
 import "./App.css";
 function App() {
     const dispatch = useDispatch();
@@ -41,14 +40,6 @@ function App() {
         <div className="App" onClick={detectMenuActive}>
             <div className="app-container">
                 <Header />
-
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/login" element={<Login/>} />
-                    <Route path="/register" element={<Register/>} />
-                    <Route path="/users/:id/profile" element={<Profile/>} />
-                </Routes>
-
                 {errorItems}
                 <SwitchTransition mode="out-in">
                     <CSSTransition

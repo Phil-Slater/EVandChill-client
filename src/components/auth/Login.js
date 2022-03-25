@@ -24,23 +24,6 @@ function Login(props) {
     };
 
     const handleLogin = async () => {
-      const response= await axios({
-        method: 'POST',
-        url:'/user/login',
-        data: {username: user.username, password:user.password}
-      })
-         const responseData = response.data
-         console.log('RESPONSE', responseData)
-         if (!responseData.error) {
-             const token= responseData.token
-             localStorage.setItem('username', user.username)
-             localStorage.setItem('userId', responseData.user._id)
-             localStorage.setItem('jsonwebtoken', token)
-             props.onLogin(token)
-             navigate(`/users/${responseData.user._id}/profile`)
-         }
-    }
-
         const id = await postLogin(user.username, user.password);
 
         if (id) {
