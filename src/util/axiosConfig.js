@@ -1,6 +1,7 @@
 import axios from "axios";
 import { addError, setUser } from "../store/actions/actionCreators";
 import store from "../store/store";
+import getCurrentLocation from './getCurrentLocation'
 
 axios.defaults.baseURL =
     process.env.REACT_APP_BASE_URL || "http://localhost:8080";
@@ -56,3 +57,42 @@ export const postRegister = async (username, password, email) => {
         return null;
     }
 };
+
+export const postStationsByLocation = async () => {
+    const location = await getCurrentLocation()
+    const { latitude, longitude } = location.coords
+
+    try {
+        const response = await axios.post("/station/stations", {
+            latitude,
+            longitude,
+        })
+        console.log(response.data)
+    } catch (err) {
+
+    }
+}
+
+export const postStationsByZip = async (zip) => {
+    try {
+        const response = await axios.post("/station/stations", {
+            zip
+        })
+        console.log(response.data)
+    } catch (err) {
+
+    }
+}
+
+export const postStationsByCity = async (cityState) => {
+    try {
+        const response = await axios.post("/station/stations", {
+            cityState
+        })
+        console.log(response.data)
+    } catch (err) {
+
+    }
+}
+
+
