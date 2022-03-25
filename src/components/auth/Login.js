@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { postLogin } from "../../util/axiosConfig";
 
 function Login(props) {
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState({});
     const navigate = useNavigate();
 
     const auth = useSelector((state) => state.auth);
@@ -53,10 +53,4 @@ function Login(props) {
     );
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onLogin: (token) => dispatch({ type: "ON_AUTH", payload: token }),
-    };
-};
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

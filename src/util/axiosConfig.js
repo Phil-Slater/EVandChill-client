@@ -34,3 +34,19 @@ export const postLogin = async (username, password) => {
         return null;
     }
 };
+
+export const postRegister = async (username, password, email) => {
+    try {
+        const response = axios.post("/register", { username, password, email });
+        if (await response.data.success) {
+            return true;
+        } else {
+            throw new Error("Error Registering");
+        }
+    } catch {
+        store.dispatch(
+            addError("There was an error registering your account.")
+        );
+        return false;
+    }
+};
