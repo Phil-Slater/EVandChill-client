@@ -19,7 +19,7 @@ const MenuIcon = () => {
     };
 
     const handleMenuClick = () => {
-        if (!transition) {
+        if (!active) {
             initiateTransition();
             dispatch(toggleMenu());
         }
