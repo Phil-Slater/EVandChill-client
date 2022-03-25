@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { postRegister } from "../../util/axiosConfig";
+import "./Auth.css";
 import axios from "axios";
 
 function Register() {
@@ -12,49 +14,40 @@ function Register() {
     });
   };
 
-  const handleRegister = async () => {
-      const response = await axios({
-        method: "POST",
-        url: "/user/register",
-        data: {
-          username: user.username,
-          email: user.email,
-          password: user.password,
-        },
-      });
-    const responseData = await response.data;
-    navigate('/login');
-    if (responseData.error) {
-        console.log(responseData.error)
-    }
-  };
-
-  return (
-    <div>
-      <h1>Register</h1>
-      <input
-        type="text"
-        onChange={handleTextChange}
-        placeholder="Enter Username"
-        name="username"
-      />
-      <input
-        type="email"
-        onChange={handleTextChange}
-        placeholder="Enter Email"
-        name="email"
-      />
-      <input
-        type="password"
-        onChange={handleTextChange}
-        placeholder="Enter Password"
-        name="password"
-      />
-      <div>
-        <button onClick={handleRegister}>Register</button>
-      </div>
-    </div>
-  );
+    const handleRegister = async () => {
+        const { username, password, email } = user;
+        const success = await postRegister(username, password, email);
+        if (success) {
+            navigate("/login");
+        }
+    };
+  
+    return (
+        <div>
+            <h1>Register</h1>
+            <input
+                type="text"
+                onChange={handleTextChange}
+                placeholder="Enter Username"
+                name="username"
+            />
+            <input
+                type="email"
+                onChange={handleTextChange}
+                placeholder="Enter Email"
+                name="email"
+            />
+            <input
+                type="password"
+                onChange={handleTextChange}
+                placeholder="Enter Password"
+                name="password"
+            />
+            <div>
+                <button onClick={handleRegister}>Register</button>
+            </div>
+        </div>
+    );
 }
 
 export default Register;
