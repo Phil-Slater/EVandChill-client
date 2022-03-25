@@ -15,7 +15,7 @@ export const setAuthData = (token, username, userId) => {
 
 export const postLogin = async (username, password) => {
     try {
-        const response = await axios.post("/login", {
+        const response = await axios.post("/user/login", {
             username,
             password,
         });
@@ -37,7 +37,11 @@ export const postLogin = async (username, password) => {
 
 export const postRegister = async (username, password, email) => {
     try {
-        const response = axios.post("/register", { username, password, email });
+        const response = axios.post("/user/register", {
+            username,
+            password,
+            email,
+        });
         if (await response.data.success) {
             return true;
         } else {
