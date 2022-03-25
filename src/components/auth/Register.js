@@ -4,17 +4,17 @@ import { postRegister } from "../../util/axiosConfig";
 import "./Auth.css";
 
 function Register() {
-    const [user, setUser] = useState([]);
+    const [userInfo, setUserInfo] = useState([]);
     const navigate = useNavigate();
     const handleTextChange = (e) => {
-        setUser({
-            ...user,
+        setUserInfo({
+            ...userInfo,
             [e.target.name]: e.target.value,
         });
     };
 
     const handleRegister = async () => {
-        const { username, password, email } = user;
+        const { username, password, email } = userInfo;
         const id = await postRegister(username, password, email);
         if (id) {
             navigate(`/users/${id}/profile`);

@@ -13,6 +13,13 @@ export const setUser = (user) => {
     };
 };
 
+export const logOutUser = () => {
+    localStorage.removeItem("jwt");
+    return {
+        type: actionTypes.LOGOUT_USER,
+    };
+};
+
 export const addError = (errorMessage) => {
     return {
         type: actionTypes.ADD_ERROR,
