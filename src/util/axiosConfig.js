@@ -1,4 +1,6 @@
 import axios from "axios";
+import { addError, setUser } from "../store/actions/actionCreators";
+import store from "../store/store";
 
 axios.defaults.baseURL =
     process.env.REACT_APP_BASE_URL || "http://localhost:8080";
@@ -8,12 +10,27 @@ export const setAuthData = (token, username, userId) => {
     localStorage.setItem("username", username);
     localStorage.setItem("userId", userId);
 
-    axios.defaults.headers;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 
 export const postLogin = async (username, password) => {
-    const response = await axios.post("/user/login", { username, password });
-    const { token, user } = response.data;
-    setAuthData(token, username, user.id);
-    return;
+    try {
+        const response = await axios.post("/login", {
+            username,
+            password,
+        });
+        const { token, user } = response.data;
+        setAuthData(token, username, user.id);
+        store.dispatch(
+            setUser({ username, email: user.email, favorites: user.favorites })
+        );
+        return user.id;
+    } catch {
+        store.dispatch(
+            addError(
+                "There was an error logging in. Double check your username and password and try again."
+            )
+        );
+        return null;
+    }
 };
