@@ -2,6 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     isMenuActive: false,
+    errors: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,6 +13,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isMenuActive: newStatus,
+            };
+        case actionTypes.ADD_ERROR:
+            return {
+                ...state,
+                errors: [...state.errors, action.payload],
+            };
+        case actionTypes.CLEAR_ERRORS:
+            return {
+                ...state,
+                errors: [],
             };
         default:
             return state;
