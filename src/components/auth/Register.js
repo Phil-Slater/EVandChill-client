@@ -22,29 +22,47 @@ function Register() {
     };
 
     return (
-        <div>
+        <div className="auth">
             <h1>Register</h1>
-            <input
-                type="text"
-                onChange={handleTextChange}
-                placeholder="Enter Username"
-                name="username"
-            />
-            <input
-                type="email"
-                onChange={handleTextChange}
-                placeholder="Enter Email"
-                name="email"
-            />
-            <input
-                type="password"
-                onChange={handleTextChange}
-                placeholder="Enter Password"
-                name="password"
-            />
-            <div>
-                <button onClick={handleRegister}>Register</button>
+            <div className="auth-input">
+                <p>Username</p>
+                <input
+                    type="text"
+                    onChange={handleTextChange}
+                    placeholder="Enter Username"
+                    name="username"
+                />
             </div>
+            <div className="auth-input">
+                <p>Email</p>
+                <input
+                    type="email"
+                    onChange={handleTextChange}
+                    placeholder="Enter Email"
+                    name="email"
+                />
+            </div>
+            <div className="auth-input">
+                <p>Password</p>
+                <input
+                    type="password"
+                    onChange={handleTextChange}
+                    placeholder="Enter Password"
+                    name="password"
+                />
+            </div>
+            <div className="auth-input">
+                <p>Repeat Password</p>
+                <input
+                    type="password"
+                    onChange={handleTextChange}
+                    placeholder="Repeat Password"
+                    name="passwordRepeat"
+                />
+            </div>
+            <button className="auth-button" onClick={handleRegister}>
+                Register
+            </button>
         </div>
     );
 }
