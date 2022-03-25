@@ -27,7 +27,7 @@ function Login(props) {
         const id = await postLogin(user.username, user.password);
 
         if (id) {
-            navigate(`/users/${id}/profile`);
+            navigate(`/profile`);
         }
     };
 

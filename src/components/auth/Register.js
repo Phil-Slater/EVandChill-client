@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postRegister } from "../../util/axiosConfig";
 import "./Auth.css";
-import axios from "axios";
 
 function Register() {
   const [user, setUser] = useState([]);

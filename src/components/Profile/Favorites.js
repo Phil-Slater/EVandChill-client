@@ -21,21 +21,22 @@ function Favorites() {
         }
     }
 
-    const handleRemove = async (id) => {
-        const response = await axios.delete(`/user/favorites`,{
-            data:{favoriteId:id}
-        })
-        if(response){
-            
-        }
-    }
+    // const handleRemove = async (id) => {
+    //     const response = await axios.delete(`/user/favorites`,{
+    //         params:{favoriteId:id}
+    //     })
+    //     if(response){
+    //         setFavorites(response.data.Favoritesfavorites)
+    //     }
+    // }
   return (
     <div className="favorites">
       <h3>Favorites</h3>
       {favorites.map((favorite) => (
         <li key={favorite._id}>{
             favorite.stationId}
-            <button onClick={handleRemove(favorite._id)}>Remove</button> </li>
+            {/* <button onClick={handleRemove(favorite._id)}>Remove</button>  */}
+            </li>
       ))}
     </div>
   );
