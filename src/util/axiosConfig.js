@@ -5,13 +5,11 @@ import store from "../store/store";
 axios.defaults.baseURL =
     process.env.REACT_APP_BASE_URL || "http://localhost:8080";
 
-export const setAuthData = (token, username, userId) => {
-    localStorage.setItem("jsonwebtoken", token);
-    localStorage.setItem("username", username);
-    localStorage.setItem("userId", userId);
-
+export function setAuthData(token, user) {
+    const userInfo = { token, user };
+    localStorage.setItem("jwt", JSON.stringify(userInfo));
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-};
+}
 
 export const postLogin = async (username, password) => {
     try {
@@ -20,11 +18,9 @@ export const postLogin = async (username, password) => {
             password,
         });
         const { token, user } = response.data;
-        setAuthData(token, username, user.id);
-        store.dispatch(
-            setUser({ username, email: user.email, favorites: user.favorites })
-        );
-        return user.id;
+        setAuthData(token, user);
+        store.dispatch(setUser(user));
+        return user._id;
     } catch {
         store.dispatch(
             addError(
@@ -37,20 +33,26 @@ export const postLogin = async (username, password) => {
 
 export const postRegister = async (username, password, email) => {
     try {
-        const response = axios.post("/user/register", {
+        const response = await axios.post("/user/register", {
             username,
             password,
             email,
         });
-        if (await response.data.success) {
-            return true;
-        } else {
-            throw new Error("Error Registering");
-        }
-    } catch {
+        const { token, user } = response.data;
+        setAuthData(token, username, user.id);
         store.dispatch(
-            addError("There was an error registering your account.")
+            setUser({ username, email: user.email, favorites: user.favorites })
         );
-        return false;
+        return user._id;
+    } catch (err) {
+        console.log(err.response);
+        if (err.response.data.userTaken) {
+            store.dispatch(addError("Username is already in use."));
+        } else {
+            store.dispatch(
+                addError("There was an error registering your account.")
+            );
+        }
+        return null;
     }
 };

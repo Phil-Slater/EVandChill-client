@@ -26,7 +26,6 @@ function App() {
     };
 
     const resetErrors = () => {
-        console.log("reseting");
         dispatch(clearErrors());
     };
 
@@ -37,31 +36,31 @@ function App() {
     ));
 
     return (
-      <div className="App" onClick={detectMenuActive}>
-        <div className="app-container">
-          <Header />
-          {errorItems}
-          <SwitchTransition mode="out-in">
-            <CSSTransition
-              key={location.pathname}
-              classNames="page-transition"
-              timeout={400}
-              nodeRef={nodeRef}
-              onExit={resetErrors}
-            >
-              <PageContainer forwardedRef={nodeRef}>
-                <Routes location={location}>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/profile" element={<Profile />} />
-                </Routes>
-              </PageContainer>
-            </CSSTransition>
-          </SwitchTransition>
+        <div className="App" onClick={detectMenuActive}>
+            <div className="app-container">
+                <Header />
+                {errorItems}
+                <SwitchTransition mode="out-in">
+                    <CSSTransition
+                        key={location.pathname}
+                        classNames="page-transition"
+                        timeout={400}
+                        nodeRef={nodeRef}
+                        onExit={resetErrors}
+                    >
+                        <PageContainer forwardedRef={nodeRef}>
+                            <Routes location={location}>
+                                <Route path="/" element={<HomePage />} />
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/register" element={<Register />}/>
+                                <Route path="/profile" element={<Profile />}/>
+                            </Routes>
+                        </PageContainer>
+                    </CSSTransition>
+                </SwitchTransition>
+            </div>
+            <Sidebar />
         </div>
-        <Sidebar />
-      </div>
     );
 }
 
