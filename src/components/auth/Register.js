@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postRegister } from "../../util/axiosConfig";
-
 import "./Auth.css";
+import axios from "axios";
 
-function Register(props) {
-    const navigate = useNavigate();
-    const [user, setUser] = useState({});
-    const handleTextChange = (e) => {
-        setUser({
-            ...user,
-            [e.target.name]: e.target.value,
-        });
-    };
+function Register() {
+  const [user, setUser] = useState([]);
+  const navigate = useNavigate();
+  const handleTextChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
 
     const handleRegister = async () => {
         const { username, password, email } = user;
@@ -21,7 +21,7 @@ function Register(props) {
             navigate("/login");
         }
     };
-
+  
     return (
         <div>
             <h1>Register</h1>
