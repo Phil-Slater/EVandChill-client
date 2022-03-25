@@ -52,14 +52,8 @@ function App() {
                             <Routes location={location}>
                                 <Route path="/" element={<HomePage />} />
                                 <Route path="/login" element={<Login />} />
-                                <Route
-                                    path="/register"
-                                    element={<Register />}
-                                />
-                                <Route
-                                    path="/users/:id/profile"
-                                    element={<Profile />}
-                                />
+                                <Route path="/register" element={<Register />}/>
+                                <Route path="/profile" element={<Profile />}/>
                             </Routes>
                         </PageContainer>
                     </CSSTransition>

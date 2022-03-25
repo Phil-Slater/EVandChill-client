@@ -13,7 +13,7 @@ const UserLinks = ({ user }) => {
             <Link to={`/users/${user._id}/profile`}>
                 <h2>{user.username}</h2>
             </Link>
-            <Link to="/favorites">My Favorites</Link>
+            <Link to='/my-favorites'>My Favorites</Link>
             <Link to="/history">My Charging History</Link>
             <Link to="/reviews">My Reviews</Link>
             <button className="sidebar-logout" onClick={handleLogout}>
@@ -24,3 +24,4 @@ const UserLinks = ({ user }) => {
 };
 
 export default UserLinks;
+
