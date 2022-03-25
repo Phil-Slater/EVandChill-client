@@ -31,23 +31,31 @@ function Login() {
     };
 
     return (
-        <div>
+        <div className="auth">
             <h1>Login</h1>
-            <input
-                type="text"
-                onChange={handleTextChange}
-                placeholder="Enter Username"
-                name="username"
-            />
-            <input
-                type="password"
-                onChange={handleTextChange}
-                placeholder="Enter Password"
-                name="password"
-            />
-            <div>
-                <button onClick={handleLogin}>Login</button>
+
+            <div className="auth-input">
+                <p>Username</p>
+                <input
+                    type="text"
+                    onChange={handleTextChange}
+                    placeholder="Enter Username"
+                    name="username"
+                />
             </div>
+            <div className="auth-input">
+                <p>Password</p>
+                <input
+                    type="password"
+                    onChange={handleTextChange}
+                    placeholder="Enter Password"
+                    name="password"
+                />
+            </div>
+
+            <button className="auth-button" onClick={handleLogin}>
+                Login
+            </button>
         </div>
     );
 }
