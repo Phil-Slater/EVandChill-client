@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { postLogin } from "../../util/axiosConfig";
 
-function Login(props) {
-    const [user, setUser] = useState({});
+function Login() {
+    const [userInfo, setUserInfo] = useState({});
     const navigate = useNavigate();
 
     const auth = useSelector((state) => state.auth);
@@ -14,17 +13,17 @@ function Login(props) {
         if (auth.user) {
             navigate("/");
         }
-    });
+    }, []);
 
     const handleTextChange = (e) => {
-        setUser({
-            ...user,
+        setUserInfo({
+            ...userInfo,
             [e.target.name]: e.target.value,
         });
     };
 
     const handleLogin = async () => {
-        const id = await postLogin(user.username, user.password);
+        const id = await postLogin(userInfo.username, userInfo.password);
 
         if (id) {
             navigate(`/users/${id}/profile`);

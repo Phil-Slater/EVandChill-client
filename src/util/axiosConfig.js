@@ -5,13 +5,11 @@ import store from "../store/store";
 axios.defaults.baseURL =
     process.env.REACT_APP_BASE_URL || "http://localhost:8080";
 
-export const setAuthData = (token, username, userId) => {
-    localStorage.setItem("jsonwebtoken", token);
-    localStorage.setItem("username", username);
-    localStorage.setItem("userId", userId);
-
+export function setAuthData(token, user) {
+    const userInfo = { token, user };
+    localStorage.setItem("jwt", JSON.stringify(userInfo));
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-};
+}
 
 export const postLogin = async (username, password) => {
     try {
@@ -20,10 +18,8 @@ export const postLogin = async (username, password) => {
             password,
         });
         const { token, user } = response.data;
-        setAuthData(token, username, user.id);
-        store.dispatch(
-            setUser({ username, email: user.email, favorites: user.favorites })
-        );
+        setAuthData(token, user);
+        store.dispatch(setUser(user));
         return user._id;
     } catch {
         store.dispatch(
