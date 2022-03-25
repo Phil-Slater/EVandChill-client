@@ -26,7 +26,6 @@ function App() {
     };
 
     const resetErrors = () => {
-        console.log("reseting");
         dispatch(clearErrors());
     };
 
@@ -56,6 +55,10 @@ function App() {
                                 <Route
                                     path="/register"
                                     element={<Register />}
+                                />
+                                <Route
+                                    path="/users/:id/profile"
+                                    element={<Profile />}
                                 />
                             </Routes>
                         </PageContainer>

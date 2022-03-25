@@ -23,7 +23,6 @@ const SearchBox = () => {
     ];
 
     const handleChange = (e) => {
-        console.log(e);
         setSearchType(e.target.value);
     };
     return (
