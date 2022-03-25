@@ -21,6 +21,7 @@ export const logOutUser = () => {
 };
 
 export const addError = (errorMessage) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     return {
         type: actionTypes.ADD_ERROR,
         payload: errorMessage,

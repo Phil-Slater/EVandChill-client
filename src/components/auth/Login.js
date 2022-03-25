@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addError, clearErrors } from "../../store/actions/actionCreators";
 import { postLogin } from "../../util/axiosConfig";
 
 function Login() {
     const [userInfo, setUserInfo] = useState({});
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const auth = useSelector((state) => state.auth);
 
@@ -23,10 +25,26 @@ function Login() {
     };
 
     const handleLogin = async () => {
-        const id = await postLogin(userInfo.username, userInfo.password);
+        const { username, password } = userInfo;
 
-        if (id) {
-            navigate(`/profile`);
+        dispatch(clearErrors());
+        let valid = true;
+
+        if (!username) {
+            valid = false;
+            dispatch(addError("Username is required."));
+        }
+
+        if (!password) {
+            valid = false;
+            dispatch(addError("Password is required"));
+        }
+        if (valid) {
+            const id = await postLogin(username, password);
+
+            if (id) {
+                navigate(`/profile`);
+            }
         }
     };
 
