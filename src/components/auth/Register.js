@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addError, clearErrors } from "../../store/actions/actionCreators";
 import { postRegister } from "../../util/axiosConfig";
 import "./Auth.css";
 
 function Register() {
     const [userInfo, setUserInfo] = useState([]);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleTextChange = (e) => {
         setUserInfo({
             ...userInfo,
@@ -14,10 +17,34 @@ function Register() {
     };
 
     const handleRegister = async () => {
-        const { username, password, email } = userInfo;
-        const id = await postRegister(username, password, email);
-        if (id) {
-            navigate(`/users/${id}/profile`);
+        const { username, password, passwordRepeat, email } = userInfo;
+        dispatch(clearErrors());
+        let valid = true;
+        if (!username) {
+            valid = false;
+            dispatch(addError("Username is required."));
+        }
+
+        if (!email) {
+            valid = false;
+            dispatch(addError("Email is required."));
+        }
+
+        if (!password) {
+            valid = false;
+            dispatch(addError("Password is required."));
+        }
+
+        if (password !== passwordRepeat) {
+            valid = false;
+            dispatch(addError("Passwords do not match."));
+        }
+
+        if (valid) {
+            const id = await postRegister(username, password, email);
+            if (id) {
+                navigate(`/users/${id}/profile`);
+            }
         }
     };
 
