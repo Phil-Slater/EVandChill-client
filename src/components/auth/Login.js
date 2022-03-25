@@ -25,7 +25,7 @@ function Login(props) {
          if (!responseData.error) {
              const token= responseData.token
              localStorage.setItem('username', user.username)
-             localStorage.setItem('userId', responseData.user.id)
+             localStorage.setItem('userId', responseData.user._id)
              localStorage.setItem('jsonwebtoken', token)
              props.onLogin(token)
              navigate(`/users/${responseData.user._id}/profile`)

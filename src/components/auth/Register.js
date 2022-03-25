@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function Register(props) {
+function Register() {
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
   const handleTextChange = (e) => {
@@ -12,17 +13,19 @@ function Register(props) {
   };
 
   const handleRegister = async () => {
-    const response = await fetch("http://localhost:8080/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
-    const responseJson = await response.json();
+      const response = await axios({
+        method: "POST",
+        url: "/user/register",
+        data: {
+          username: user.username,
+          email: user.email,
+          password: user.password,
+        },
+      });
+    const responseData = await response.data;
     navigate('/login');
-    if (responseJson.error) {
-        console.log(responseJson.error)
+    if (responseData.error) {
+        console.log(responseData.error)
     }
   };
 
