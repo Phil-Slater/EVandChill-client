@@ -13,6 +13,7 @@ import { clearErrors, toggleMenu } from "./store/actions/actionCreators";
 import PageContainer from "./components/common/PageContainer";
 
 import "./App.css";
+import About from "./components/About/About";
 function App() {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -52,8 +53,12 @@ function App() {
                             <Routes location={location}>
                                 <Route path="/" element={<HomePage />} />
                                 <Route path="/login" element={<Login />} />
-                                <Route path="/register" element={<Register />}/>
-                                <Route path="/profile" element={<Profile />}/>
+                                <Route
+                                    path="/register"
+                                    element={<Register />}
+                                />
+                                <Route path="/profile" element={<Profile />} />
+                                <Route path="/about" element={<About />} />
                             </Routes>
                         </PageContainer>
                     </CSSTransition>
