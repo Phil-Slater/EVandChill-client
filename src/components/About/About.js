@@ -79,8 +79,52 @@ const About = () => {
     return (
         <div className="about">
             <h1>About the Creators</h1>
+            <p>
+                We are three junior developers with a passion for technology and
+                planning sub-details for trips. This project is birthed from the
+                knowledge that charging electric vehicles take time to charge
+                before making the next leg on a trip. Together, we have crafted
+                this application to not only assist users in locating EV
+                charging stations at various destinations (as well as nearby),
+                but to also locate food and other pasttimes while waiting, all
+                in one place!
+            </p>
             <div className="about-profiles">{profileItems}</div>
-            <p></p>
+            <h1>Technologies</h1>
+            <a
+                href="https://github.com/jon-cundiff/EVandChill-client"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <h2>
+                    {ghLogo}
+                    Frontend
+                </h2>
+            </a>
+            <p>
+                The site that you see is built with React and Redux. Axios is
+                used to store default URL and header information to communicate
+                with our backend. The animations on this site are done entirely
+                through CSS transitions triggered by JavaScript events.
+            </p>
+            <a
+                href="https://github.com/jon-cundiff/EVandChill-server"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <h2>
+                    {ghLogo}
+                    Backend
+                </h2>
+            </a>
+            <p>
+                The backend server the supplies the data you see is built on
+                Express, and interacts with MongoDB via Mongoose. The server
+                interacts with{" "}
+                <a href="https://openchargemap.org/site">Open Charge Map</a> and{" "}
+                <a href="https://www.google.com/maps">Google Maps</a> to locate
+                charging stations and nearby ammenities.
+            </p>
         </div>
     );
 };
