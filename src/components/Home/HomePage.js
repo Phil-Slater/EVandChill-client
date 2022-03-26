@@ -1,9 +1,18 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { toggleMenu } from "../../store/actions/actionCreators";
 
 import logoLg from "./evandchill-HI.png";
 
 import "./HomePage.css";
 const HomePage = () => {
+    const dispatch = useDispatch();
+
+    const handleMenuClick = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        dispatch(toggleMenu());
+    };
+
     return (
         <div className="home">
             <div className="home-intro">
@@ -38,7 +47,9 @@ const HomePage = () => {
                     stations to your history, an account is required (a guest
                     account is available to preview account features).
                 </p>
-                <button className="home-menu">Open Menu to Log In</button>
+                <button className="home-menu" onClick={handleMenuClick}>
+                    Open Menu to Log In
+                </button>
             </div>
         </div>
     );
