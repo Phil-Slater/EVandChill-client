@@ -31,6 +31,22 @@
     font-weight: bold;
 }
 
+.sidebar-guest {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    background-color: var(--color-accent-light);
+    font-size: 1rem;
+}
+
+.sidebar-guest:hover {
+    box-shadow: 1px 1px 10px white;
+}
+
+.sidebar-guest:active {
+    background-color: var(--color-accent-dark);
+    box-shadow: 1px 1px 10px black;
+}
+
 .sidebar-settings {
     margin-top: auto;
 }
@@ -65,5 +81,6 @@
 @media screen and (min-width: 600px) {
     .sidebar-menu {
         position: static;
+        max-height: 100vh;
     }
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { addError, setUser } from "../store/actions/actionCreators";
 import store from "../store/store";
-import getCurrentLocation from './getCurrentLocation'
+import getCurrentLocation from "./getCurrentLocation";
 
 axios.defaults.baseURL =
     process.env.REACT_APP_BASE_URL || "http://localhost:8080";
@@ -12,16 +12,19 @@ export function setAuthData(token, user) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
+const handleTokenUser = (data) => {
+    const { token, user } = data;
+    setAuthData(token, user);
+    store.dispatch(setUser(user));
+    return user._id;
+};
 export const postLogin = async (username, password) => {
     try {
         const response = await axios.post("/user/login", {
             username,
             password,
         });
-        const { token, user } = response.data;
-        setAuthData(token, user);
-        store.dispatch(setUser(user));
-        return user._id;
+        return handleTokenUser(response.data);
     } catch {
         store.dispatch(
             addError(
@@ -39,12 +42,7 @@ export const postRegister = async (username, password, email) => {
             password,
             email,
         });
-        const { token, user } = response.data;
-        setAuthData(token, username, user.id);
-        store.dispatch(
-            setUser({ username, email: user.email, favorites: user.favorites })
-        );
-        return user._id;
+        return handleTokenUser(response.data);
     } catch (err) {
         console.log(err.response);
         if (err.response.data.userTaken) {
@@ -58,41 +56,45 @@ export const postRegister = async (username, password, email) => {
     }
 };
 
+export const postGuestLogin = async () => {
+    try {
+        const response = await axios.post("/user/guest-login");
+        return handleTokenUser(response.data);
+    } catch {
+        store.dispatch(
+            addError("Error retrieving guest token. Please try again.")
+        );
+        return null;
+    }
+};
+
 export const postStationsByLocation = async () => {
-    const location = await getCurrentLocation()
-    const { latitude, longitude } = location.coords
+    const location = await getCurrentLocation();
+    const { latitude, longitude } = location.coords;
 
     try {
         const response = await axios.post("/station/stations", {
             latitude,
             longitude,
-        })
-        console.log(response.data)
-    } catch (err) {
-
-    }
-}
+        });
+        console.log(response.data);
+    } catch (err) {}
+};
 
 export const postStationsByZip = async (zip) => {
     try {
         const response = await axios.post("/station/stations", {
-            zip
-        })
-        console.log(response.data)
-    } catch (err) {
-
-    }
-}
+            zip,
+        });
+        console.log(response.data);
+    } catch (err) {}
+};
 
 export const postStationsByCity = async (cityState) => {
     try {
         const response = await axios.post("/station/stations", {
-            cityState
-        })
-        console.log(response.data)
-    } catch (err) {
-
-    }
-}
-
-
+            cityState,
+        });
+        console.log(response.data);
+    } catch (err) {}
+};

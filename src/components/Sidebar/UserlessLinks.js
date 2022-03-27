@@ -7,6 +7,7 @@ const UserlessLinks = () => {
             <hr />
             <Link to="/login">Sign in</Link>
             <Link to="/register">Sign Up</Link>
+            <button className="sidebar-guest">Guest Login</button>
         </>
     );
 };
