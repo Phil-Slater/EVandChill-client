@@ -4,7 +4,7 @@ const AboutProfile = ({ creator, profileSrc, ghLogo }) => {
     const { name, github, tasks } = creator;
 
     const taskItems = tasks.map((task) => (
-        <p className="about-task">
+        <p className="about-task" key={task}>
             <i className="fa-solid fa-file-code"></i>
             {task}
         </p>

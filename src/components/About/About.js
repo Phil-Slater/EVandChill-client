@@ -12,12 +12,15 @@ const About = () => {
         "Katie-Freeman": null,
         "Phil-Slater": null,
     });
+
     const ghAxios = axios.create({
         baseURL: "https://api.github.com/users",
         headers: {
             accept: "application/vnd.github.v3+json",
         },
     });
+
+    delete axios.defaults.headers.common["Authorization"];
 
     const ghLogo = <i className="fa-brands fa-github"></i>;
 
