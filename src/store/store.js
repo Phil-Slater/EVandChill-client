@@ -19,7 +19,6 @@ const store = createStore(
 const userRaw = localStorage.getItem("jwt");
 if (userRaw) {
     const { token, user } = JSON.parse(userRaw);
-    console.log(setAuthData);
     setAuthData(token, user);
     store.dispatch(setUser(user));
 }

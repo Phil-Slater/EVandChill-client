@@ -12,6 +12,11 @@ export function setAuthData(token, user) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
+export const removeAuthData = () => {
+    localStorage.removeItem("jwt");
+    delete axios.defaults.headers.common["Authorization"];
+};
+
 const handleTokenUser = (data) => {
     const { token, user } = data;
     setAuthData(token, user);

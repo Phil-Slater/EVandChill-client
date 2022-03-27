@@ -12,7 +12,7 @@ const UserLinks = ({ user }) => {
     };
     return (
         <>
-            <Link to={`/users/${user._id}/profile`}>
+            <Link to={`/profile`}>
                 <h2>{user.username}</h2>
             </Link>
             <Link to="/my-favorites">My Favorites</Link>
