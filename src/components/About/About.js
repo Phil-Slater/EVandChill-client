@@ -20,8 +20,6 @@ const About = () => {
         },
     });
 
-    delete axios.defaults.headers.common["Authorization"];
-
     const ghLogo = <i className="fa-brands fa-github"></i>;
 
     const creators = [
