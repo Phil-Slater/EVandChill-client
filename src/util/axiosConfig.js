@@ -1,10 +1,7 @@
-import axios from "axios";
+import axios from "./apiAxios";
 import { addError, setUser } from "../store/actions/actionCreators";
 import store from "../store/store";
 import getCurrentLocation from "./getCurrentLocation";
-
-axios.defaults.baseURL =
-    process.env.REACT_APP_BASE_URL || "http://localhost:8080";
 
 export function setAuthData(token, user) {
     const userInfo = { token, user };
