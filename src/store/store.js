@@ -5,10 +5,12 @@ import { setAuthData } from "../util/axiosConfig";
 import { setUser } from "./actions/actionCreators";
 import authReducer from "./reducers/auth";
 import displayReducer from "./reducers/display";
+import stationsReducer from "./reducers/stations";
 
 const rootReducer = combineReducers({
     auth: authReducer,
     display: displayReducer,
+    stations: stationsReducer,
 });
 
 const store = createStore(

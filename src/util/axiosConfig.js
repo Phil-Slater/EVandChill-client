@@ -1,5 +1,5 @@
 import axios from "./apiAxios";
-import { addError, setUser, setFavorites, deleteFavorite } from "../store/actions/actionCreators";
+import { addError, setUser, setFavorites, deleteFavorite, setStations } from "../store/actions/actionCreators";
 import store from "../store/store";
 import getCurrentLocation from "./getCurrentLocation";
 import { useSelector } from "react-redux";
@@ -81,7 +81,10 @@ export const postStationsByLocation = async () => {
             longitude,
         });
         console.log(response.data);
-    } catch (err) {}
+        store.dispatch(setStations(response.data));
+    } catch (err) {
+
+    }
 };
 
 export const postStationsByZip = async (zip) => {

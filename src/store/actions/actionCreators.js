@@ -44,3 +44,10 @@ export const addError = (errorMessage) => {
 export const clearErrors = () => {
     return { type: actionTypes.CLEAR_ERRORS };
 };
+
+export const setStations = (stations) => {
+    return {
+        type: actionTypes.SET_STATIONS,
+        payload: stations
+    }
+}
