@@ -14,16 +14,16 @@ export const setUser = (user) => {
 };
 
 export const setFavorites = (favorites) => {
-    return{
-        type:actionTypes.SET_FAVORITES,
-        payload:favorites
+    return {
+        type: actionTypes.SET_FAVORITES,
+        payload: favorites
     }
 }
 
 export const deleteFavorite = (favorite) => {
     return {
-        type:actionTypes.DELETE_FAVORITE,
-        payload:favorite
+        type: actionTypes.DELETE_FAVORITE,
+        payload: favorite
     }
 }
 export const logOutUser = () => {
@@ -48,6 +48,6 @@ export const clearErrors = () => {
 export const setStations = (stations) => {
     return {
         type: actionTypes.SET_STATIONS,
-        payload: stations
+        payload: stations,
     }
 }

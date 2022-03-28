@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: .5em;
+    row-gap: 1em;
+    margin-bottom: 2em;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+.stations-container {
+    width: 20vw;
+    height: 10vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 1rem;
+    box-shadow: 2px 2px 10px rgba(40, 40, 40, 0.6);
+}
+
+

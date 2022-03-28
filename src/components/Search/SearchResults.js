@@ -1,21 +1,24 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
+import { useSelector } from "react-redux"
+import "./SearchResults.css"
 
-const SearchResults = (props) => {
+const SearchResults = () => {
 
-    const [stations, setStations] = useState([])
+    const stations = useSelector((state) => state.stations.stations);
+    console.log(stations)
 
-    useEffect(() => {
-        getStations(props.params)
-    }, [])
+    const stationsMapped = stations.map(station => {
+        return <div className="stations-container">
+            <p>{station.AddressInfo.Title}</p>
+            <p>{station.AddressInfo.AddressLine1} {station.AddressInfo.Town}, {station.AddressInfo.StateOrProvince} {station.AddressInfo.Postcode}</p>
+        </div>
+    })
 
-    const getStations = (searchParams) => {
-        try {
-            const response = await axios.post('/station/stations', { searchBox: searchParams })
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    return (
+        <div className="container">
+            {stationsMapped}
+        </div>
+    )
 }
 
 export default SearchResults

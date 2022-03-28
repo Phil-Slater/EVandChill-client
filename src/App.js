@@ -14,6 +14,7 @@ import PageContainer from "./components/common/PageContainer";
 
 import "./App.css";
 import About from "./components/About/About";
+import SearchResults from "./components/Search/SearchResults";
 function App() {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -59,6 +60,7 @@ function App() {
                                 />
                                 <Route path="/profile" element={<Profile />} />
                                 <Route path="/about" element={<About />} />
+                                <Route path="/results" element={<SearchResults />} />
                             </Routes>
                         </PageContainer>
                     </CSSTransition>
