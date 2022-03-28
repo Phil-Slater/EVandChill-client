@@ -46,6 +46,7 @@
     border: 2px solid var(--color-primary-dark);
     width: 100%;
     height: min-content;
+    z-index: 2;
 }
 
 .react-dd-option {

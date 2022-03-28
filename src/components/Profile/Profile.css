@@ -1,0 +1,31 @@
+.profile {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+
+.profile :is(h1, h2, h3, p) {
+    margin: 0;
+}
+
+.profile .profile-email {
+    color: #888;
+    margin-bottom: 1rem;
+}
+
+.profile h3 {
+    font-size: 1.3em;
+    color: var(--color-primary-dark);
+}
+
+.profile > div {
+    margin-bottom: 1.5rem;
+}
+
+.profile-review-update {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    font-size: 1rem;
+    background-color: var(--color-primary-light);
+}

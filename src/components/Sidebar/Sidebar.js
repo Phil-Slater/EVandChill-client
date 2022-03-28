@@ -15,7 +15,7 @@ const Sidebar = () => {
             <h1>EV & Chill</h1>
             <Link to="/">Home</Link>
             <Link to="/stations">Stations Near Me</Link>
-            {user ? <UserLinks user={user} /> : <UserlessLinks />}
+            {user.username ? <UserLinks user={user} /> : <UserlessLinks />}
             <hr />
             <Link to="/settings" className="sidebar-settings">
                 Settings
