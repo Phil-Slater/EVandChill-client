@@ -1,0 +1,64 @@
+.about {
+    font-size: 1rem;
+}
+
+.about .fa-github {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.about .fa-file-code {
+    margin-right: 1rem;
+}
+
+.about a {
+    text-decoration: none;
+    color: black;
+}
+
+.about p {
+    margin: 0;
+}
+.about-profiles {
+    display: flex;
+    margin-top: 1.25rem;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.about-profile {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: 2px 2px 10px rgba(80, 80, 80, 0.6);
+    border-radius: 1rem;
+}
+.about-profile h2 {
+    margin: 0;
+}
+
+.about-profile-img {
+    width: 75%;
+}
+
+.about-profile-img img {
+    width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+    .about .fa-github {
+        font-size: 1.75rem;
+    }
+
+    .about-profiles {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .about-profile {
+        width: 30%;
+    }
+}

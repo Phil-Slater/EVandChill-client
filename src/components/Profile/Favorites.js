@@ -1,41 +1,24 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
+import React from "react";
+import {useSelector} from "react-redux"
+import { handleDeleteFavorite } from "../../util/axiosConfig";
 
 
 function Favorites() {
-    const [favorites, setFavorites] = useState([])
+    const user = useSelector((state) => state.auth.user);
+    
+    const handleRemove = async (userId, favoriteId) => {
 
-    useEffect(()=> {
-        getFavorites()
-    }, [])
-
-    const username = localStorage.getItem('username')
-    const getFavorites = async() => {
-        try{
-            const response = await axios.get(`/profile/${username}/my-favorites`)
-            if(response){
-                setFavorites(response.data.favorites)
-            }
-        }catch(error) {
-           console.log(error) 
-        }
+      handleDeleteFavorite(userId, favoriteId);
     }
 
-    const handleRemove = async (id) => {
-        const response = await axios.delete(`/user/favorites`,{
-            data:{favoriteId:id}
-        })
-        if(response){
-            
-        }
-    }
   return (
     <div className="favorites">
       <h3>Favorites</h3>
-      {favorites.map((favorite) => (
+      {user.favorites.map((favorite) => (
         <li key={favorite._id}>{
             favorite.stationId}
-            <button onClick={handleRemove(favorite._id)}>Remove</button> </li>
+            <button onClick={()=>handleRemove(user._id,favorite._id)}>Remove</button> 
+            </li>
       ))}
     </div>
   );

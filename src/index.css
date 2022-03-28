@@ -5,6 +5,8 @@
     --color-primary-dark: #527b7b;
     --color-primary-light: #dbeff0;
     --color-primary-lightest: #f6f6ff;
+    --color-accent-light: #f9d348;
+    --color-accent-dark: #d4b12f;
 }
 
 * {

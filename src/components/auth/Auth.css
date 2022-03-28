@@ -1,0 +1,26 @@
+.auth,
+.auth-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth {
+    row-gap: 1.5rem;
+    font-size: 1rem;
+}
+
+.auth :is(h1, p) {
+    margin: 0;
+}
+
+.auth-input {
+    row-gap: 0.5rem;
+}
+
+.auth-button {
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: var(--color-primary-dark);
+    color: var(--color-primary-lightest);
+}

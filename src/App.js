@@ -13,6 +13,7 @@ import { clearErrors, toggleMenu } from "./store/actions/actionCreators";
 import PageContainer from "./components/common/PageContainer";
 
 import "./App.css";
+import About from "./components/About/About";
 function App() {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -56,10 +57,8 @@ function App() {
                                     path="/register"
                                     element={<Register />}
                                 />
-                                <Route
-                                    path="/users/:id/profile"
-                                    element={<Profile />}
-                                />
+                                <Route path="/profile" element={<Profile />} />
+                                <Route path="/about" element={<About />} />
                             </Routes>
                         </PageContainer>
                     </CSSTransition>
