@@ -2,7 +2,7 @@ import axios from "./apiAxios";
 import { addError, setUser, setFavorites, deleteFavorite } from "../store/actions/actionCreators";
 import store from "../store/store";
 import getCurrentLocation from "./getCurrentLocation";
-import { useSelector } from "react-redux";
+
 
 export function setAuthData(token, user) {
     const userInfo = { token, user };
@@ -19,7 +19,7 @@ const handleTokenUser = (data) => {
     const { token, user } = data;
     setAuthData(token, user);
     store.dispatch(setUser(user));
-    return user._id;
+    return user.id;
 };
 export const postLogin = async (username, password) => {
     try {
@@ -102,12 +102,13 @@ export const postStationsByCity = async (cityState) => {
     } catch (err) {}
 };
     
-   export const getFavorites = async () => {
- const username = useSelector((state) => state.auth.user.username);
+   export const getFavorites = async (user) => {
+    const{username} =user
       try {
         const response = await axios.get(`/profile/${username}/my-favorites`);
+        console.log ("FAVORITES", response)
         if (response) {
-          store.dispatch(setFavorites(response.data.favorites));
+        store.dispatch(setFavorites(response.data.favorites));
         }
       } catch (error) {
         console.log(error);
