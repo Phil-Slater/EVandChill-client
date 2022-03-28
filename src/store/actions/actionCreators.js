@@ -13,6 +13,19 @@ export const setUser = (user) => {
     };
 };
 
+export const setFavorites = (favorites) => {
+    return{
+        type:actionTypes.SET_FAVORITES,
+        payload:favorites
+    }
+}
+
+export const deleteFavorite = (favorite) => {
+    return {
+        type:actionTypes.DELETE_FAVORITE,
+        payload:favorite
+    }
+}
 export const logOutUser = () => {
     localStorage.removeItem("jwt");
     return {

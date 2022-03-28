@@ -1,7 +1,12 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    user: null,
+    user: {
+        username:null,
+        email:null,
+        favorites:[],
+        reviews:[]
+    }
 };
 
 const authReducer = (state = initialState, action) => {
@@ -16,6 +21,16 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 user: null,
             };
+        case actionTypes.SET_FAVORITES:
+            return{
+                ...state,
+                user: {
+                    ...state.user,
+                    favorites: [
+                        ...state.user.favorites, action.payload
+                    ]
+                }
+            }
         default:
             return state;
     }
