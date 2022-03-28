@@ -1,7 +1,8 @@
 import axios from "./apiAxios";
-import { addError, setUser } from "../store/actions/actionCreators";
+import { addError, setUser, setFavorites, deleteFavorite } from "../store/actions/actionCreators";
 import store from "../store/store";
 import getCurrentLocation from "./getCurrentLocation";
+import { useSelector } from "react-redux";
 
 export function setAuthData(token, user) {
     const userInfo = { token, user };
@@ -100,3 +101,27 @@ export const postStationsByCity = async (cityState) => {
         console.log(response.data);
     } catch (err) {}
 };
+    
+   export const getFavorites = async () => {
+ const username = useSelector((state) => state.auth.user.username);
+      try {
+        const response = await axios.get(`/profile/${username}/my-favorites`);
+        if (response) {
+          store.dispatch(setFavorites(response.data.favorites));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+
+   export const handleDeleteFavorite = async (userId, favoriteId) => {
+      const response = await axios.delete(`/profile/favorites`, {
+        data: { favoriteId: favoriteId, userId: userId }
+      });
+      console.log("DELETE",response)
+      if (response) {
+        store.dispatch(deleteFavorite(response.data.favorites));
+      }
+    //   successfull deleteing, need to refetch the user after deleteing
+    };
