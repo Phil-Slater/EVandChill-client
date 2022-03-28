@@ -95,7 +95,7 @@ export const postStationsByZip = async (zip) => {
             zip,
         });
         store.dispatch(setStations(response.data));
-
+        return { success: true }
     } catch (err) { }
 };
 
