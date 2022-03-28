@@ -14,12 +14,13 @@ import PageContainer from "./components/common/PageContainer";
 
 import "./App.css";
 import About from "./components/About/About";
+import Spinner from "./components/common/Spinner";
 function App() {
     const dispatch = useDispatch();
     const location = useLocation();
     const nodeRef = useRef(null);
     const displayBranch = useSelector((state) => state.display);
-    const { isMenuActive, errors } = displayBranch;
+    const { isMenuActive, isLoading, errors } = displayBranch;
 
     const detectMenuActive = (e) => {
         if (isMenuActive && !e.target.classList.contains("sidebar-menu"))
@@ -41,6 +42,7 @@ function App() {
             <div className="app-container">
                 <Header />
                 {errorItems}
+                {isLoading && <Spinner />}
                 <SwitchTransition mode="out-in">
                     <CSSTransition
                         key={location.pathname}
@@ -50,6 +52,7 @@ function App() {
                         onExit={resetErrors}
                     >
                         <PageContainer forwardedRef={nodeRef}>
+                            {/* <Spinner /> */}
                             <Routes location={location}>
                                 <Route path="/" element={<HomePage />} />
                                 <Route path="/login" element={<Login />} />
