@@ -1,19 +1,38 @@
-import axios from "./apiAxios";
-import { addError, setUser, setFavorites, deleteFavorite, setStations } from "../store/actions/actionCreators";
+import axios from "axios";
+import {
+    addError,
+    setUser,
+    setFavorites,
+    deleteFavorite,
+    setStations,
+    axiosRequestSent,
+    axiosResponseReceived,
+} from "../store/actions/actionCreators";
 import store from "../store/store";
 import getCurrentLocation from "./getCurrentLocation";
 import { useSelector } from "react-redux";
 
+const apiAxios = axios.create({
+    baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:8080",
+    transformRequest: (data) => {
+        store.dispatch(axiosRequestSent());
+        return data;
+    },
+    onDownloadProgress: () => {
+        store.dispatch(axiosResponseReceived());
+    },
+});
 
 export function setAuthData(token, user) {
     const userInfo = { token, user };
     localStorage.setItem("jwt", JSON.stringify(userInfo));
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    console.log(apiAxios);
+    // apiAxios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
 export const removeAuthData = () => {
     localStorage.removeItem("jwt");
-    delete axios.defaults.headers.common["Authorization"];
+    delete apiAxios.defaults.headers.common["Authorization"];
 };
 
 const handleTokenUser = (data) => {
@@ -25,7 +44,7 @@ const handleTokenUser = (data) => {
 
 export const postLogin = async (username, password) => {
     try {
-        const response = await axios.post("/user/login", {
+        const response = await apiAxios.post("/user/login", {
             username,
             password,
         });
@@ -42,7 +61,7 @@ export const postLogin = async (username, password) => {
 
 export const postRegister = async (username, password, email) => {
     try {
-        const response = await axios.post("/user/register", {
+        const response = await apiAxios.post("/user/register", {
             username,
             password,
             email,
@@ -63,7 +82,7 @@ export const postRegister = async (username, password, email) => {
 
 export const postGuestLogin = async () => {
     try {
-        const response = await axios.post("/user/guest-login");
+        const response = await apiAxios.post("/user/guest-login");
         return handleTokenUser(response.data);
     } catch {
         store.dispatch(
@@ -78,20 +97,19 @@ export const postStationsByLocation = async () => {
     const { latitude, longitude } = location.coords;
 
     try {
-        const response = await axios.post("/station/stations", {
+        const response = await apiAxios.post("/station/stations", {
             latitude,
             longitude,
         });
         store.dispatch(setStations(response.data));
-        return { success: true }
-    } catch (err) {
 
-    }
+        return { success: true }
+    } catch (err) {}
 };
 
 export const postStationsByZip = async (zip) => {
     try {
-        const response = await axios.post("/station/stations", {
+        const response = await apiAxios.post("/station/stations", {
             zip,
         });
         store.dispatch(setStations(response.data));
@@ -101,7 +119,7 @@ export const postStationsByZip = async (zip) => {
 
 export const postStationsByCity = async (cityState) => {
     try {
-        const response = await axios.post("/station/stations", {
+        const response = await apiAxios.post("/station/stations", {
             cityState,
         });
         store.dispatch(setStations(response.data));
@@ -112,7 +130,9 @@ export const postStationsByCity = async (cityState) => {
 export const getFavorites = async () => {
     const username = useSelector((state) => state.auth.user.username);
     try {
-        const response = await axios.get(`/profile/${username}/my-favorites`);
+        const response = await apiAxios.get(
+            `/profile/${username}/my-favorites`
+        );
         if (response) {
             store.dispatch(setFavorites(response.data.favorites));
         }
@@ -121,14 +141,17 @@ export const getFavorites = async () => {
     }
 };
 
-
 export const handleDeleteFavorite = async (userId, favoriteId) => {
-    const response = await axios.delete(`/profile/favorites`, {
-        data: { favoriteId: favoriteId, userId: userId }
-    });
-    console.log("DELETE", response)
-    if (response) {
-        store.dispatch(deleteFavorite(response.data.favorites));
+    try {
+        const response = await apiAxios.delete(`/profile/favorites`, {
+            data: { favoriteId: favoriteId, userId: userId },
+        });
+        console.log("DELETE", response);
+        if (response) {
+            store.dispatch(deleteFavorite(favoriteId));
+        }
+    } catch (error) {
+        console.log(error);
     }
     //   successfull deleteing, need to refetch the user after deleteing
 };
