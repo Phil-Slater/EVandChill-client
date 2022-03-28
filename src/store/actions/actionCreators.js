@@ -38,6 +38,7 @@ export const deleteFavorite = (favorite) => {
         payload: favorite,
     };
 };
+
 export const logOutUser = () => {
     localStorage.removeItem("jwt");
     return {
@@ -63,3 +64,4 @@ export const setStations = (stations) => {
         payload: stations,
     };
 };
+

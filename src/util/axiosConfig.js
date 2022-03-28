@@ -41,6 +41,7 @@ const handleTokenUser = (data) => {
     store.dispatch(setUser(user));
     return user.id;
 };
+
 export const postLogin = async (username, password) => {
     try {
         const response = await apiAxios.post("/user/login", {
@@ -100,8 +101,9 @@ export const postStationsByLocation = async () => {
             latitude,
             longitude,
         });
-        console.log(response.data);
         store.dispatch(setStations(response.data));
+
+        return { success: true }
     } catch (err) {}
 };
 
@@ -110,8 +112,9 @@ export const postStationsByZip = async (zip) => {
         const response = await apiAxios.post("/station/stations", {
             zip,
         });
-        console.log(response.data);
-    } catch (err) {}
+        store.dispatch(setStations(response.data));
+        return { success: true }
+    } catch (err) { }
 };
 
 export const postStationsByCity = async (cityState) => {
@@ -119,8 +122,9 @@ export const postStationsByCity = async (cityState) => {
         const response = await apiAxios.post("/station/stations", {
             cityState,
         });
-        console.log(response.data);
-    } catch (err) {}
+        store.dispatch(setStations(response.data));
+        return { success: true }
+    } catch (err) { }
 };
     
    export const getFavorites = async (user) => {

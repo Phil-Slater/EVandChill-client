@@ -2,10 +2,14 @@ import React from "react";
 import { useState } from "react";
 import ReactDropdown from "../common/ReactDropdown";
 import { postStationsByLocation, postStationsByCity, postStationsByZip } from "../../util/axiosConfig";
+import { useNavigate } from 'react-router-dom'
+
+
 
 const SearchBox = () => {
     const [searchType, setSearchType] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate()
 
     const dropdownOptions = [
         {
@@ -33,16 +37,25 @@ const SearchBox = () => {
         setSearchTerm(e.target.value);
     };
 
-    const handleSearchClicked = () => {
+    const handleSearchClicked = async () => {
         switch (searchType) {
             case 'current':
-                postStationsByLocation();
+                const locationResults = await postStationsByLocation();
+                if (locationResults.success) {
+                    navigate('/results');
+                }
                 break;
             case 'zip':
-                postStationsByZip(searchTerm);
+                const zipResults = await postStationsByZip(searchTerm);
+                if (zipResults.success) {
+                    navigate('/results');
+                }
                 break;
             case 'city':
-                postStationsByCity(searchTerm);
+                const cityResults = await postStationsByCity(searchTerm);
+                if (cityResults.success) {
+                    navigate('/results');
+                }
                 break;
             default:
                 return null;
