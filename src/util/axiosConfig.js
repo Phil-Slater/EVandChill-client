@@ -119,12 +119,16 @@ export const postStationsByCity = async (cityState) => {
 
 
    export const handleDeleteFavorite = async (userId, favoriteId) => {
-      const response = await axios.delete(`/profile/favorites`, {
+    try{  
+    const response = await axios.delete(`/profile/favorites`, {
         data: { favoriteId: favoriteId, userId: userId }
       });
       console.log("DELETE",response)
       if (response) {
-        store.dispatch(deleteFavorite(response.data.favorites));
+        store.dispatch(deleteFavorite(favoriteId));
+      }
+      } catch(error) {
+          console.log(error)
       }
     //   successfull deleteing, need to refetch the user after deleteing
     };
