@@ -6,6 +6,18 @@ export const toggleMenu = () => {
     };
 };
 
+export const axiosRequestSent = () => {
+    return {
+        type: actionTypes.AXIOS_REQUEST_SENT,
+    };
+};
+
+export const axiosResponseReceived = () => {
+    return {
+        type: actionTypes.AXIOS_RESPONSE_RECEIVED,
+    };
+};
+
 export const setUser = (user) => {
     return {
         type: actionTypes.SET_USER,
@@ -14,18 +26,18 @@ export const setUser = (user) => {
 };
 
 export const setFavorites = (favorites) => {
-    return{
-        type:actionTypes.SET_FAVORITES,
-        payload:favorites
-    }
-}
+    return {
+        type: actionTypes.SET_FAVORITES,
+        payload: favorites,
+    };
+};
 
 export const deleteFavorite = (favorite) => {
     return {
-        type:actionTypes.DELETE_FAVORITE,
-        payload:favorite
-    }
-}
+        type: actionTypes.DELETE_FAVORITE,
+        payload: favorite,
+    };
+};
 export const logOutUser = () => {
     localStorage.removeItem("jwt");
     return {
@@ -48,6 +60,6 @@ export const clearErrors = () => {
 export const setStations = (stations) => {
     return {
         type: actionTypes.SET_STATIONS,
-        payload: stations
-    }
-}
+        payload: stations,
+    };
+};

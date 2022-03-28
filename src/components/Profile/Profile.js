@@ -3,16 +3,23 @@ import ChargingHistory from "./ChargingHistory";
 import Favorites from "./Favorites";
 import Reviews from "./Reviews";
 
-const Profile = () => {
-    const username = localStorage.getItem("username");
-    return (
-      <div className="profile">
-        <h1>Welcome {username}</h1>
-        <Favorites/>
-        <ChargingHistory/>
-        <Reviews/>
-      </div>
-    );
-}
+import "./Profile.css";
+import { useSelector } from "react-redux";
 
-export default Profile
+const Profile = () => {
+    const user = useSelector((state) => state.auth.user);
+    const { username, email } = user;
+    return (
+        <div className="profile">
+            <h1>Welcome {username}!</h1>
+            <p className="profile-email">
+                <i>{email}</i>
+            </p>
+            <Favorites />
+            <ChargingHistory />
+            <Reviews />
+        </div>
+    );
+};
+
+export default Profile;

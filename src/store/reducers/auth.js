@@ -2,11 +2,11 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     user: {
-        username:null,
-        email:null,
-        favorites:[],
-        reviews:[]
-    }
+        username: null,
+        email: null,
+        favorites: [],
+        reviews: [],
+    },
 };
 
 const authReducer = (state = initialState, action) => {
@@ -14,23 +14,25 @@ const authReducer = (state = initialState, action) => {
         case actionTypes.SET_USER:
             return {
                 ...state,
-                user: action.payload,
+                user: { ...state.user, ...action.payload },
             };
         case actionTypes.LOGOUT_USER:
             return {
                 ...state,
-                user: null,
+                user: {
+                    ...initialState.user,
+                    favorites: [],
+                    reviews: [],
+                },
             };
         case actionTypes.SET_FAVORITES:
-            return{
+            return {
                 ...state,
                 user: {
                     ...state.user,
-                    favorites: [
-                        ...state.user.favorites, action.payload
-                    ]
-                }
-            }
+                    favorites: [...state.user.favorites, action.payload],
+                },
+            };
         default:
             return state;
     }

@@ -3,5 +3,6 @@
     padding: 2rem 2rem 3rem;
     width: 90%;
     border-radius: 1rem;
+    position: relative;
     box-shadow: 2px 2px 10px rgba(40, 40, 40, 0.6);
 }
