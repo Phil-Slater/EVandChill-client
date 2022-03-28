@@ -1,5 +1,5 @@
 import axios from "axios";
-import { addError, setUser } from "../store/actions/actionCreators";
+import { addError, setStations, setUser } from "../store/actions/actionCreators";
 import store from "../store/store";
 import getCurrentLocation from './getCurrentLocation'
 
@@ -72,6 +72,7 @@ export const postStationsByLocation = async () => {
             longitude,
         })
         console.log(response.data)
+        store.dispatch(setStations(response.data))
     } catch (err) {
 
     }
