@@ -46,7 +46,7 @@ const StationDetails = () => {
                     <Wrapper apiKey={apiKey}>
                         <StationsMap
                             center={{ lat: station.AddressInfo.Latitude, lng: station.AddressInfo.Longitude }}
-                            zoom={12}
+                            zoom={15}
                             stations={[station]}
                         />
                     </Wrapper>
