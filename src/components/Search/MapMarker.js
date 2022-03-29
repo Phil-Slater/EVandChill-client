@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const MapMarker = (options) => {
-    const coords = options.position
-    console.log(options)
-    const [marker, setMarker] = useState()
+    const [marker, setMarker] = useState();
 
     useEffect(() => {
         if (!marker) {
-            setMarker(new window.google.maps.Marker());
+            setMarker(new window.google.maps.Marker(options));
         }
 
         return () => {
@@ -15,15 +13,8 @@ const MapMarker = (options) => {
                 marker.setMap(null);
             }
         };
-
-    }, [marker])
-
-    useEffect(() => {
-        if (marker) {
-            marker.setOptions(coords)
-        }
-    }, [marker, coords]);
+    }, [marker]);
     return null;
-}
+};
 
 export default MapMarker;

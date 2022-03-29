@@ -11,13 +11,15 @@ import {
 import store from "../store/store";
 import getCurrentLocation from "./getCurrentLocation";
 
-
-const apiAxios = axios.create({
+export const apiAxios = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:8080",
-    transformRequest: (data) => {
-        store.dispatch(axiosRequestSent());
-        return data;
-    },
+    transformRequest: [
+        (data) => {
+            store.dispatch(axiosRequestSent());
+            return data;
+        },
+        ...axios.defaults.transformRequest,
+    ],
     onDownloadProgress: () => {
         store.dispatch(axiosResponseReceived());
     },
@@ -26,7 +28,6 @@ const apiAxios = axios.create({
 export function setAuthData(token, user) {
     const userInfo = { token, user };
     localStorage.setItem("jwt", JSON.stringify(userInfo));
-    console.log(apiAxios);
     // apiAxios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
@@ -93,6 +94,7 @@ export const postGuestLogin = async () => {
 };
 
 export const postStationsByLocation = async () => {
+    store.dispatch(axiosRequestSent());
     const location = await getCurrentLocation();
     const { latitude, longitude } = location.coords;
 
@@ -103,8 +105,10 @@ export const postStationsByLocation = async () => {
         });
         store.dispatch(setStations(response.data));
 
-        return { success: true }
-    } catch (err) {}
+        return { success: true };
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 export const postStationsByZip = async (zip) => {
@@ -113,8 +117,8 @@ export const postStationsByZip = async (zip) => {
             zip,
         });
         store.dispatch(setStations(response.data));
-        return { success: true }
-    } catch (err) { }
+        return { success: true };
+    } catch (err) {}
 };
 
 export const postStationsByCity = async (cityState) => {
@@ -123,18 +127,17 @@ export const postStationsByCity = async (cityState) => {
             cityState,
         });
         store.dispatch(setStations(response.data));
-        return { success: true }
-    } catch (err) { }
+        return { success: true };
+    } catch (err) {}
 };
-    
-   export const getFavorites = async (user) => {
-    const{username} =user
-      try {
-        const response = await axios.get(`/profile/${username}/my-favorites`);
-        console.log ("FAVORITES", response)
-        if (response) {
-        store.dispatch(setFavorites(response.data.favorites));
 
+export const getFavorites = async (user) => {
+    const { username } = user;
+    try {
+        const response = await axios.get(`/profile/${username}/my-favorites`);
+        console.log("FAVORITES", response);
+        if (response) {
+            store.dispatch(setFavorites(response.data.favorites));
         }
     } catch (error) {
         console.log(error);
