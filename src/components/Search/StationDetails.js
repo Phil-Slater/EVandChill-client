@@ -7,9 +7,7 @@ import StationsMap from "./StationsMap";
 
 const StationDetails = () => {
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-
     const location = useLocation()
-
     let station = useSelector((state) => state.stations.station);
 
     useEffect(() => {
@@ -23,7 +21,6 @@ const StationDetails = () => {
         const stationId = splitPath[2]
         station = await getStationDetails(stationId)
     }
-    console.log(station)
 
     const connections = station && station.Connections.map(connection => {
         return <div key={connection.ID}>{connection.ConnectionType.Title}
@@ -31,7 +28,6 @@ const StationDetails = () => {
             <p>Quantity: {connection.Quantity}</p>
         </div>
     })
-
 
     return (
         <div>
