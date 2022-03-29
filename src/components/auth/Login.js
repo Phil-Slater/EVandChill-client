@@ -12,7 +12,7 @@ function Login() {
     const auth = useSelector((state) => state.auth);
 
     useEffect(() => {
-        if (auth.user) {
+        if (auth.user.username) {
             navigate("/");
         }
     }, []);
