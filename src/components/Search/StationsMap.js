@@ -33,7 +33,7 @@ const StationsMap = ({ center, zoom, stations }) => {
     }, [map]);
 
     return (
-        <div ref={mapRef} id="map" style={{ height: "500px" }}>
+        <div ref={mapRef} className="search-map">
             {markerItems}
             {map && <MapMarker position={center} map={map} icon={CenterIcon} />}
         </div>

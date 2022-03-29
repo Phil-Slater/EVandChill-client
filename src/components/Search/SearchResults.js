@@ -5,7 +5,6 @@ import { calculateDistance } from "../../util/calculateDistance";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import StationsMap from "./StationsMap";
 import { Navigate } from "react-router-dom";
-import MapMarker from "./MapMarker";
 
 const SearchResults = () => {
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -16,28 +15,44 @@ const SearchResults = () => {
     }
 
     const { stations, location } = stationsAndCoords;
-    console.log(stationsAndCoords);
 
-    // const stationsMapped = stations.map(station => {
-    //     return <div className="stations-container" key={station.ID}>
-    //         <p>{station.AddressInfo.Title}</p>
-    //         <p>{station.AddressInfo.AddressLine1} {station.AddressInfo.Town}, {station.AddressInfo.StateOrProvince} {station.AddressInfo.Postcode}</p>
-    //         <p>Distance: {calculateDistance(stationsAndCoords.location.lat, stationsAndCoords.location.lng, station.AddressInfo.Latitude, station.AddressInfo.Longitude)} miles</p>
-    //     </div>
-    // })
+    const stationItems = stations.map((station) => {
+        return (
+            <div className="stations-container" key={station.ID}>
+                <p>{station.AddressInfo.Title}</p>
+                <p>
+                    {station.AddressInfo.AddressLine1}{" "}
+                    {station.AddressInfo.Town},{" "}
+                    {station.AddressInfo.StateOrProvince}{" "}
+                    {station.AddressInfo.Postcode}
+                </p>
+                <p>
+                    Distance:{" "}
+                    {calculateDistance(
+                        stationsAndCoords.location.lat,
+                        stationsAndCoords.location.lng,
+                        station.AddressInfo.Latitude,
+                        station.AddressInfo.Longitude
+                    )}{" "}
+                    miles
+                </p>
+            </div>
+        );
+    });
 
     return (
-        <div>
-            <Wrapper apiKey={apiKey}>
-                <StationsMap
-                    center={{ lat: location.lat, lng: location.lng }}
-                    zoom={12}
-                    stations={stations}
-                />
-            </Wrapper>
-            {/* <div className="container">
-                {stationsMapped}
-            </div> */}
+        <div className="search-page">
+            <h1>Search Results</h1>
+            <div className="search-results">
+                <div className="search-list-container">{stationItems}</div>
+                <Wrapper apiKey={apiKey}>
+                    <StationsMap
+                        center={{ lat: location.lat, lng: location.lng }}
+                        zoom={12}
+                        stations={stations}
+                    />
+                </Wrapper>
+            </div>
         </div>
     );
 };
