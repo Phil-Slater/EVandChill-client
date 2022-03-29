@@ -12,22 +12,23 @@ const StationsMap = ({ center, zoom, stations }) => {
     if (map) {
         markerItems = stations.map((station) => {
             const { Latitude: lat, Longitude: lng } = station.AddressInfo;
-            return <MapMarker map={map} position={{ lat, lng }} />;
+            return (
+                <MapMarker
+                    map={map}
+                    position={{ lat, lng }}
+                    station={station}
+                />
+            );
         });
     }
     useEffect(() => {
-        if (map) {
-            console.log("adding marker");
-            new window.google.maps.Marker({ position: center, map: map });
-            // markerItems = stations.map(station => {})
-        } else {
+        if (!map) {
             setMap(
                 new window.google.maps.Map(mapRef.current, {
                     center,
                     zoom,
                 })
             );
-            // new window.google.maps.Marker({ position: center, map: map });
         }
     }, [map]);
 
