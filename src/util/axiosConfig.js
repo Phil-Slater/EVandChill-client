@@ -7,6 +7,7 @@ import {
     setStations,
     axiosRequestSent,
     axiosResponseReceived,
+    setStation,
 } from "../store/actions/actionCreators";
 import store from "../store/store";
 import getCurrentLocation from "./getCurrentLocation";
@@ -105,8 +106,8 @@ export const postStationsByLocation = async () => {
         });
         store.dispatch(setStations(response.data));
         return { success: true };
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
+        console.log(error);
     }
 };
 
@@ -117,7 +118,9 @@ export const postStationsByZip = async (zip) => {
         });
         store.dispatch(setStations(response.data));
         return { success: true };
-    } catch (err) {}
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const postStationsByCity = async (cityState) => {
@@ -127,7 +130,9 @@ export const postStationsByCity = async (cityState) => {
         });
         store.dispatch(setStations(response.data));
         return { success: true };
-    } catch (err) {}
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const getFavorites = async (user) => {
@@ -157,3 +162,13 @@ export const handleDeleteFavorite = async (userId, favoriteId) => {
     }
     //   successfull deleteing, need to refetch the user after deleteing
 };
+
+export const getStationDetails = async (stationId) => {
+    try {
+        const response = await apiAxios.get(`/station/id/${stationId}`);
+        store.dispatch(setStation(response.data[0]));
+        return response.data[0]
+    } catch (error) {
+        console.log(error);
+    }
+}
