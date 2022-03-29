@@ -104,7 +104,6 @@ export const postStationsByLocation = async () => {
             longitude,
         });
         store.dispatch(setStations(response.data));
-
         return { success: true };
     } catch (err) {
         console.log(err);
