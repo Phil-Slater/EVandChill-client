@@ -65,3 +65,10 @@ export const setStations = (stations) => {
     };
 };
 
+export const setStation = (station) => {
+    return {
+        type: actionTypes.SET_STATION,
+        payload: station,
+    };
+}
+    ;

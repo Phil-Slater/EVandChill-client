@@ -1,7 +1,8 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    stations: null
+    stations: null,
+    station: null,
 };
 
 const stationsReducer = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const stationsReducer = (state = initialState, action) => {
                 ...state,
                 stations: action.payload
             };
+        case actionTypes.SET_STATION:
+            return {
+                ...state,
+                station: action.payload
+            }
         default:
             return state;
     }

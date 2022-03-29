@@ -8,3 +8,4 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const SET_FAVORITES = "SET_FAVORITES";
 export const DELETE_FAVORITE = "DELETE_FAVORITE";
 export const SET_STATIONS = "SET_STATIONS";
+export const SET_STATION = "SET_STATION";
