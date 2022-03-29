@@ -7,8 +7,6 @@ const StationsMap = ({ center, zoom, stations }) => {
     const [map, setMap] = useState(null);
     let markerItems;
 
-    console.log(stations);
-
     if (map) {
         markerItems = stations.map((station) => {
             const { Latitude: lat, Longitude: lng } = station.AddressInfo;
@@ -32,6 +30,10 @@ const StationsMap = ({ center, zoom, stations }) => {
         }
     }, [map]);
 
+    if (map) {
+        map.setCenter(center);
+        map.setZoom(zoom);
+    }
     return (
         <div ref={mapRef} className="search-map">
             {markerItems}

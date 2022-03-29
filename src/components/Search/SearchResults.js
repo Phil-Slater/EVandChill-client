@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import "./SearchResults.css";
 import { calculateDistance } from "../../util/calculateDistance";
@@ -15,24 +15,39 @@ const SearchResults = () => {
     }
 
     const { stations, location } = stationsAndCoords;
-
+    const [center, setCenter] = useState(location);
+    const [zoom, setZoom] = useState(12);
     const stationItems = stations.map((station) => {
+        const {
+            Title,
+            AddressLine1,
+            Town,
+            StateOrProvince,
+            Postcode,
+            Latitude,
+            Longitude,
+        } = station.AddressInfo;
+        const handleClick = () => {
+            setCenter({ lat: Latitude, lng: Longitude });
+            setZoom(16);
+        };
         return (
-            <div className="stations-container" key={station.ID}>
-                <p>{station.AddressInfo.Title}</p>
+            <div
+                className="stations-container"
+                key={station.ID}
+                onClick={handleClick}
+            >
+                <p>{Title}</p>
                 <p>
-                    {station.AddressInfo.AddressLine1}{" "}
-                    {station.AddressInfo.Town},{" "}
-                    {station.AddressInfo.StateOrProvince}{" "}
-                    {station.AddressInfo.Postcode}
+                    {AddressLine1} {Town}, {StateOrProvince} {Postcode}
                 </p>
                 <p>
                     Distance:{" "}
                     {calculateDistance(
-                        stationsAndCoords.location.lat,
-                        stationsAndCoords.location.lng,
-                        station.AddressInfo.Latitude,
-                        station.AddressInfo.Longitude
+                        location.lat,
+                        location.lng,
+                        Latitude,
+                        Longitude
                     )}{" "}
                     miles
                 </p>
@@ -47,8 +62,8 @@ const SearchResults = () => {
                 <div className="search-list-container">{stationItems}</div>
                 <Wrapper apiKey={apiKey}>
                     <StationsMap
-                        center={{ lat: location.lat, lng: location.lng }}
-                        zoom={12}
+                        center={center}
+                        zoom={zoom}
                         stations={stations}
                     />
                 </Wrapper>
