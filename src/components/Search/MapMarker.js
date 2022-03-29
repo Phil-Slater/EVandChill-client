@@ -3,6 +3,7 @@ import { renderToString } from "react-dom/server";
 import InfoBox from "./InfoBox";
 
 const MapMarker = ({ station, map, position, icon }) => {
+
     const [marker, setMarker] = useState();
     const options = { map, position, icon };
 

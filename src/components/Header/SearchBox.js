@@ -41,6 +41,7 @@ const SearchBox = () => {
         switch (searchType) {
             case 'current':
                 const locationResults = await postStationsByLocation();
+                console.log(locationResults)
                 if (locationResults.success) {
                     navigate('/results');
                 }
