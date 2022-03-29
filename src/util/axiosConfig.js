@@ -14,10 +14,13 @@ import { useSelector } from "react-redux";
 
 const apiAxios = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:8080",
-    transformRequest: (data) => {
-        store.dispatch(axiosRequestSent());
-        return data;
-    },
+    transformRequest: [
+        (data) => {
+            store.dispatch(axiosRequestSent());
+            return data;
+        },
+        ...axios.defaults.transformRequest,
+    ],
     onDownloadProgress: () => {
         store.dispatch(axiosResponseReceived());
     },
@@ -104,7 +107,7 @@ export const postStationsByLocation = async () => {
         store.dispatch(setStations(response.data));
 
         return { success: true }
-    } catch (err) {}
+    } catch (err) { }
 };
 
 export const postStationsByZip = async (zip) => {

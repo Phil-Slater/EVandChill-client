@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import icon from './charger-icon.png'
 
 const MapMarker = (options) => {
     const coords = options.position
@@ -7,7 +8,9 @@ const MapMarker = (options) => {
 
     useEffect(() => {
         if (!marker) {
-            setMarker(new window.google.maps.Marker());
+            setMarker(new window.google.maps.Marker({
+                icon: icon
+            }));
         }
 
         return () => {
