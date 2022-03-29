@@ -1,4 +1,5 @@
 import React from "react";
+import { getStationDetails } from "../../util/axiosConfig";
 
 const InfoBox = ({ station }) => {
     const {
@@ -37,6 +38,14 @@ const InfoBox = ({ station }) => {
         ) : (
             "No Contact Information available"
         );
+
+
+    const handleDetailsButtonClick = async (stationId) => {
+        console.log('clicked!')
+        await getStationDetails(stationId)
+        // navigate to details page
+    }
+
     return (
         <div id="content">
             <div id="siteNotice"></div>
@@ -55,6 +64,9 @@ const InfoBox = ({ station }) => {
                 {contactInfo}
                 <h3>Comments</h3>
                 <p>{comments}</p>
+                {/* <button onClick={() => handleDetailsButtonClick(station.ID)}> */}
+                <a href={`/station/${station.ID}`}>View All Details</a>
+                {/* </button> */}
             </div>
         </div>
     );

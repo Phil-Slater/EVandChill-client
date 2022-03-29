@@ -26,6 +26,7 @@
     flex-wrap: wrap;
     justify-content: center;
     border-radius: 1rem;
+    cursor: pointer;
 }
 
 .search-map {

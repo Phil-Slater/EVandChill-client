@@ -7,7 +7,7 @@ const StationsMap = ({ center, zoom, stations }) => {
     const [map, setMap] = useState(null);
     let markerItems;
 
-    if (map) {
+    if (map && stations.length !== 1) {
         markerItems = stations.map((station) => {
             const { Latitude: lat, Longitude: lng } = station.AddressInfo;
             return (
