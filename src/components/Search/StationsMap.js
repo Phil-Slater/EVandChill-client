@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import MapMarker from "./MapMarker";
+const CenterIcon = require("./CenterIcon.png");
 
 const StationsMap = ({ center, zoom, stations }) => {
     const mapRef = useRef();
@@ -33,7 +34,7 @@ const StationsMap = ({ center, zoom, stations }) => {
     return (
         <div ref={mapRef} id="map" style={{ height: "500px" }}>
             {markerItems}
-            {map && <MapMarker position={center} map={map} />}
+            {map && <MapMarker position={center} map={map} icon={CenterIcon} />}
         </div>
     );
 };
