@@ -96,10 +96,11 @@ export const postGuestLogin = async () => {
 
 export const postStationsByLocation = async () => {
     store.dispatch(axiosRequestSent());
-    const location = await getCurrentLocation();
-    const { latitude, longitude } = location.coords;
 
     try {
+        const location = await getCurrentLocation();
+        const { latitude, longitude } = location.coords;
+
         const response = await apiAxios.post("/station/stations", {
             latitude,
             longitude,
@@ -107,7 +108,12 @@ export const postStationsByLocation = async () => {
         store.dispatch(setStations(response.data));
         return { success: true };
     } catch (error) {
-        console.log(error);
+        const errorMessage =
+            error.constructor.name === "GeolocationPositionError"
+                ? "Unable to get your location"
+                : "Unable to find stations";
+        store.dispatch(addError(errorMessage));
+        store.dispatch(axiosResponseReceived());
     }
 };
 
@@ -167,10 +173,8 @@ export const getStationDetails = async (stationId) => {
     try {
         const response = await apiAxios.get(`/station/id/${stationId}`);
         store.dispatch(setStation(response.data[0]));
-        return response.data[0]
+        return response.data[0];
     } catch (error) {
         console.log(error);
     }
-}
-
-
+};
