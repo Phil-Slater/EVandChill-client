@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import MapMarker from "./MapMarker";
 const CenterIcon = require("./CenterIcon.png");
+const ChargerIcon = require("./charger.png")
 
 const StationsMap = ({ center, zoom, stations }) => {
     const mapRef = useRef();
@@ -15,6 +16,7 @@ const StationsMap = ({ center, zoom, stations }) => {
                     map={map}
                     position={{ lat, lng }}
                     station={station}
+                    icon={ChargerIcon}
                 />
             );
         });
