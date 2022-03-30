@@ -12,15 +12,21 @@ import {
 import store from "../store/store";
 import getCurrentLocation from "./getCurrentLocation";
 
-export const apiAxios = axios.create({
+const apiAxios = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:8080",
     transformRequest: [
-        (data) => {
+        (data, headers) => {
+            const userRaw = localStorage.getItem("jwt");
+            if (userRaw) {
+                const { token } = JSON.parse(userRaw);
+                headers["Authorization"] = `Bearer ${token}`;
+            }
             store.dispatch(axiosRequestSent());
             return data;
         },
         ...axios.defaults.transformRequest,
     ],
+    headers: {},
     onDownloadProgress: () => {
         store.dispatch(axiosResponseReceived());
     },
@@ -29,12 +35,10 @@ export const apiAxios = axios.create({
 export function setAuthData(token, user) {
     const userInfo = { token, user };
     localStorage.setItem("jwt", JSON.stringify(userInfo));
-    // apiAxios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
 export const removeAuthData = () => {
     localStorage.removeItem("jwt");
-    delete apiAxios.defaults.headers.common["Authorization"];
 };
 
 const handleTokenUser = (data) => {
@@ -124,8 +128,8 @@ export const postStationsByZip = async (zip) => {
         });
         store.dispatch(setStations(response.data));
         return { success: true };
-    } catch (error) {
-        console.log(error);
+    } catch {
+        store.dispatch(addError());
     }
 };
 
