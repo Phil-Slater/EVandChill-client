@@ -1,15 +1,17 @@
 import React from "react";
 import { useState } from "react";
 import ReactDropdown from "../common/ReactDropdown";
-import { postStationsByLocation, postStationsByCity, postStationsByZip } from "../../util/axiosConfig";
-import { useNavigate } from 'react-router-dom'
-
-
+import {
+    postStationsByLocation,
+    postStationsByCity,
+    postStationsByZip,
+} from "../../util/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
 const SearchBox = () => {
     const [searchType, setSearchType] = useState(null);
-    const [searchTerm, setSearchTerm] = useState('');
-    const navigate = useNavigate()
+    const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
 
     const dropdownOptions = [
         {
@@ -39,22 +41,22 @@ const SearchBox = () => {
 
     const handleSearchClicked = async () => {
         switch (searchType) {
-            case 'current':
+            case "current":
                 const locationResults = await postStationsByLocation();
-                if (locationResults.success) {
-                    navigate('/results');
+                if (locationResults && locationResults.success) {
+                    navigate("/results");
                 }
                 break;
-            case 'zip':
+            case "zip":
                 const zipResults = await postStationsByZip(searchTerm);
-                if (zipResults.success) {
-                    navigate('/results');
+                if (zipResults && zipResults.success) {
+                    navigate("/results");
                 }
                 break;
-            case 'city':
+            case "city":
                 const cityResults = await postStationsByCity(searchTerm);
-                if (cityResults.success) {
-                    navigate('/results');
+                if (cityResults && cityResults.success) {
+                    navigate("/results");
                 }
                 break;
             default:
@@ -64,13 +66,18 @@ const SearchBox = () => {
 
     return (
         <div className="header-search">
-            <ReactDropdown options={dropdownOptions} onChange={handleTypeChange} />
+            <ReactDropdown
+                options={dropdownOptions}
+                onChange={handleTypeChange}
+            />
             <div className="header-search-box">
                 {["zip", "city"].includes(searchType) && (
                     <input
                         placeholder={`${searchType[0].toUpperCase()}${searchType.substring(
                             1
-                        )}`} name={searchTerm} onChange={handleTermChange}
+                        )}`}
+                        name={searchTerm}
+                        onChange={handleTermChange}
                     />
                 )}
                 <button onClick={() => handleSearchClicked()}>Search</button>
