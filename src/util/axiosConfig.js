@@ -165,12 +165,12 @@ export const handleDeleteFavorite = async (userId, favoriteId) => {
 
 export const getStationDetails = async (stationId) => {
     try {
-        console.log('fetching...')
         const response = await apiAxios.get(`/station/id/${stationId}`);
-        console.log(response.data[0])
         store.dispatch(setStation(response.data[0]));
         return response.data[0]
     } catch (error) {
         console.log(error);
     }
 }
+
+

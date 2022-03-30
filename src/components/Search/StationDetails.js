@@ -4,12 +4,13 @@ import { useLocation } from "react-router-dom";
 import { getStationDetails } from "../../util/axiosConfig";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import StationsMap from "./StationsMap";
+import Nearby from "./Nearby";
 
 const StationDetails = () => {
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const location = useLocation()
     let station = useSelector((state) => state.stations.station);
-
+    console.log(station)
     useEffect(() => {
         if (!station) {
             handleGetStation()
@@ -40,7 +41,6 @@ const StationDetails = () => {
                         <p>Hours: {station.AddressInfo.AccessComments ? station.AddressInfo.AccessComments : null}</p>
                         <p>{station.OperatorInfo ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}` ? station.OperatorInfo.PhonePrimaryContact : null : null}</p>
                         <div className="search-results">
-
                             <h3>Plugs: {connections}</h3>
                             <Wrapper apiKey={apiKey}>
                                 <StationsMap
@@ -58,7 +58,6 @@ const StationDetails = () => {
 
         </>
     )
-
 };
 
 export default StationDetails;
