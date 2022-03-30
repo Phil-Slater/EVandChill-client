@@ -5,6 +5,7 @@ import { getStationDetails } from "../../util/axiosConfig";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import StationsMap from "./StationsMap";
 import Nearby from "./Nearby";
+import "./StationDetails.css";
 
 const StationDetails = () => {
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -24,7 +25,8 @@ const StationDetails = () => {
     }
 
     const connections = station && station.Connections.map(connection => {
-        return <div key={connection.ID} className="stations-container">{connection.ConnectionType.Title}
+        return <div key={connection.ID} className="plug-container">
+            <h4>{connection.ConnectionType.Title}</h4>
             <p>Speed: {connection.Level.Title}</p>
             <p>Quantity: {connection.Quantity}</p>
         </div>
@@ -37,11 +39,14 @@ const StationDetails = () => {
                 {!station ? <h2>Loading...</h2> :
                     <div>
                         <h2>{station.AddressInfo.Title}</h2>
-                        <p>Address: {station.AddressInfo.AddressLine1} {station.AddressInfo.Town}, {station.AddressInfo.StateOrProvince} {station.AddressInfo.Postcode}</p>
-                        <p>Hours: {station.AddressInfo.AccessComments ? station.AddressInfo.AccessComments : null}</p>
-                        <p>{station.OperatorInfo ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}` ? station.OperatorInfo.PhonePrimaryContact : null : null}</p>
+                        <h3>Address: {station.AddressInfo.AddressLine1} {station.AddressInfo.Town}, {station.AddressInfo.StateOrProvince} {station.AddressInfo.Postcode}</h3>
+                        <h3>Hours: {station.AddressInfo.AccessComments ? station.AddressInfo.AccessComments : null}</h3>
+                        <h3>{station.OperatorInfo ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}` ? station.OperatorInfo.PhonePrimaryContact : null : null}</h3>
                         <div className="search-results">
-                            <h3>Plugs: {connections}</h3>
+                            <div>
+                                <h3>Plugs:</h3>
+                                {connections}
+                            </div>
                             <Wrapper apiKey={apiKey}>
                                 <StationsMap
                                     center={{ lat: station.AddressInfo.Latitude, lng: station.AddressInfo.Longitude }}
