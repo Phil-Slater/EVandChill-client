@@ -24,38 +24,40 @@ const StationDetails = () => {
     }
 
     const connections = station && station.Connections.map(connection => {
-        return <div key={connection.ID}>{connection.ConnectionType.Title}
+        return <div key={connection.ID} className="stations-container">{connection.ConnectionType.Title}
             <p>Speed: {connection.Level.Title}</p>
             <p>Quantity: {connection.Quantity}</p>
         </div>
     })
 
     return (
-        <div>
-            <h1>Station Details</h1>
-            {!station ? <h2>Loading...</h2> :
-                <div>
-                    <h2>{station.AddressInfo.Title}</h2>
-                    <p>Address: {station.AddressInfo.AddressLine1} {station.AddressInfo.Town}, {station.AddressInfo.StateOrProvince} {station.AddressInfo.Postcode}</p>
-                    <p>Hours: {station.AddressInfo.AccessComments ? station.AddressInfo.AccessComments : null}</p>
-                    <p>{station.OperatorInfo ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}` ? station.OperatorInfo.PhonePrimaryContact : null : null}</p>
-                    <h3>Plugs: {connections}</h3>
-                    <Nearby businesses={station.nearby}/>
-                    <Wrapper apiKey={apiKey}>
-                        <StationsMap
-                            center={{ lat: station.AddressInfo.Latitude, lng: station.AddressInfo.Longitude }}
-                            zoom={15}
-                            stations={[station]}
-                        />
-                    </Wrapper>
-                </div>
-            }
+        <>
+            <div className="details">
+                <h1>Station Details</h1>
+                {!station ? <h2>Loading...</h2> :
+                    <div>
+                        <h2>{station.AddressInfo.Title}</h2>
+                        <p>Address: {station.AddressInfo.AddressLine1} {station.AddressInfo.Town}, {station.AddressInfo.StateOrProvince} {station.AddressInfo.Postcode}</p>
+                        <p>Hours: {station.AddressInfo.AccessComments ? station.AddressInfo.AccessComments : null}</p>
+                        <p>{station.OperatorInfo ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}` ? station.OperatorInfo.PhonePrimaryContact : null : null}</p>
+                        <div className="search-results">
+                            <h3>Plugs: {connections}</h3>
+                            <Wrapper apiKey={apiKey}>
+                                <StationsMap
+                                    center={{ lat: station.AddressInfo.Latitude, lng: station.AddressInfo.Longitude }}
+                                    zoom={15}
+                                    stations={[station]}
+                                />
+                            </Wrapper>
+                        </div>
 
-        </div>
+                    </div>
+                }
 
+            </div>
 
+        </>
     )
-
 };
 
 export default StationDetails;

@@ -1,0 +1,28 @@
+.details {
+    font-size: 3rem;
+}
+
+.search-results {
+    display: flex;
+    padding: 0.5rem 1rem;
+    gap: 1rem;
+    font-size: 0.8rem;
+    align-items: center;
+}
+
+.search-list-container {
+    display: flex;
+    padding: 0.1rem 0.5rem;
+    row-gap: 1rem;
+    flex-direction: column;
+}
+
+.stations-container {
+    width: 20rem;
+    height: 10rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 1rem;
+}
+
