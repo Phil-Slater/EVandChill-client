@@ -28,6 +28,12 @@ const MapMarker = ({ station, map, position, icon }) => {
             }
         };
     }, [marker]);
+
+    useEffect(() => {
+        if (marker) {
+            marker.setPosition(position);
+        }
+    }, [position]);
     return null;
 };
 
