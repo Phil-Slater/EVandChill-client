@@ -189,9 +189,8 @@ export const postFavorite = async (username, stationNumber) => {
 export const deleteRemoveFavorite = async (username, stationNumber) => {
     console.log(username)
     try {
-        const response = await apiAxios.post(`/station/remove-favorite`, {
-            username,
-            stationNumber,
+        const response = await apiAxios.delete(`/station/remove-favorite`, {
+            data: { username: username, stationNumber: stationNumber }
         });
         console.log("DELETE", response);
         if (response.data.success) {
