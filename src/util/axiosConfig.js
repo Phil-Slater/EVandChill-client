@@ -152,6 +152,7 @@ export const getFavorites = async (user) => {
     const { username } = user;
     try {
         const response = await axios.get(`/profile/${username}/my-favorites`);
+        console.log(response.data.favorites)
         if (response) {
             store.dispatch(setFavorites(response.data.favorites));
             return response.data.favorites;
@@ -198,6 +199,7 @@ export const deleteRemoveFavorite = async (username, stationNumber) => {
             data: { username: username, stationNumber: stationNumber, noLoad: true }
         });
         if (response.data.success) {
+            store.dispatch(deleteFavorite(stationNumber));
             return { success: true };
         }
     } catch {
