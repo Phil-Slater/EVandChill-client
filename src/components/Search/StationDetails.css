@@ -28,5 +28,10 @@
     box-shadow: 2px 2px 5px rgba(40, 40, 40, 0.6);
 }
 
+.details img {
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
 
 
