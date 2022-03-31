@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
     getStationDetails,
     getFavorites,
@@ -18,17 +18,11 @@ const StationDetails = () => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-    const location = useLocation();
+    const params = useParams()
+
     let station = useSelector((state) => state.stations.station);
     let user = useSelector((state) => state.auth.user);
-    useEffect(() => {
-        if (!station) {
-            handleGetStation();
-        }
-        if (user) {
-            getUserFavorties();
-        }
-    }, [station]);
+
 
     const getUserFavorties = async () => {
         const favorites = await getFavorites(user);
@@ -43,9 +37,7 @@ const StationDetails = () => {
             });
     };
     const handleGetStation = async () => {
-        const splitPath = location.pathname.split("/");
-        const stationId = splitPath[2];
-        station = await getStationDetails(stationId);
+        station = await getStationDetails(params.id);
     };
     const connections =
         station &&
@@ -61,7 +53,7 @@ const StationDetails = () => {
 
     const handleFavoriteClick = async () => {
         console.log("favorite click");
-        if (isFavorite && user) {
+        if (isFavorite && user.username) {
             // delete the favorite
             const res = await deleteRemoveFavorite(user.username, station.ID);
             console.log(res);
@@ -69,7 +61,7 @@ const StationDetails = () => {
                 console.log("responded, deleted");
                 setIsFavorite(false);
             }
-        } else if (!isFavorite && user) {
+        } else if (!isFavorite && user.username) {
             // add the favorite
             const res = await postFavorite(user.username, station.ID);
             if (res) {
@@ -79,6 +71,15 @@ const StationDetails = () => {
         }
     };
 
+    useEffect(() => {
+        if (!station) {
+            handleGetStation();
+        }
+        if (station && user.username) {
+            getUserFavorties();
+        }
+    }, [station]);
+
     return (
         <>
             <div className="details">
@@ -87,12 +88,12 @@ const StationDetails = () => {
                     {isFavorite ? (
                         <img
                             src={favorite}
-                            onClick={() => handleFavoriteClick()}
+                            onClick={handleFavoriteClick}
                         />
                     ) : (
                         <img
                             src={unfavorite}
-                            onClick={() => handleFavoriteClick()}
+                            onClick={handleFavoriteClick}
                         />
                     )}
                 </h1>
@@ -138,7 +139,7 @@ const StationDetails = () => {
                         </div>
                     </div>
                 )}
-                )
+                <Nearby />
             </div>
         </>
     );

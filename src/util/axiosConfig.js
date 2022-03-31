@@ -21,7 +21,11 @@ const apiAxios = axios.create({
                 const { token } = JSON.parse(userRaw);
                 headers["Authorization"] = `Bearer ${token}`;
             }
-            store.dispatch(axiosRequestSent());
+            if (data && data.noLoad) {
+                delete data.noLoad
+            } else {
+                store.dispatch(axiosRequestSent());
+            }
             return data;
         },
         ...axios.defaults.transformRequest,
@@ -175,6 +179,7 @@ export const postFavorite = async (username, stationNumber) => {
         const response = await apiAxios.post(`/station/add-favorite`, {
             username,
             stationNumber,
+            noLoad: true
         });
         if (response) {
             return { success: true };
@@ -188,7 +193,7 @@ export const deleteRemoveFavorite = async (username, stationNumber) => {
     console.log(username);
     try {
         const response = await apiAxios.delete(`/station/remove-favorite`, {
-            data: { username: username, stationNumber: stationNumber }
+            data: { username: username, stationNumber: stationNumber, noLoad: true }
         });
         if (response.data.success) {
             return { success: true };
