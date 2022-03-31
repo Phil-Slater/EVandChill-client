@@ -4,7 +4,7 @@ import { getFavorites, handleDeleteFavorite } from "../../util/axiosConfig";
 
 function Favorites() {
     const user = useSelector((state) => state.auth.user);
-    useEffect(() => getFavorites(user), [])  
+    useEffect(() => getFavorites(user), [])
 
     const handleRemove = async (userId, favoriteId) => {
         handleDeleteFavorite(userId, favoriteId);
@@ -19,7 +19,7 @@ function Favorites() {
                         {favorites.stationId}
                         <button
                             onClick={() => handleRemove(user.id, favorites._id)}
-                        >
+                            className="profile-review-update">
                             Remove
                         </button>
                     </li>

@@ -63,7 +63,8 @@ const StationDetails = () => {
             }
         } else if (!isFavorite && user.username) {
             // add the favorite
-            const res = await postFavorite(user.username, station.ID);
+            const address = `${station.AddressInfo.AddressLine1} ${station.AddressInfo.Town}, ${station.AddressInfo.StateOrProvince} ${station.AddressInfo.Postcode}`
+            const res = await postFavorite(user.username, station.ID, station.AddressInfo.Title, address);
             if (res) {
                 console.log("responded, added");
                 setIsFavorite(true);

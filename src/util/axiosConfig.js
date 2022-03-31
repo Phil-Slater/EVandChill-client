@@ -174,11 +174,13 @@ export const handleDeleteFavorite = async (userId, favoriteId) => {
     }
 };
 
-export const postFavorite = async (username, stationNumber) => {
+export const postFavorite = async (username, stationNumber, title, address) => {
     try {
         const response = await apiAxios.post(`/station/add-favorite`, {
             username,
             stationNumber,
+            title,
+            address,
             noLoad: true
         });
         if (response) {
