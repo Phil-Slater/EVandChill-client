@@ -15,7 +15,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
 
-                user: {...state.user, ...action.payload},
+                user: { ...state.user, ...action.payload },
             };
         case actionTypes.LOGOUT_USER:
             return {
@@ -31,17 +31,20 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 user: {
                     ...state.user,
-                    favorites: [
-                        ...state.user.favorites, ...action.payload
-                    ]
+                    favorites:
+                        // [
+                        //     ...state.user.favorites, ...
+
+                        // ]
+                        action.payload
                 }
             }
         case actionTypes.DELETE_FAVORITE:
-            return{
+            return {
                 ...state,
                 user: {
                     ...state.user,
-                    favorites: 
+                    favorites:
                         state.user.favorites.filter(favorite => favorite._id !== action.payload)
                 }
             }
