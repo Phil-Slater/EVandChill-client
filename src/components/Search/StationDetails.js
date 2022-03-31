@@ -80,67 +80,64 @@ const StationDetails = () => {
     };
 
     return (
-        <>
-            <div className="details">
-                <h1>
-                    Station Details{" "}
-                    {isFavorite ? (
-                        <img
-                            src={favorite}
-                            onClick={() => handleFavoriteClick()}
-                        />
-                    ) : (
-                        <img
-                            src={unfavorite}
-                            onClick={() => handleFavoriteClick()}
-                        />
-                    )}
-                </h1>
-                {!station ? (
-                    <h2>Loading...</h2>
-                ) : (
-                    <div>
-                        <h2>{station.AddressInfo.Title}</h2>
-                        <h3>
-                            Address: {station.AddressInfo.AddressLine1}{" "}
-                            {station.AddressInfo.Town},{" "}
-                            {station.AddressInfo.StateOrProvince}{" "}
-                            {station.AddressInfo.Postcode}
-                        </h3>
-                        <h3>
-                            Hours:{" "}
-                            {station.AddressInfo.AccessComments
-                                ? station.AddressInfo.AccessComments
-                                : null}
-                        </h3>
-                        <h3>
-                            {station.OperatorInfo
-                                ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}`
-                                    ? station.OperatorInfo.PhonePrimaryContact
-                                    : null
-                                : null}
-                        </h3>
-                        <div className="plug-map-container">
-                            <div>
-                                <h3>Plugs:</h3>
-                                {connections}
-                            </div>
-                            <Wrapper apiKey={apiKey}>
-                                <StationsMap
-                                    center={{
-                                        lat: station.AddressInfo.Latitude,
-                                        lng: station.AddressInfo.Longitude,
-                                    }}
-                                    zoom={15}
-                                    stations={[station]}
-                                />
-                            </Wrapper>
-                        </div>
-                    </div>
-                )}
-                )
+      <>
+        <div className="details">
+          <h1>
+            Station Details{" "}
+            {isFavorite ? (
+              <img src={favorite} onClick={() => handleFavoriteClick()} />
+            ) : (
+              <img src={unfavorite} onClick={() => handleFavoriteClick()} />
+            )}
+          </h1>
+          {!station ? (
+            <h2>Loading...</h2>
+          ) : (
+            <div>
+              <h2>{station.AddressInfo.Title}</h2>
+              <h3>
+                Address: {station.AddressInfo.AddressLine1}{" "}
+                {station.AddressInfo.Town},{" "}
+                {station.AddressInfo.StateOrProvince}{" "}
+                {station.AddressInfo.Postcode}
+              </h3>
+              <h3>
+                Hours:{" "}
+                {station.AddressInfo.AccessComments
+                  ? station.AddressInfo.AccessComments
+                  : null}
+              </h3>
+              <h3>
+                {station.OperatorInfo
+                  ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}`
+                    ? station.OperatorInfo.PhonePrimaryContact
+                    : null
+                  : null}
+              </h3>
+              <div className="plug-map-container">
+                <div>
+                  <h3>Plugs:</h3>
+                  {connections}
+                  <button>Leave a Review</button>
+                </div>
+                <Wrapper apiKey={apiKey}>
+                  <StationsMap
+                    center={{
+                      lat: station.AddressInfo.Latitude,
+                      lng: station.AddressInfo.Longitude,
+                    }}
+                    zoom={15}
+                    stations={[station]}
+                  />
+                </Wrapper>
+              </div>
+              <div className="nearby-containter">
+                <Nearby businesses={station.nearby} />
+              </div>
             </div>
-        </>
+          )}
+        </div>
+      </>
     );
 };
 
