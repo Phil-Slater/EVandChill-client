@@ -10,7 +10,6 @@ const StationDetails = () => {
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const location = useLocation()
     let station = useSelector((state) => state.stations.station);
-    console.log(station)
     useEffect(() => {
         if (!station) {
             handleGetStation()
