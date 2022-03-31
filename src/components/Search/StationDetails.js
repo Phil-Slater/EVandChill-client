@@ -1,69 +1,92 @@
 import { useSelector } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from 'react'
 import { useLocation } from "react-router-dom";
-import { getStationDetails } from "../../util/axiosConfig";
+import { getStationDetails, getFavorites, deleteRemoveFavorite, postFavorite } from "../../util/axiosConfig";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import StationsMap from "./StationsMap";
 import Nearby from "./Nearby";
+import "./StationDetails.css";
+const favorite = require("./images/favorite.png");
+const unfavorite = require("./images/unfavorite.png")
 
 const StationDetails = () => {
+
+    const [isFavorite, setIsFavorite] = useState(false)
+
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const location = useLocation();
     let station = useSelector((state) => state.stations.station);
+    let user = useSelector((state) => state.auth.user)
     useEffect(() => {
         if (!station) {
             handleGetStation();
         }
-    }, []);
+        if (user) {
+            getUserFavorties()
+        }
+    }, [station])
 
+    const getUserFavorties = async () => {
+        const favorites = await getFavorites(user)
+        station && favorites.forEach(favorite => {
+            if (favorite.stationId === station.ID) {
+                console.log('in favorites')
+                setIsFavorite(true)
+            } else {
+                console.log('not a favorite')
+            }
+        })
+    }
     const handleGetStation = async () => {
         const splitPath = location.pathname.split("/");
         const stationId = splitPath[2];
         station = await getStationDetails(stationId);
     };
+    const connections = station && station.Connections.map(connection => {
+        return <div key={connection.ID} className="plug-container">
+            <h4>{connection.ConnectionType.Title}</h4>
+            <p>Speed: {connection.Level.Title}</p>
+            <p>Quantity: {connection.Quantity}</p>
+        </div>
+    })
 
-    const connections =
-        station &&
-        station.Connections.map((connection) => {
-            return (
-                <div key={connection.ID} className="stations-container">
-                    {connection.ConnectionType.Title}
-                    <p>Speed: {connection.Level.Title}</p>
-                    <p>Quantity: {connection.Quantity}</p>
-                </div>
-            );
-        });
+    const handleFavoriteClick = async () => {
+        console.log('favorite click')
+        if (isFavorite && user) {
+            // delete the favorite
+            const res = await deleteRemoveFavorite(user.username, station.ID)
+            console.log(res)
+            if (res) {
+                console.log('responded, deleted')
+                setIsFavorite(false)
+            }
+        } else if (!isFavorite && user) {
+            // add the favorite
+            const res = await postFavorite(user.username, station.ID)
+            if (res) {
+                console.log('responded, added')
+                setIsFavorite(true)
+            }
+        }
+
+    }
 
     return (
         <>
             <div className="details">
-                <h1>Station Details</h1>
-                {!station ? (
-                    <h2>Loading...</h2>
-                ) : (
+                <h1>Station Details {isFavorite ? <img src={favorite} onClick={() => handleFavoriteClick()} /> : <img src={unfavorite} onClick={() => handleFavoriteClick()} />}</h1>
+
+                {!station ? <h2>Loading...</h2> :
                     <div>
                         <h2>{station.AddressInfo.Title}</h2>
-                        <p>
-                            Address: {station.AddressInfo.AddressLine1}{" "}
-                            {station.AddressInfo.Town},{" "}
-                            {station.AddressInfo.StateOrProvince}{" "}
-                            {station.AddressInfo.Postcode}
-                        </p>
-                        <p>
-                            Hours:{" "}
-                            {station.AddressInfo.AccessComments
-                                ? station.AddressInfo.AccessComments
-                                : null}
-                        </p>
-                        <p>
-                            {station.OperatorInfo
-                                ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}`
-                                    ? station.OperatorInfo.PhonePrimaryContact
-                                    : null
-                                : null}
-                        </p>
-                        <div className="search-results">
-                            <h3>Plugs: {connections}</h3>
+                        <h3>Address: {station.AddressInfo.AddressLine1} {station.AddressInfo.Town}, {station.AddressInfo.StateOrProvince} {station.AddressInfo.Postcode}</h3>
+                        <h3>Hours: {station.AddressInfo.AccessComments ? station.AddressInfo.AccessComments : null}</h3>
+                        <h3>{station.OperatorInfo ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}` ? station.OperatorInfo.PhonePrimaryContact : null : null}</h3>
+                        <div className="plug-map-container">
+                            <div>
+                                <h3>Plugs:</h3>
+                                {connections}
+                            </div>
                             <Wrapper apiKey={apiKey}>
                                 <StationsMap
                                     center={{

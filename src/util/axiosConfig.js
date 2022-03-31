@@ -150,6 +150,7 @@ export const getFavorites = async (user) => {
         const response = await axios.get(`/profile/${username}/my-favorites`);
         if (response) {
             store.dispatch(setFavorites(response.data.favorites));
+            return response.data.favorites
         }
     } catch {
         store.dispatch(addError("Unable to load favorites"));
@@ -168,6 +169,39 @@ export const handleDeleteFavorite = async (userId, favoriteId) => {
         store.dispatch(addError("Unable to delete favorite"));
     }
 };
+
+export const postFavorite = async (username, stationNumber) => {
+    try {
+        const response = await apiAxios.post(`/station/add-favorite`, {
+            username,
+            stationNumber,
+        });
+        console.log("POST", response);
+        if (response) {
+            console.log('favorite added!')
+            return { success: true };
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const deleteRemoveFavorite = async (username, stationNumber) => {
+    console.log(username)
+    try {
+        const response = await apiAxios.post(`/station/remove-favorite`, {
+            username,
+            stationNumber,
+        });
+        console.log("DELETE", response);
+        if (response.data.success) {
+            console.log('favorite deleted.')
+            return { success: true };
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export const getStationDetails = async (stationId) => {
     try {

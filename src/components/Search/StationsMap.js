@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import MapMarker from "./MapMarker";
-const CenterIcon = require("./CenterIcon.png");
-const ChargerIcon = require("./charger.png")
+const CenterIcon = require("./images/CenterIcon.png");
+const ChargerIcon = require("./images/charger.png")
 
 const StationsMap = ({ center, zoom, stations }) => {
     const mapRef = useRef();
