@@ -14,16 +14,13 @@ const StationDetails = () => {
     const [isFavorite, setIsFavorite] = useState(false)
 
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-    const location = useLocation()
+    const location = useLocation();
     let station = useSelector((state) => state.stations.station);
     let user = useSelector((state) => state.auth.user)
-    console.log(station)
-
     useEffect(() => {
         if (!station) {
-            handleGetStation()
+            handleGetStation();
         }
-
         if (user) {
             getUserFavorties()
         }
@@ -40,13 +37,11 @@ const StationDetails = () => {
             }
         })
     }
-
     const handleGetStation = async () => {
-        const splitPath = location.pathname.split('/')
-        const stationId = splitPath[2]
-        station = await getStationDetails(stationId)
-    }
-
+        const splitPath = location.pathname.split("/");
+        const stationId = splitPath[2];
+        station = await getStationDetails(stationId);
+    };
     const connections = station && station.Connections.map(connection => {
         return <div key={connection.ID} className="plug-container">
             <h4>{connection.ConnectionType.Title}</h4>
@@ -87,7 +82,6 @@ const StationDetails = () => {
                         <h3>Address: {station.AddressInfo.AddressLine1} {station.AddressInfo.Town}, {station.AddressInfo.StateOrProvince} {station.AddressInfo.Postcode}</h3>
                         <h3>Hours: {station.AddressInfo.AccessComments ? station.AddressInfo.AccessComments : null}</h3>
                         <h3>{station.OperatorInfo ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}` ? station.OperatorInfo.PhonePrimaryContact : null : null}</h3>
-
                         <div className="plug-map-container">
                             <div>
                                 <h3>Plugs:</h3>
@@ -95,20 +89,20 @@ const StationDetails = () => {
                             </div>
                             <Wrapper apiKey={apiKey}>
                                 <StationsMap
-                                    center={{ lat: station.AddressInfo.Latitude, lng: station.AddressInfo.Longitude }}
+                                    center={{
+                                        lat: station.AddressInfo.Latitude,
+                                        lng: station.AddressInfo.Longitude,
+                                    }}
                                     zoom={15}
                                     stations={[station]}
                                 />
                             </Wrapper>
                         </div>
-
                     </div>
-                }
-
+                )}
             </div>
-
         </>
-    )
+    );
 };
 
 export default StationDetails;

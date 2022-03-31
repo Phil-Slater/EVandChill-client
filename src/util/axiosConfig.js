@@ -12,15 +12,21 @@ import {
 import store from "../store/store";
 import getCurrentLocation from "./getCurrentLocation";
 
-export const apiAxios = axios.create({
+const apiAxios = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:8080",
     transformRequest: [
-        (data) => {
+        (data, headers) => {
+            const userRaw = localStorage.getItem("jwt");
+            if (userRaw) {
+                const { token } = JSON.parse(userRaw);
+                headers["Authorization"] = `Bearer ${token}`;
+            }
             store.dispatch(axiosRequestSent());
             return data;
         },
         ...axios.defaults.transformRequest,
     ],
+    headers: {},
     onDownloadProgress: () => {
         store.dispatch(axiosResponseReceived());
     },
@@ -29,12 +35,10 @@ export const apiAxios = axios.create({
 export function setAuthData(token, user) {
     const userInfo = { token, user };
     localStorage.setItem("jwt", JSON.stringify(userInfo));
-    // apiAxios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
 export const removeAuthData = () => {
     localStorage.removeItem("jwt");
-    delete apiAxios.defaults.headers.common["Authorization"];
 };
 
 const handleTokenUser = (data) => {
@@ -70,7 +74,6 @@ export const postRegister = async (username, password, email) => {
         });
         return handleTokenUser(response.data);
     } catch (err) {
-        console.log(err.response);
         if (err.response.data.userTaken) {
             store.dispatch(addError("Username is already in use."));
         } else {
@@ -124,8 +127,8 @@ export const postStationsByZip = async (zip) => {
         });
         store.dispatch(setStations(response.data));
         return { success: true };
-    } catch (error) {
-        console.log(error);
+    } catch {
+        store.dispatch(addError("Unable to find stations"));
     }
 };
 
@@ -136,8 +139,8 @@ export const postStationsByCity = async (cityState) => {
         });
         store.dispatch(setStations(response.data));
         return { success: true };
-    } catch (error) {
-        console.log(error);
+    } catch {
+        store.dispatch(addError("Unable to find stations"));
     }
 };
 
@@ -145,13 +148,12 @@ export const getFavorites = async (user) => {
     const { username } = user;
     try {
         const response = await axios.get(`/profile/${username}/my-favorites`);
-        console.log("FAVORITES", response);
         if (response) {
             store.dispatch(setFavorites(response.data.favorites));
             return response.data.favorites
         }
-    } catch (error) {
-        console.log(error);
+    } catch {
+        store.dispatch(addError("Unable to load favorites"));
     }
 };
 
@@ -160,14 +162,12 @@ export const handleDeleteFavorite = async (userId, favoriteId) => {
         const response = await apiAxios.delete(`/profile/favorites`, {
             data: { favoriteId: favoriteId, userId: userId },
         });
-        console.log("DELETE", response);
         if (response) {
             store.dispatch(deleteFavorite(favoriteId));
         }
-    } catch (error) {
-        console.log(error);
+    } catch {
+        store.dispatch(addError("Unable to delete favorite"));
     }
-    //   successfull deleteing, need to refetch the user after deleteing
 };
 
 export const postFavorite = async (username, stationNumber) => {
@@ -208,7 +208,7 @@ export const getStationDetails = async (stationId) => {
         const response = await apiAxios.get(`/station/id/${stationId}`);
         store.dispatch(setStation(response.data[0]));
         return response.data[0];
-    } catch (error) {
-        console.log(error);
+    } catch {
+        store.dispatch(addError("Unable to get station details"));
     }
 };
