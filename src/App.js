@@ -17,6 +17,7 @@ import About from "./components/About/About";
 import SearchResults from "./components/Search/SearchResults";
 import Spinner from "./components/common/Spinner";
 import StationDetails from "./components/Search/StationDetails";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 function App() {
     const dispatch = useDispatch();
@@ -58,15 +59,42 @@ function App() {
                             {/* <Spinner /> */}
                             <Routes location={location}>
                                 <Route path="/" element={<HomePage />} />
-                                <Route path="/login" element={<Login />} />
+
+                                <Route
+                                    path="/login"
+                                    element={
+                                        <ProtectedRoute>
+                                            <Login />
+                                        </ProtectedRoute>
+                                    }
+                                />
+
                                 <Route
                                     path="/register"
-                                    element={<Register />}
+                                    element={
+                                        <ProtectedRoute>
+                                            <Register />
+                                        </ProtectedRoute>
+                                    }
                                 />
-                                <Route path="/profile" element={<Profile />} />
+
+                                <Route
+                                    path="/profile"
+                                    element={
+                                        <ProtectedRoute auth>
+                                            <Profile />
+                                        </ProtectedRoute>
+                                    }
+                                />
                                 <Route path="/about" element={<About />} />
-                                <Route path="/results" element={<SearchResults />} />
-                                <Route path="/station/:id" element={<StationDetails />} />
+                                <Route
+                                    path="/results"
+                                    element={<SearchResults />}
+                                />
+                                <Route
+                                    path="/station/:id"
+                                    element={<StationDetails />}
+                                />
                             </Routes>
                         </PageContainer>
                     </CSSTransition>
