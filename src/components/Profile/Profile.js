@@ -1,5 +1,4 @@
 import React from "react";
-import ChargingHistory from "./ChargingHistory";
 import Favorites from "./Favorites";
 import Reviews from "./Reviews";
 
@@ -16,7 +15,6 @@ const Profile = () => {
                 <i>{email}</i>
             </p>
             <Favorites />
-            <ChargingHistory />
             <Reviews />
         </div>
     );
