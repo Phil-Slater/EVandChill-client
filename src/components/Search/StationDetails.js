@@ -142,7 +142,9 @@ const StationDetails = () => {
                 )}
                 <Nearby />
             </div>
-        </>
+          )}
+        </div>
+      </>
     );
 };
 

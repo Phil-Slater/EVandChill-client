@@ -33,5 +33,41 @@
     cursor: pointer;
 }
 
+.nearby-containter{
+    align-items: center;
+    margin-bottom: 2em;
+    overflow-x: auto;
+    width: 96vw;
+}
 
+.nearby-food,
+.nearby-entertainment,
+.nearby-stores {
+    display: flex;
+    flex-direction: column;
+    column-gap: 1em;
+    width: fit-content;
+    padding: 1em;
+    border-radius: 6px;
+    border: solid 2px black;
+  
+}
 
+.business-container {
+    display: flex;
+    column-gap: 1em;
+    width: fit-content;
+    padding: 1em;
+    border-radius: 6px;
+   
+}
+
+.business-details-container {
+    display: flex;
+    flex-direction: column;
+    column-gap: 1em;
+    width: 200px;
+    padding: 1em;
+    border-radius: 6px;
+    border: solid 2px black;
+}
