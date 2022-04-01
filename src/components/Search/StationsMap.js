@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setStation } from "../../store/actions/actionCreators";
 import MapMarker from "./MapMarker";
+import "./StationDetails.css";
 const CenterIcon = require("./images/CenterIcon.png");
 const ChargerIcon = require("./images/charger.png");
 

@@ -111,7 +111,7 @@ const StationDetails = () => {
                             Hours:{" "}
                             {station.AddressInfo.AccessComments
                                 ? station.AddressInfo.AccessComments
-                                : null}
+                                : "No information provided."}
                         </h3>
                         <h3>
                             {station.OperatorInfo
@@ -125,22 +125,24 @@ const StationDetails = () => {
                                 <h3>Plugs:</h3>
                                 {connections}
                             </div>
-                            <Wrapper apiKey={apiKey}>
-                                <StationsMap
-                                    center={{
-                                        lat: station.AddressInfo.Latitude,
-                                        lng: station.AddressInfo.Longitude,
-                                    }}
-                                    zoom={15}
-                                    stations={[station]}
-                                />
-                            </Wrapper>
+                            <div className="google-map">
+                                <Wrapper apiKey={apiKey}>
+                                    <StationsMap
+                                        center={{
+                                            lat: station.AddressInfo.Latitude,
+                                            lng: station.AddressInfo.Longitude,
+                                        }}
+                                        zoom={15}
+                                        stations={[station]}
+                                    />
+                                </Wrapper>
+                            </div>
                         </div>
                     </div>
                 )}
-                <div className="nearby-containter">
+                {station && <div className="nearby-containter">
                     <Nearby businesses={station.nearby} />
-                </div>
+                </div>}
             </div>
         </>
     );
