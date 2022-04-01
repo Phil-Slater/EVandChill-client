@@ -101,6 +101,7 @@ export const postGuestLogin = async () => {
     }
 };
 
+
 export const postStationsByLocation = async () => {
     store.dispatch(axiosRequestSent());
 
@@ -210,6 +211,64 @@ export const deleteRemoveFavorite = async (username, stationNumber) => {
         store.dispatch(addError("Unable to remove favorite"));
     }
 };
+export const postAddReview = async ({
+  stationNumber,
+  username,
+  review,
+  isWorking,
+  rating
+}) => {
+
+    console.log('reqest args', {
+        stationNumber,
+        username,
+        review,
+        isWorking
+    })
+
+  try {
+    const response = await apiAxios.post(`/station/${stationNumber}/add-review`, {
+     stationNumber,
+     username,
+     review,
+     isWorking,
+     rating,
+    });
+    if(response) {
+    return(response.data)} ;
+  } catch (error) {
+    console.log(error);
+    store.dispatch(addError("Unable to add reivew"));
+    return null;
+  }
+};
+
+// export const getUserReviews = async (user) => {
+//        const { username } = user;
+//     try {
+//         const response = await axios.get(`/profile/${username}/reviews`);
+//         if (response) {
+//             store.dispatch(setReviews(response.data.reviews));
+//             return response.data.reviews;
+//         }
+//     } catch {
+//         store.dispatch(addError("Unable to load reviews"));
+//     }
+// };
+
+
+// export const getStationReviews= async (stationId) =>{
+//     try {
+//         const response = await axios.get(`/station/${stationId}/reviews`);
+//         if (response) {
+//             store.dispatch(setReviews(response.data.reviews));
+//             return response.data.favorites;
+//         }
+//     } catch {
+//         store.dispatch(addError("Unable to load favorites"));
+//     }
+// };
+// }
 
 export const getStationDetails = async (stationId) => {
     try {

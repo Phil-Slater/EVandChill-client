@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {
     getStationDetails,
@@ -122,7 +123,17 @@ const StationDetails = () => {
                             <div>
                                 <h3>Plugs:</h3>
                                 {connections}
-                            </div>
+                             <Link to={`/${station.ID}/add-review`}>Add Reveiew</Link>
+                </div>
+                <div>
+                    {/* <h3>Reviews:</h3>
+                    {station.reviews.map((review) =>
+                    <div>
+                        <h4> {review.rating}</h4>
+                        <p>{review.review}</p>
+                        <p>{review.isWorking}</p>
+                        </div>)} */}
+                </div>
                             <div className="google-map">
                                 <Wrapper apiKey={apiKey}>
                                     <StationsMap
