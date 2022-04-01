@@ -18,11 +18,10 @@ const StationDetails = () => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-    const params = useParams()
+    const params = useParams();
 
     let station = useSelector((state) => state.stations.station);
     let user = useSelector((state) => state.auth.user);
-
 
     const getUserFavorties = async () => {
         const favorites = await getFavorites(user);
@@ -63,8 +62,13 @@ const StationDetails = () => {
             }
         } else if (!isFavorite && user.username) {
             // add the favorite
-            const address = `${station.AddressInfo.AddressLine1} ${station.AddressInfo.Town}, ${station.AddressInfo.StateOrProvince} ${station.AddressInfo.Postcode}`
-            const res = await postFavorite(user.username, station.ID, station.AddressInfo.Title, address);
+            const address = `${station.AddressInfo.AddressLine1} ${station.AddressInfo.Town}, ${station.AddressInfo.StateOrProvince} ${station.AddressInfo.Postcode}`;
+            const res = await postFavorite(
+                user.username,
+                station.ID,
+                station.AddressInfo.Title,
+                address
+            );
             if (res) {
                 console.log("responded, added");
                 setIsFavorite(true);
@@ -87,15 +91,9 @@ const StationDetails = () => {
                 <h1>
                     Station Details{" "}
                     {isFavorite ? (
-                        <img
-                            src={favorite}
-                            onClick={handleFavoriteClick}
-                        />
+                        <img src={favorite} onClick={handleFavoriteClick} />
                     ) : (
-                        <img
-                            src={unfavorite}
-                            onClick={handleFavoriteClick}
-                        />
+                        <img src={unfavorite} onClick={handleFavoriteClick} />
                     )}
                 </h1>
                 {!station ? (
@@ -140,13 +138,11 @@ const StationDetails = () => {
                         </div>
                     </div>
                 )}
-               <div className="nearby-containter">
-                <Nearby businesses={station.nearby} />
-              </div>
+                <div className="nearby-containter">
+                    <Nearby businesses={station.nearby} />
+                </div>
             </div>
-          )}
-        </div>
-      </>
+        </>
     );
 };
 
