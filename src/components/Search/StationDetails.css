@@ -36,7 +36,8 @@
 .nearby-containter{
     align-items: center;
     margin-bottom: 2em;
-    
+    overflow-x: auto;
+    width: 96vw;
 }
 
 .nearby-food,

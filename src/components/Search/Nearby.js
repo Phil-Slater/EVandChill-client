@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import StarRatingComponent from "react-star-rating-component";
+
 import "./StationDetails.css";
 
 
@@ -79,6 +80,7 @@ const getDollarSigns=(level) => {
                     ) : (
                       <p>Ratings Not Available</p>
                     )}
+
                   </div>
                 ))}
               </div>

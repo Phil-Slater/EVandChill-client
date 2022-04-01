@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(
     rootReducer,
-    composeWithDevTools(applyMiddleware(thunk))
+    composeWithDevTools({ trace: true })(applyMiddleware(thunk))
 );
 
 const userRaw = localStorage.getItem("jwt");
