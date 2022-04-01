@@ -122,9 +122,20 @@ const StationDetails = () => {
                             <div>
                                 <h3>Plugs:</h3>
                                 {connections}
-                             <Link to={`/${station.externalId}/add-review`}>Add Reveiew</Link>
-                </div>
-  
+
+                                <Link to={`/${station.externalId}/add-review`}>
+                                    Add Reveiew
+                                </Link>
+                            </div>
+                            <div>
+                                {/* <h3>Reviews:</h3>
+                    {station.reviews.map((review) =>
+                    <div>
+                        <h4> {review.rating}</h4>
+                        <p>{review.review}</p>
+                        <p>{review.isWorking}</p>
+                        </div>)} */}
+                            </div>
                             <div className="google-map">
                                 <Wrapper apiKey={apiKey}>
                                     <StationsMap
