@@ -18,6 +18,7 @@ import SearchResults from "./components/Search/SearchResults";
 import Spinner from "./components/common/Spinner";
 import StationDetails from "./components/Search/StationDetails";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import AddReviews from "./components/Search/AddReview";
 
 function App() {
     const dispatch = useDispatch();
@@ -95,6 +96,7 @@ function App() {
                                     path="/station/:id"
                                     element={<StationDetails />}
                                 />
+                                <Route path="/:stationId/add-review" element={<AddReviews/>}/>
                             </Routes>
                         </PageContainer>
                     </CSSTransition>
