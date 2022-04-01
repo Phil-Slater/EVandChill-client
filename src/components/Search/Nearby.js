@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from "react";
+import StarRatingComponent from "react-star-rating-component";
+
 import "./StationDetails.css";
 
 
@@ -13,6 +15,13 @@ useEffect(() => {
   setNearbyBusinesses(businesses);
 }, [businesses]);
 
+const getDollarSigns=(level) => {
+    let dollarSigns= " "
+    for (let i=1; i<=level; i++) {
+        dollarSigns += '$';
+    }
+    return dollarSigns;
+}
     return (
       <div>
         {nearbyBusinesses && (
@@ -27,8 +36,21 @@ useEffect(() => {
                   >
                     <h4>{business.name}</h4>
                     {/* <p>{business.opening_hours.open_now}Open</p> */}
-                    <p>Price level:{business.price_level}</p>
-                    <p>Rated {business.rating}</p>
+                    {business.price_level ? (
+                      <p>Price level:{getDollarSigns(business.price_level)}</p>
+                    ) : (
+                      <p>Price Level Not Available</p>
+                    )}
+                    {business.rating ? (
+                      <StarRatingComponent
+                        name="rate2"
+                        editing={false}
+                        starCount={5}
+                        value={business.rating}
+                      />
+                    ) : (
+                      <p>Ratings Not Available</p>
+                    )}
                   </div>
                 ))}
               </div>
@@ -43,8 +65,22 @@ useEffect(() => {
                   >
                     <h4>{business.name}</h4>
                     {/* <p>{business.opening_hours.open_now}Open</p> */}
-                    <p>Price level:{business.price_level}</p>
-                    <p>Rated {business.rating}</p>
+                    {business.price_level ? (
+                      <p>Price level:{getDollarSigns(business.price_level)}</p>
+                    ) : (
+                      <p>Price Level Not Available</p>
+                    )}
+                    {business.rating ? (
+                      <StarRatingComponent
+                        name="rate2"
+                        editing={false}
+                        starCount={5}
+                        value={business.rating}
+                      />
+                    ) : (
+                      <p>Ratings Not Available</p>
+                    )}
+
                   </div>
                 ))}
               </div>
@@ -61,8 +97,21 @@ useEffect(() => {
                     {/* {business.opening_hours.open_now && (
                 <p>{business.opening_hours.open_now}Open</p>
               )} */}
-                    <p>Price level:{business.price_level}</p>
-                    <p>Rated {business.rating}</p>
+                    {business.price_level ? (
+                      <p>Price level:{getDollarSigns(business.price_level)}</p>
+                    ) : (
+                      <p>Price Level Not Available</p>
+                    )}
+                    {business.rating ? (
+                      <StarRatingComponent
+                        name="rate2"
+                        editing={false}
+                        starCount={5}
+                        value={business.rating}
+                      />
+                    ) : (
+                      <p>Ratings Not Available</p>
+                    )}
                   </div>
                 ))}
               </div>
