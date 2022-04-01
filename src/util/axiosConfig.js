@@ -101,7 +101,6 @@ export const postGuestLogin = async () => {
     }
 };
 
-
 export const postStationsByLocation = async () => {
     store.dispatch(axiosRequestSent());
 
@@ -212,35 +211,38 @@ export const deleteRemoveFavorite = async (username, stationNumber) => {
     }
 };
 export const postAddReview = async ({
-  stationNumber,
-  username,
-  review,
-  isWorking,
-  rating
+    stationNumber,
+    username,
+    review,
+    isWorking,
+    rating,
 }) => {
-
-    console.log('reqest args', {
+    console.log("reqest args", {
         stationNumber,
         username,
         review,
-        isWorking
-    })
-
-  try {
-    const response = await apiAxios.post(`/station/${stationNumber}/add-review`, {
-     stationNumber,
-     username,
-     review,
-     isWorking,
-     rating,
+        isWorking,
     });
-    if(response) {
-    return(response.data)} ;
-  } catch (error) {
-    console.log(error);
-    store.dispatch(addError("Unable to add reivew"));
-    return null;
-  }
+
+    try {
+        const response = await apiAxios.post(
+            `/station/${stationNumber}/add-review`,
+            {
+                stationNumber,
+                username,
+                review,
+                isWorking,
+                rating,
+            }
+        );
+        if (response) {
+            return response.data;
+        }
+    } catch (error) {
+        console.log(error);
+        store.dispatch(addError("Unable to add reivew"));
+        return null;
+    }
 };
 
 // export const getUserReviews = async (user) => {
@@ -255,7 +257,6 @@ export const postAddReview = async ({
 //         store.dispatch(addError("Unable to load reviews"));
 //     }
 // };
-
 
 // export const getStationReviews= async (stationId) =>{
 //     try {
@@ -273,8 +274,8 @@ export const postAddReview = async ({
 export const getStationDetails = async (stationId) => {
     try {
         const response = await apiAxios.get(`/station/id/${stationId}`);
-        store.dispatch(setStation(response.data[0]));
-        return response.data[0];
+        store.dispatch(setStation(response.data));
+        return response.data;
     } catch {
         store.dispatch(addError("Unable to get station details"));
     }
