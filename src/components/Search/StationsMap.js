@@ -1,20 +1,44 @@
 import React, { useRef, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setStation } from "../../store/actions/actionCreators";
 import MapMarker from "./MapMarker";
 const CenterIcon = require("./images/CenterIcon.png");
 const ChargerIcon = require("./images/charger.png");
 
 const StationsMap = ({ center, zoom, stations, searchLocation }) => {
+    const station = useSelector((state) => state.stations.station);
     const mapRef = useRef();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [map, setMap] = useState(null);
     let markerItems;
+    const bc = new BroadcastChannel("google");
+
+    useEffect(() => {
+        bc.onmessage = (e) => {
+            bc.close();
+            const index = e.data;
+            console.log(e);
+            if (
+                stations[index] &&
+                JSON.stringify(station) !== JSON.stringify(stations[index])
+            ) {
+                dispatch(setStation(stations[index]));
+                navigate(`/station/${stations[index].ID}`);
+                bc.close();
+            }
+        };
+    }, []);
 
     if (map && stations.length !== 1) {
-        markerItems = stations.map((station, i) => {
+        markerItems = stations.map((station, index) => {
             const { Latitude: lat, Longitude: lng } = station.AddressInfo;
             return (
                 <MapMarker
-                    key={i}
+                    key={index}
                     map={map}
+                    index={index}
                     position={{ lat, lng }}
                     station={station}
                     icon={ChargerIcon}
