@@ -36,16 +36,18 @@ const StationDetails = () => {
             });
     };
     const handleGetStation = async () => {
+        console.log(params.id)
         station = await getStationDetails(params.id);
     };
+    console.log(station)
     const connections =
         station &&
-        station.Connections.map((connection) => {
+        station.plugTypes.map((plug, index) => {
             return (
-                <div key={connection.ID} className="plug-container">
-                    <h4>{connection.ConnectionType.Title}</h4>
-                    <p>Speed: {connection.Level.Title}</p>
-                    <p>Quantity: {connection.Quantity}</p>
+                <div key={index} className="plug-container">
+                    <h4>{plug.type}</h4>
+                    <p>Speed: {plug.speed}</p>
+                    <p>Quantity: {plug.Quantity}</p>
                 </div>
             );
         });
@@ -62,11 +64,11 @@ const StationDetails = () => {
             }
         } else if (!isFavorite && user.username) {
             // add the favorite
-            const address = `${station.AddressInfo.AddressLine1} ${station.AddressInfo.Town}, ${station.AddressInfo.StateOrProvince} ${station.AddressInfo.Postcode}`;
+            const address = `${station.address} ${station.cityStateZip}`;
             const res = await postFavorite(
                 user.username,
-                station.ID,
-                station.AddressInfo.Title,
+                station.externalId,
+                station.name,
                 address
             );
             if (res) {
@@ -100,24 +102,20 @@ const StationDetails = () => {
                     <h2>Loading...</h2>
                 ) : (
                     <div>
-                        <h2>{station.AddressInfo.Title}</h2>
+                        <h2>{station.name}</h2>
                         <h3>
-                            Address: {station.AddressInfo.AddressLine1}{" "}
-                            {station.AddressInfo.Town},{" "}
-                            {station.AddressInfo.StateOrProvince}{" "}
-                            {station.AddressInfo.Postcode}
+                            Address: {station.address}{" "}
+                            {station.cityStateZip}
                         </h3>
                         <h3>
                             Hours:{" "}
-                            {station.AddressInfo.AccessComments
-                                ? station.AddressInfo.AccessComments
+                            {station.operatingHours
+                                ? station.operatingHours
                                 : "No information provided."}
                         </h3>
                         <h3>
-                            {station.OperatorInfo
-                                ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}`
-                                    ? station.OperatorInfo.PhonePrimaryContact
-                                    : null
+                            {station.supportNumber
+                                ? `Support phone number:   ${station.supportNumber}`
                                 : null}
                         </h3>
                         <div className="plug-map-container">
@@ -129,8 +127,8 @@ const StationDetails = () => {
                                 <Wrapper apiKey={apiKey}>
                                     <StationsMap
                                         center={{
-                                            lat: station.AddressInfo.Latitude,
-                                            lng: station.AddressInfo.Longitude,
+                                            lat: station.latitude,
+                                            lng: station.longitude,
                                         }}
                                         zoom={15}
                                         stations={[station]}
