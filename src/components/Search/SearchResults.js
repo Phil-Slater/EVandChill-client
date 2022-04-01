@@ -5,6 +5,7 @@ import { calculateDistance } from "../../util/calculateDistance";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import StationsMap from "./StationsMap";
 import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const SearchResults = () => {
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -55,6 +56,10 @@ const SearchResults = () => {
         );
     });
 
+    useEffect(() => {
+        setCenter(location);
+        setZoom(12);
+    }, [stationsAndCoords]);
     return (
         <div className="search-page">
             <h1>Search Results</h1>
@@ -63,6 +68,7 @@ const SearchResults = () => {
                 <Wrapper apiKey={apiKey}>
                     <StationsMap
                         center={center}
+                        searchLocation={location}
                         zoom={zoom}
                         stations={stations}
                     />
