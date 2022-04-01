@@ -1,18 +1,30 @@
-.sidebar-menu {
+.sidebar-menu,
+.sidebar-menu-inner {
+    width: 0;
+    font-size: 1.2rem;
+    transition: width 0.5s;
+    overflow: hidden;
+    height: 100%;
+}
+
+.sidebar-menu-inner {
     display: flex;
     flex-direction: column;
     row-gap: 1.5rem;
-    width: 0;
-    font-size: 1.2rem;
     align-items: center;
     background-color: var(--color-primary-darkest);
     color: var(--color-primary-lightest);
-    transition: width 0.5s;
-    overflow: hidden;
+    position: fixed;
+    top: 0;
+    height: 100vh;
 }
 
 .sidebar-menu.active {
     width: 20.5rem;
+}
+
+.sidebar-menu.active .sidebar-menu-inner {
+    width: 18rem;
 }
 
 .sidebar-menu hr {
@@ -47,11 +59,8 @@
     box-shadow: 1px 1px 10px black;
 }
 
-.sidebar-settings {
-    margin-top: auto;
-}
 .sidebar-footer {
-    margin-top: 0.25rem;
+    margin-top: auto;
     display: flex;
     font-size: 0.8rem;
     width: 75%;
@@ -76,11 +85,19 @@
         left: 0;
         height: 100vh;
     }
+
+    .sidebar-menu-inner {
+        left: 0;
+    }
 }
 
 @media screen and (min-width: 600px) {
     .sidebar-menu {
         position: static;
         max-height: 100vh;
+    }
+
+    .sidebar-menu-inner {
+        right: 0;
     }
 }

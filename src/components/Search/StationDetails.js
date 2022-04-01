@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
     getStationDetails,
     getFavorites,
@@ -18,18 +19,10 @@ const StationDetails = () => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-    const location = useLocation();
+    const params = useParams();
+
     let station = useSelector((state) => state.stations.station);
     let user = useSelector((state) => state.auth.user);
-    useEffect(() => {
-        if (!station) {
-            handleGetStation();
-        }
-        if (user) {
-            getUserFavorties();
-        }
-        console.log('STATION', station)
-    }, [station]);
 
     const getUserFavorties = async () => {
         const favorites = await getFavorites(user);
@@ -44,9 +37,7 @@ const StationDetails = () => {
             });
     };
     const handleGetStation = async () => {
-        const splitPath = location.pathname.split("/");
-        const stationId = splitPath[2];
-        station = await getStationDetails(stationId);
+        station = await getStationDetails(params.id);
     };
     const connections =
         station &&
@@ -62,7 +53,7 @@ const StationDetails = () => {
 
     const handleFavoriteClick = async () => {
         console.log("favorite click");
-        if (isFavorite && user) {
+        if (isFavorite && user.username) {
             // delete the favorite
             const res = await deleteRemoveFavorite(user.username, station.ID);
             console.log(res);
@@ -70,9 +61,15 @@ const StationDetails = () => {
                 console.log("responded, deleted");
                 setIsFavorite(false);
             }
-        } else if (!isFavorite && user) {
+        } else if (!isFavorite && user.username) {
             // add the favorite
-            const res = await postFavorite(user.username, station.ID);
+            const address = `${station.AddressInfo.AddressLine1} ${station.AddressInfo.Town}, ${station.AddressInfo.StateOrProvince} ${station.AddressInfo.Postcode}`;
+            const res = await postFavorite(
+                user.username,
+                station.ID,
+                station.AddressInfo.Title,
+                address
+            );
             if (res) {
                 console.log("responded, added");
                 setIsFavorite(true);
@@ -80,47 +77,55 @@ const StationDetails = () => {
         }
     };
 
+    useEffect(() => {
+        if (!station) {
+            handleGetStation();
+        }
+        if (station && user.username) {
+            getUserFavorties();
+        }
+    }, [station]);
 
     return (
-      <>
-        <div className="details">
-          <h1>
-            Station Details{" "}
-            {isFavorite ? (
-              <img src={favorite} onClick={() => handleFavoriteClick()} />
-            ) : (
-              <img src={unfavorite} onClick={() => handleFavoriteClick()} />
-            )}
-          </h1>
-          {!station ? (
-            <h2>Loading...</h2>
-          ) : (
-            <div>
-              <h2>{station.AddressInfo.Title}</h2>
-              <h3>
-                Address: {station.AddressInfo.AddressLine1}{" "}
-                {station.AddressInfo.Town},{" "}
-                {station.AddressInfo.StateOrProvince}{" "}
-                {station.AddressInfo.Postcode}
-              </h3>
-              <h3>
-                Hours:{" "}
-                {station.AddressInfo.AccessComments
-                  ? station.AddressInfo.AccessComments
-                  : null}
-              </h3>
-              <h3>
-                {station.OperatorInfo
-                  ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}`
-                    ? station.OperatorInfo.PhonePrimaryContact
-                    : null
-                  : null}
-              </h3>
-              <div className="plug-map-container">
-                <div>
-                  <h3>Plugs:</h3>
-                  {connections}
-                  <Link to={`/${station.ID}/add-review`}>Add Reveiew</Link>
+        <>
+            <div className="details">
+                <h1>
+                    Station Details{" "}
+                    {isFavorite ? (
+                        <img src={favorite} onClick={handleFavoriteClick} />
+                    ) : (
+                        <img src={unfavorite} onClick={handleFavoriteClick} />
+                    )}
+                </h1>
+                {!station ? (
+                    <h2>Loading...</h2>
+                ) : (
+                    <div>
+                        <h2>{station.AddressInfo.Title}</h2>
+                        <h3>
+                            Address: {station.AddressInfo.AddressLine1}{" "}
+                            {station.AddressInfo.Town},{" "}
+                            {station.AddressInfo.StateOrProvince}{" "}
+                            {station.AddressInfo.Postcode}
+                        </h3>
+                        <h3>
+                            Hours:{" "}
+                            {station.AddressInfo.AccessComments
+                                ? station.AddressInfo.AccessComments
+                                : "No information provided."}
+                        </h3>
+                        <h3>
+                            {station.OperatorInfo
+                                ? `Support phone number:   ${station.OperatorInfo.PhonePrimaryContact}`
+                                    ? station.OperatorInfo.PhonePrimaryContact
+                                    : null
+                                : null}
+                        </h3>
+                        <div className="plug-map-container">
+                            <div>
+                                <h3>Plugs:</h3>
+                                {connections}
+                             <Link to={`/${station.ID}/add-review`}>Add Reveiew</Link>
                 </div>
                 <div>
                     {/* <h3>Reviews:</h3>
@@ -131,24 +136,28 @@ const StationDetails = () => {
                         <p>{review.isWorking}</p>
                         </div>)} */}
                 </div>
-                <Wrapper apiKey={apiKey}>
-                  <StationsMap
-                    center={{
-                      lat: station.AddressInfo.Latitude,
-                      lng: station.AddressInfo.Longitude,
-                    }}
-                    zoom={15}
-                    stations={[station]}
-                  />
-                </Wrapper>
-              </div>
-              <div className="nearby-containter">
-                <Nearby businesses={station.nearby} />
-              </div>
+                            <div className="google-map">
+                                <Wrapper apiKey={apiKey}>
+                                    <StationsMap
+                                        center={{
+                                            lat: station.AddressInfo.Latitude,
+                                            lng: station.AddressInfo.Longitude,
+                                        }}
+                                        zoom={15}
+                                        stations={[station]}
+                                    />
+                                </Wrapper>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                {station && (
+                    <div className="nearby-containter">
+                        <Nearby businesses={station.nearby} />
+                    </div>
+                )}
             </div>
-          )}
-        </div>
-      </>
+        </>
     );
 };
 

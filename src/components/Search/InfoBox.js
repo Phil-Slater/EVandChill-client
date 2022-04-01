@@ -1,65 +1,51 @@
-import React from "react";
-
-const InfoBox = ({ station }) => {
+const InfoBox = (station, index) => {
     const {
-        AccessComments: comments,
-        AddressLine1: address1,
-        AddressLine2: address2,
-        ContactEmail: email,
-        ContactTelephone1: phone,
-        Postcode: zip,
-        Town: city,
-        StateOrProvince: state,
-        Title: title,
-    } = station.AddressInfo;
-    const { Connections: connections } = station;
-    let connectionInfo = "No connection info available";
-    if (connections && connections.length > 0) {
-        const connectionsItems = connections.map((connection) => (
-            <li key={connection.ID}>{connection.ConnectionType.FormalName}</li>
-        ));
-        connectionInfo = <ul>{connectionsItems}</ul>;
-    }
-    const contactInfo =
-        email || phone ? (
-            <>
-                {phone && (
-                    <p>
-                        <b>Phone:</b> {phone}
-                    </p>
-                )}
-                {email && (
-                    <p>
-                        <b>Email:</b> {email}
-                    </p>
-                )}
-            </>
-        ) : (
-            "No Contact Information available"
-        );
+        operatingHours,
+        address,
+        cityStateZip,
+        supportEmail,
+        supportContact,
+        name,
+        plugTypes,
+    } = station;
 
-    return (
-        <div id="content">
-            <div id="siteNotice"></div>
+    let connectionInfo = "No connection info available";
+    if (plugTypes && plugTypes.length > 0) {
+        const connectionsItems = plugTypes.map(
+            (connection) =>
+                `<li key="${connection.speed}">${connection.type}</li>`
+        );
+        connectionInfo = `<ul>${connectionsItems.join("")}</ul>`;
+    }
+    let contactInfo = "No Contact Information available";
+    if (supportEmail || supportContact) {
+        const info = [];
+        if (supportContact) info.push(`<p><b>Phone:</b> ${supportContact}<p>`);
+        if (supportEmail) info.push(`<p><b>Email:</b> ${supportEmail}<p>`);
+        contactInfo = info.join("");
+    }
+
+    const hoursInfo = operatingHours
+        ? `<p>${operatingHours}</p>`
+        : "No information available";
+    return `<div id="content">
             <h1 id="firstHeading" className="firstHeading">
-                {title}
+                ${name}
             </h1>
             <div id="bodyContent">
-                <p>{address1}</p>
-                {address2 && <p>{address2}</p>}
+                <p>${address}</p>
                 <p>
-                    {city}, {state} {zip}
+                    ${cityStateZip}
                 </p>
                 <h3>Connection Info</h3>
-                {connectionInfo}
+                ${connectionInfo}
                 <h3>Contact Info</h3>
-                {contactInfo}
-                <h3>Comments</h3>
-                <p>{comments}</p>
-                <a href={`/station/${station.ID}`}>View All Details</a>
+                ${contactInfo}
+                <h3>Operating Hours</h3>                
+                ${hoursInfo}
+                <button onclick="new BroadcastChannel('google').postMessage(${index})">View Details</button>
             </div>
-        </div>
-    );
+        </div>`;
 };
 
 export default InfoBox;

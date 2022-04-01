@@ -8,6 +8,7 @@
     gap: 1rem;
     font-size: 0.8rem;
     align-items: center;
+    flex-direction: column;
 }
 
 .search-list-container {
@@ -20,13 +21,24 @@
 }
 
 .stations-container {
-    width: 20rem;
+    width: 100%;
+  /* width: 12rem; */
     height: 10rem;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     border-radius: 1rem;
     cursor: pointer;
+}
+
+.stations-container :is(p, h1, h2, h3) {
+    margin: 0;
+}
+
+.stations-container h3:is(h3) {
+    font-size: 1.1rem;
 }
 
 .search-map {
@@ -35,9 +47,23 @@
 }
 
 .search-results,
-.search-list-container,
 .stations-container,
 .search-map {
     border-radius: 1rem;
     box-shadow: 2px 2px 5px rgba(40, 40, 40, 0.6);
+}
+
+p {
+    width: 96%;
+    text-align: center;
+}
+
+.google-map {
+    width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+    .search-results {
+        flex-direction: row;
+    }
 }

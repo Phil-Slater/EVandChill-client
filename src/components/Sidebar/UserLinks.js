@@ -15,8 +15,6 @@ const UserLinks = ({ user }) => {
             <Link to={`/profile`}>
                 <h2>{user.username}</h2>
             </Link>
-            <Link to="/my-favorites">My Favorites</Link>
-            <Link to="/history">My Charging History</Link>
             <Link to="/reviews">My Reviews</Link>
             <button className="sidebar-logout" onClick={handleLogout}>
                 Log Out
