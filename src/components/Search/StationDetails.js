@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
     getStationDetails,
     getFavorites,
@@ -28,6 +28,7 @@ const StationDetails = () => {
         if (user) {
             getUserFavorties();
         }
+        console.log('STATION', station)
     }, [station]);
 
     const getUserFavorties = async () => {
@@ -79,6 +80,7 @@ const StationDetails = () => {
         }
     };
 
+
     return (
       <>
         <div className="details">
@@ -118,7 +120,16 @@ const StationDetails = () => {
                 <div>
                   <h3>Plugs:</h3>
                   {connections}
-                  <button>Leave a Review</button>
+                  <Link to={`/${station.ID}/add-review`}>Add Reveiew</Link>
+                </div>
+                <div>
+                    {/* <h3>Reviews:</h3>
+                    {station.reviews.map((review) =>
+                    <div>
+                        <h4> {review.rating}</h4>
+                        <p>{review.review}</p>
+                        <p>{review.isWorking}</p>
+                        </div>)} */}
                 </div>
                 <Wrapper apiKey={apiKey}>
                   <StationsMap
