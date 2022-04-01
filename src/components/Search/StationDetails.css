@@ -13,7 +13,7 @@
 .plug-container {
     width: 20rem;
     height: 10rem;
-    padding: .5rem;
+    padding: 0.5rem;
     border-radius: 1em;
     font-size: 1rem;
 }
@@ -33,11 +33,11 @@
     cursor: pointer;
 }
 
-.nearby-containter{
+.nearby-containter {
     align-items: center;
     margin-bottom: 2em;
     overflow-x: auto;
-    width: 96vw;
+    width: 96%;
 }
 
 .nearby-food,
@@ -50,7 +50,6 @@
     padding: 1em;
     border-radius: 6px;
     border: solid 2px black;
-  
 }
 
 .business-container {
@@ -61,7 +60,6 @@
     border-radius: 6px;
     overflow-x: auto;
     width: 96vw;
-   
 }
 
 .business-details-container {
