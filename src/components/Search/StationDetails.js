@@ -69,7 +69,7 @@ const StationDetails = () => {
             const res = await postFavorite(
                 user.username,
                 station.externalId,
-                station.name,
+                station.AddressInfo.Title,
                 address
             );
             if (res) {
@@ -122,6 +122,7 @@ const StationDetails = () => {
                             <div>
                                 <h3>Plugs:</h3>
                                 {connections}
+
                                 <Link to={`/${station.externalId}/add-review`}>
                                     Add Reveiew
                                 </Link>
