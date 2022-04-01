@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { renderToString } from "react-dom/server";
 import InfoBox from "./InfoBox";
 
-const MapMarker = ({ station, map, position, icon }) => {
+const MapMarker = ({ station, map, position, icon, index }) => {
     const [marker, setMarker] = useState();
     const options = { map, position, icon };
 
@@ -11,7 +10,7 @@ const MapMarker = ({ station, map, position, icon }) => {
             setMarker(new window.google.maps.Marker(options));
         } else if (marker && station) {
             const infoWindow = new window.google.maps.InfoWindow({
-                content: renderToString(<InfoBox station={station} />),
+                content: InfoBox(station, index),
             });
             marker.addListener("click", () => {
                 infoWindow.open({
