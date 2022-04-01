@@ -8,14 +8,18 @@
     gap: 1rem;
     font-size: 0.8rem;
     align-items: center;
+    flex-direction: column;
 }
 
 .plug-container {
-    width: 20rem;
-    height: 10rem;
-    padding: 0.5rem;
-    border-radius: 1em;
+    padding: 0.25rem;
+    padding-left: 0.5rem;
     font-size: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    margin-bottom: 2em;
+    overflow-x: auto;
+    width: 100%;
 }
 
 .search-results h3 {
@@ -70,4 +74,31 @@
     padding: 1em;
     border-radius: 6px;
     border: solid 2px black;
+}
+
+.google-map {
+    width: 100%;
+}
+
+
+
+@media only screen and (min-width: 768px) {
+    .plug-map-container {
+        flex-direction: row;
+    }
+
+    .plug-container {
+        width: 10rem;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .plug-map-container {
+        flex-direction: row;
+    }
+
+    .plug-container {
+        flex-direction: column;
+        width: 20rem;
+    }
 }

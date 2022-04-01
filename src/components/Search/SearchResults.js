@@ -58,14 +58,16 @@ const SearchResults = () => {
             <h1>Search Results</h1>
             <div className="search-results">
                 <div className="search-list-container">{stationItems}</div>
-                <Wrapper apiKey={apiKey}>
-                    <StationsMap
-                        center={center}
-                        searchLocation={location}
-                        zoom={zoom}
-                        stations={stations}
-                    />
-                </Wrapper>
+                <div className="google-map">
+                    <Wrapper apiKey={apiKey}>
+                        <StationsMap
+                            center={center}
+                            searchLocation={location}
+                            zoom={zoom}
+                            stations={stations}
+                        />
+                    </Wrapper>
+                </div>
             </div>
         </div>
     );
