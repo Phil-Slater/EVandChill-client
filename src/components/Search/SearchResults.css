@@ -20,13 +20,23 @@
 }
 
 .stations-container {
-    width: 20rem;
+    width: 12rem;
     height: 10rem;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     border-radius: 1rem;
     cursor: pointer;
+}
+
+.stations-container :is(p, h1, h2, h3) {
+    margin: 0;
+}
+
+.stations-container h3:is(h3) {
+    font-size: 1.1rem;
 }
 
 .search-map {
