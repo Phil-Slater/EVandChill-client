@@ -25,7 +25,7 @@ const StationsMap = ({ center, zoom, stations, searchLocation }) => {
                 JSON.stringify(station) !== JSON.stringify(stations[index])
             ) {
                 dispatch(setStation(stations[index]));
-                navigate(`/station/${stations[index].ID}`);
+                navigate(`/station/${stations[index].externalId}`);
             }
         };
     }, []);

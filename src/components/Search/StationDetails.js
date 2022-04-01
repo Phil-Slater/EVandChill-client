@@ -28,7 +28,7 @@ const StationDetails = () => {
         const favorites = await getFavorites(user);
         station &&
             favorites.forEach((favorite) => {
-                if (favorite.stationId === station.ID) {
+                if (favorite.stationId === station.externalId) {
                     console.log("in favorites");
                     setIsFavorite(true);
                 } else {
@@ -57,7 +57,7 @@ const StationDetails = () => {
         console.log("favorite click");
         if (isFavorite && user.username) {
             // delete the favorite
-            const res = await deleteRemoveFavorite(user.username, station.ID);
+            const res = await deleteRemoveFavorite(user.username, station.externalId);
             console.log(res);
             if (res) {
                 console.log("responded, deleted");
@@ -69,7 +69,7 @@ const StationDetails = () => {
             const res = await postFavorite(
                 user.username,
                 station.externalId,
-                station.name,
+                station.AddressInfo.Title,
                 address
             );
             if (res) {
@@ -122,19 +122,9 @@ const StationDetails = () => {
                             <div>
                                 <h3>Plugs:</h3>
                                 {connections}
-                                <Link to={`/${station.ID}/add-review`}>
-                                    Add Reveiew
-                                </Link>
-                            </div>
-                            <div>
-                                {/* <h3>Reviews:</h3>
-                    {station.reviews.map((review) =>
-                    <div>
-                        <h4> {review.rating}</h4>
-                        <p>{review.review}</p>
-                        <p>{review.isWorking}</p>
-                        </div>)} */}
-                            </div>
+                             <Link to={`/${station.externalId}/add-review`}>Add Reveiew</Link>
+                </div>
+  
                             <div className="google-map">
                                 <Wrapper apiKey={apiKey}>
                                     <StationsMap

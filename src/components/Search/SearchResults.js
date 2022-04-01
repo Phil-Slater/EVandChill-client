@@ -27,7 +27,7 @@ const SearchResults = () => {
         return (
             <div
                 className="stations-container"
-                key={station.ID}
+                key={station.externalId}
                 onClick={handleClick}
             >
                 <h3>
