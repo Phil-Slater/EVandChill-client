@@ -18,9 +18,6 @@ const Sidebar = () => {
                 <Link to="/stations">Stations Near Me</Link>
                 {user.username ? <UserLinks user={user} /> : <UserlessLinks />}
                 <hr />
-                <Link to="/settings" className="sidebar-settings">
-                    Settings
-                </Link>
 
                 <div className="sidebar-footer">
                     <p>Created March 2022</p>

@@ -140,9 +140,11 @@ const StationDetails = () => {
                         </div>
                     </div>
                 )}
-                {station && <div className="nearby-containter">
-                    <Nearby businesses={station.nearby} />
-                </div>}
+                {station && (
+                    <div className="nearby-containter">
+                        <Nearby businesses={station.nearby} />
+                    </div>
+                )}
             </div>
         </>
     );

@@ -20,21 +20,19 @@ const StationsMap = ({ center, zoom, stations, searchLocation }) => {
         bc.onmessage = (e) => {
             bc.close();
             const index = e.data;
-            console.log(e);
             if (
                 stations[index] &&
                 JSON.stringify(station) !== JSON.stringify(stations[index])
             ) {
                 dispatch(setStation(stations[index]));
                 navigate(`/station/${stations[index].ID}`);
-                bc.close();
             }
         };
     }, []);
 
     if (map && stations.length !== 1) {
         markerItems = stations.map((station, index) => {
-            const { Latitude: lat, Longitude: lng } = station.AddressInfo;
+            const { latitude: lat, longitude: lng } = station;
             return (
                 <MapMarker
                     key={index}

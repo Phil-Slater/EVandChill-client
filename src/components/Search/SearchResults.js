@@ -19,17 +19,9 @@ const SearchResults = () => {
     const [center, setCenter] = useState(location);
     const [zoom, setZoom] = useState(12);
     const stationItems = stations.map((station) => {
-        const {
-            Title,
-            AddressLine1,
-            Town,
-            StateOrProvince,
-            Postcode,
-            Latitude,
-            Longitude,
-        } = station.AddressInfo;
+        const { name, address, cityStateZip, latitude, longitude } = station;
         const handleClick = () => {
-            setCenter({ lat: Latitude, lng: Longitude });
+            setCenter({ lat: latitude, lng: longitude });
             setZoom(16);
         };
         return (
@@ -38,17 +30,18 @@ const SearchResults = () => {
                 key={station.ID}
                 onClick={handleClick}
             >
-                <p>{Title}</p>
-                <p>
-                    {AddressLine1} {Town}, {StateOrProvince} {Postcode}
-                </p>
+                <h3>
+                    <b>{name}</b>
+                </h3>
+                <p>{address}</p>
+                <p>{cityStateZip}</p>
                 <p>
                     Distance:{" "}
                     {calculateDistance(
                         location.lat,
                         location.lng,
-                        Latitude,
-                        Longitude
+                        latitude,
+                        longitude
                     )}{" "}
                     miles
                 </p>
