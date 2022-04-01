@@ -24,7 +24,7 @@
 }
 
 .sidebar-menu.active .sidebar-menu-inner {
-    width: 16rem;
+    width: 18rem;
 }
 
 .sidebar-menu hr {
@@ -59,11 +59,8 @@
     box-shadow: 1px 1px 10px black;
 }
 
-.sidebar-settings {
-    margin-top: auto;
-}
 .sidebar-footer {
-    margin-top: 0.25rem;
+    margin-top: auto;
     display: flex;
     font-size: 0.8rem;
     width: 75%;
