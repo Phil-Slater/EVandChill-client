@@ -1,50 +1,48 @@
 const InfoBox = (station, index) => {
     const {
-        AccessComments: comments,
-        AddressLine1: address1,
-        AddressLine2: address2,
-        ContactEmail: email,
-        ContactTelephone1: phone,
-        Postcode: zip,
-        Town: city,
-        StateOrProvince: state,
-        Title: title,
-    } = station.AddressInfo;
-    const { Connections: connections } = station;
+        operatingHours,
+        address,
+        cityStateZip,
+        supportEmail,
+        supportContact,
+        name,
+        plugTypes,
+    } = station;
+
     let connectionInfo = "No connection info available";
-    if (connections && connections.length > 0) {
-        const connectionsItems = connections.map(
+    if (plugTypes && plugTypes.length > 0) {
+        const connectionsItems = plugTypes.map(
             (connection) =>
-                `<li key="${connection.ID}">${connection.ConnectionType.FormalName}</li>`
+                `<li key="${connection.speed}">${connection.type}</li>`
         );
         connectionInfo = `<ul>${connectionsItems.join("")}</ul>`;
     }
     let contactInfo = "No Contact Information available";
-    if (email || phone) {
+    if (supportEmail || supportContact) {
         const info = [];
-        if (phone) info.push(`<p><b>Phone:</b> ${phone}<p>`);
-        if (email) info.push(`<p><b>Email:</b> ${email}<p>`);
+        if (supportContact) info.push(`<p><b>Phone:</b> ${supportContact}<p>`);
+        if (supportEmail) info.push(`<p><b>Email:</b> ${supportEmail}<p>`);
         contactInfo = info.join("");
     }
 
-    const address2Info = address2 ? `<p>${address2}</p>` : "";
-    const commentsInfo = comments ? `<p>${comments}</p>` : "";
+    const hoursInfo = operatingHours
+        ? `<p>${operatingHours}</p>`
+        : "No information available";
     return `<div id="content">
             <h1 id="firstHeading" className="firstHeading">
-                ${title}
+                ${name}
             </h1>
             <div id="bodyContent">
-                <p>${address1}</p>
-                ${address2Info}
+                <p>${address}</p>
                 <p>
-                    ${city}, ${state} ${zip}
+                    ${cityStateZip}
                 </p>
                 <h3>Connection Info</h3>
                 ${connectionInfo}
                 <h3>Contact Info</h3>
                 ${contactInfo}
-                <h3>Comments</h3>                
-                ${commentsInfo}
+                <h3>Operating Hours</h3>                
+                ${hoursInfo}
                 <button onclick="new BroadcastChannel('google').postMessage(${index})">View Details</button>
             </div>
         </div>`;
