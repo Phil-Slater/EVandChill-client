@@ -28,7 +28,7 @@ const StationDetails = () => {
         const favorites = await getFavorites(user);
         station &&
             favorites.forEach((favorite) => {
-                if (favorite.stationId === station.ID) {
+                if (favorite.stationId === station.externalId) {
                     console.log("in favorites");
                     setIsFavorite(true);
                 } else {
@@ -57,7 +57,7 @@ const StationDetails = () => {
         console.log("favorite click");
         if (isFavorite && user.username) {
             // delete the favorite
-            const res = await deleteRemoveFavorite(user.username, station.ID);
+            const res = await deleteRemoveFavorite(user.username, station.externalId);
             console.log(res);
             if (res) {
                 console.log("responded, deleted");
@@ -122,7 +122,7 @@ const StationDetails = () => {
                             <div>
                                 <h3>Plugs:</h3>
                                 {connections}
-                                <Link to={`/${station.ID}/add-review`}>
+                                <Link to={`/${station.externalId}/add-review`}>
                                     Add Reveiew
                                 </Link>
                             </div>
