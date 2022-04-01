@@ -36,11 +36,11 @@ const StationDetails = () => {
                 }
             });
     };
+
     const handleGetStation = async () => {
-        console.log(params.id)
         station = await getStationDetails(params.id);
     };
-    console.log(station)
+
     const connections =
         station &&
         station.plugTypes.map((plug, index) => {
@@ -105,8 +105,7 @@ const StationDetails = () => {
                     <div>
                         <h2>{station.name}</h2>
                         <h3>
-                            Address: {station.address}{" "}
-                            {station.cityStateZip}
+                            Address: {station.address} {station.cityStateZip}
                         </h3>
                         <h3>
                             Hours:{" "}
@@ -123,17 +122,19 @@ const StationDetails = () => {
                             <div>
                                 <h3>Plugs:</h3>
                                 {connections}
-                             <Link to={`/${station.ID}/add-review`}>Add Reveiew</Link>
-                </div>
-                <div>
-                    {/* <h3>Reviews:</h3>
+                                <Link to={`/${station.ID}/add-review`}>
+                                    Add Reveiew
+                                </Link>
+                            </div>
+                            <div>
+                                {/* <h3>Reviews:</h3>
                     {station.reviews.map((review) =>
                     <div>
                         <h4> {review.rating}</h4>
                         <p>{review.review}</p>
                         <p>{review.isWorking}</p>
                         </div>)} */}
-                </div>
+                            </div>
                             <div className="google-map">
                                 <Wrapper apiKey={apiKey}>
                                     <StationsMap
