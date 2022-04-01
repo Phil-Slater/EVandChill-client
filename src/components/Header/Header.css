@@ -87,4 +87,13 @@
     .header-search {
         flex-direction: row;
     }
+    .header-search-box input {
+        width: 15rem;
+        font-size: 1rem;
+    }
+
+    .header-search-box button {
+        padding: 0 1rem;
+        font-size: 1rem;
+    }
 }

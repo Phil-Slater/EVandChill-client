@@ -22,7 +22,7 @@
 
 .stations-container {
     width: 100%;
-  /* width: 12rem; */
+    /* width: 12rem; */
     height: 10rem;
     display: flex;
     flex-direction: column;
@@ -53,7 +53,7 @@
     box-shadow: 2px 2px 5px rgba(40, 40, 40, 0.6);
 }
 
-p {
+.search-page p {
     width: 96%;
     text-align: center;
 }

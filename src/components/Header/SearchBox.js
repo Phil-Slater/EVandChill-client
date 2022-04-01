@@ -13,6 +13,10 @@ const SearchBox = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
 
+    const isDisabled =
+        searchType === null ||
+        (searchTerm === "" && ["zip", "city"].includes(searchType));
+
     const dropdownOptions = [
         {
             value: "current",
@@ -80,7 +84,12 @@ const SearchBox = () => {
                         onChange={handleTermChange}
                     />
                 )}
-                <button onClick={() => handleSearchClicked()}>Search</button>
+                <button
+                    onClick={() => handleSearchClicked()}
+                    disabled={isDisabled}
+                >
+                    Search
+                </button>
             </div>
         </div>
     );
