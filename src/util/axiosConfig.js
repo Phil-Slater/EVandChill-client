@@ -8,6 +8,7 @@ import {
     axiosRequestSent,
     axiosResponseReceived,
     setStation,
+    setAmenities,
 } from "../store/actions/actionCreators";
 import store from "../store/store";
 import getCurrentLocation from "./getCurrentLocation";
@@ -275,9 +276,18 @@ export const getStationDetails = async (stationId) => {
     try {
         const response = await apiAxios.get(`/station/id/${stationId}`);
         store.dispatch(setStation(response.data));
-        console.log("DETAILS RESPONSE", response.data);
-        // return response.data;
     } catch {
         store.dispatch(addError("Unable to get station details"));
+    }
+};
+
+export const getStationAmenities = async (stationId) => {
+    try {
+        const response = await apiAxios.get(
+            `/station/id/${stationId}/amenities`
+        );
+        store.dispatch(setAmenities(response.data));
+    } catch {
+        store.dispatch(addError("Unable to retrieve nearby amenities"));
     }
 };
