@@ -8,7 +8,7 @@
     background-color: var(--color-primary-lightest);
 }
 
-.header a > img {
+.header a>img {
     height: 50px;
 }
 
@@ -23,7 +23,7 @@
     flex-grow: 4;
 }
 
-.header-search-box > * {
+.header-search-box>* {
     padding: 0;
     margin: 0;
 }
@@ -52,6 +52,11 @@
 .header-search-box button:active {
     box-shadow: 1px 1px 7px black;
     background-color: var(--color-accent-dark);
+}
+
+.header-search-box button:disabled {
+    opacity: 50%;
+    background-color: rgb(187, 187, 187);
 }
 
 .menu-button {
@@ -87,6 +92,7 @@
     .header-search {
         flex-direction: row;
     }
+
     .header-search-box input {
         width: 15rem;
         font-size: 1rem;
