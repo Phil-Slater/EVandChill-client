@@ -70,5 +70,11 @@ export const setStation = (station) => {
         type: actionTypes.SET_STATION,
         payload: station,
     };
-}
-    ;
+};
+
+export const setAmenities = (amenties) => {
+    return {
+        type: actionTypes.SET_AMENITIES,
+        payload: amenties,
+    };
+};
