@@ -7,7 +7,7 @@ import "./StationDetails.css";
 const Nearby = ({businesses}) => {
 const [nearbyBusinesses, setNearbyBusinesses] = useState({
   restaurants: [],
-  theaters: [],
+  entertainment: [],
   stores: [],
 });
 
@@ -58,7 +58,7 @@ const getDollarSigns=(level) => {
             <div className="nearby-entertainment">
               <h2>Nearby Entertainment</h2>
               <div className="business-container">
-                {nearbyBusinesses.theaters.map((business) => (
+                {nearbyBusinesses.entertainment.map((business) => (
                   <div
                     className="business-details-container"
                     key={business.place_id}

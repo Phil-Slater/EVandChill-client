@@ -59,6 +59,7 @@
 .business-container {
     display: flex;
     column-gap: 1em;
+    flex-wrap: wrap;
     width: fit-content;
     padding: 1em;
     border-radius: 6px;
