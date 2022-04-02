@@ -72,7 +72,7 @@ const StationDetails = () => {
             const res = await postFavorite(
                 user.username,
                 station.externalId,
-                station.AddressInfo.Title,
+                station.name,
                 address
             );
             if (res) {
