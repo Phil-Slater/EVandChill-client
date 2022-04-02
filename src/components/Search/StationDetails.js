@@ -86,6 +86,7 @@ const StationDetails = () => {
         if (station && user.username) {
             getUserFavorties();
         }
+        console.log("STATION", station)
     }, [station]);
 
     return (
@@ -153,7 +154,7 @@ const StationDetails = () => {
                 )}
                 {station && (
                     <div className="nearby-containter">
-                        <Nearby businesses={station.nearby} />
+                        <Nearby businesses={station.amenities} />
                     </div>
                 )}
             </div>
