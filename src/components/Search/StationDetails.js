@@ -87,7 +87,7 @@ const StationDetails = () => {
             getUserFavorties();
         }
     }, [station]);
-
+    console.log(station)
     return (
         <>
             <div className="details">
