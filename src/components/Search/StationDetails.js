@@ -48,7 +48,7 @@ const StationDetails = () => {
                 <div key={index} className="plug-container">
                     <h4>{plug.type}</h4>
                     <p>Speed: {plug.speed}</p>
-                    <p>Quantity: {plug.Quantity}</p>
+                    <p>Quantity: {plug.quantity}</p>
                 </div>
             );
         });
@@ -57,7 +57,10 @@ const StationDetails = () => {
         console.log("favorite click");
         if (isFavorite && user.username) {
             // delete the favorite
-            const res = await deleteRemoveFavorite(user.username, station.externalId);
+            const res = await deleteRemoveFavorite(
+                user.username,
+                station.externalId
+            );
             console.log(res);
             if (res) {
                 console.log("responded, deleted");
