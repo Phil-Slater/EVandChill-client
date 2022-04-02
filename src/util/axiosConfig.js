@@ -275,7 +275,8 @@ export const getStationDetails = async (stationId) => {
     try {
         const response = await apiAxios.get(`/station/id/${stationId}`);
         store.dispatch(setStation(response.data));
-        return response.data;
+        console.log("DETAILS RESPONSE", response.data);
+        // return response.data;
     } catch {
         store.dispatch(addError("Unable to get station details"));
     }

@@ -48,7 +48,7 @@ const StationDetails = () => {
                 <div key={index} className="plug-container">
                     <h4>{plug.type}</h4>
                     <p>Speed: {plug.speed}</p>
-                    <p>Quantity: {plug.Quantity}</p>
+                    <p>Quantity: {plug.quantity}</p>
                 </div>
             );
         });
@@ -57,7 +57,10 @@ const StationDetails = () => {
         console.log("favorite click");
         if (isFavorite && user.username) {
             // delete the favorite
-            const res = await deleteRemoveFavorite(user.username, station.externalId);
+            const res = await deleteRemoveFavorite(
+                user.username,
+                station.externalId
+            );
             console.log(res);
             if (res) {
                 console.log("responded, deleted");
@@ -69,7 +72,7 @@ const StationDetails = () => {
             const res = await postFavorite(
                 user.username,
                 station.externalId,
-                station.name,
+                station.AddressInfo.Title,
                 address
             );
             if (res) {
@@ -86,6 +89,7 @@ const StationDetails = () => {
         if (station && user.username) {
             getUserFavorties();
         }
+        console.log("STATION", station)
     }, [station]);
     console.log(station)
     return (
@@ -122,6 +126,7 @@ const StationDetails = () => {
                             <div>
                                 <h3>Plugs:</h3>
                                 {connections}
+
                                 <Link to={`/${station.externalId}/add-review`}>
                                     Add Reveiew
                                 </Link>
@@ -152,7 +157,7 @@ const StationDetails = () => {
                 )}
                 {station && (
                     <div className="nearby-containter">
-                        <Nearby businesses={station.nearby} />
+                        <Nearby businesses={station.amenities} />
                     </div>
                 )}
             </div>
