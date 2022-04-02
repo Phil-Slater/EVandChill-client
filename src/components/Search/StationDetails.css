@@ -4,11 +4,12 @@
 
 .plug-map-container {
     display: flex;
-    padding: 0.5rem 1rem;
+    padding: 1rem;
     gap: 1rem;
     font-size: 0.8rem;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 1rem;
 }
 
 .plug-container {
@@ -27,7 +28,11 @@
 }
 
 .plug-map-container,
-.plug-container {
+.plug-container,
+.nearby-food,
+.nearby-entertainment,
+.nearby-stores,
+.business-details-container {
     border-radius: 1rem;
     box-shadow: 2px 2px 5px rgba(40, 40, 40, 0.6);
 }
@@ -40,8 +45,6 @@
 .nearby-containter {
     align-items: center;
     margin-bottom: 2em;
-    overflow-x: auto;
-    width: 96%;
 }
 
 .nearby-food,
@@ -49,31 +52,26 @@
 .nearby-stores {
     display: flex;
     flex-direction: column;
-    column-gap: 1em;
-    width: fit-content;
     padding: 1em;
-    border-radius: 6px;
-    border: solid 2px black;
+    margin-top: 1rem;
+    align-items: center;
 }
 
 .business-container {
     display: flex;
     column-gap: 1em;
     flex-wrap: wrap;
-    width: fit-content;
     padding: 1em;
-    border-radius: 6px;
-    overflow-x: auto;
-    width: 96vw;
+    justify-content: center;
 }
 
 .business-details-container {
+    width: 10rem;
     display: flex;
     flex-direction: column;
     column-gap: 1em;
-    padding: 1em;
-    border-radius: 6px;
-    border: solid 2px black;
+    padding: 0em 0.5em;
+    margin-bottom: 1rem;
 }
 
 .google-map {
@@ -89,6 +87,10 @@
 
     .plug-container {
         width: 10rem;
+    }
+
+    .business-container {
+        justify-content: flex-start;
     }
 }
 
