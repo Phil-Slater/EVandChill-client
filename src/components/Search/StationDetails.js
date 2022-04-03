@@ -140,11 +140,11 @@ const StationDetails = () => {
                                 {connections}
 
                                 <Link to={`/${station.externalId}/add-review`}>
-                                    Add Reveiew
+                                    Add Review
                                 </Link>
                             </div>
-                            
-                            <Reviews reviews={station.reviews}/>
+
+                            <Reviews reviews={station.reviews} />
 
                             <div className="google-map">
                                 <Wrapper apiKey={apiKey}>
