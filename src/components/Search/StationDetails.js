@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -14,11 +14,13 @@ import StationsMap from "./StationsMap";
 import Nearby from "./Nearby";
 import "./StationDetails.css";
 import Reviews from "../Profile/Reviews";
+import { setStation } from "../../store/actions/actionCreators";
 const favorite = require("./images/favorite.png");
 const unfavorite = require("./images/unfavorite.png");
 
 const StationDetails = () => {
     const [isFavorite, setIsFavorite] = useState(false);
+    const dispatch = useDispatch();
 
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const params = useParams();
@@ -94,6 +96,10 @@ const StationDetails = () => {
         ) {
             handleGetAmenities();
         }
+
+        return function cleanup() {
+            dispatch(setStation(null));
+        };
     }, []);
 
     useEffect(() => {
