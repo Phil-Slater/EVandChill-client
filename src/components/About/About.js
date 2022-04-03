@@ -29,6 +29,7 @@ const About = () => {
             tasks: [
                 "Project Structure and Refactors",
                 "Logo Design, CSS Theme, Animations",
+                "External Result Caching",
                 "Automated Continuous Deployment",
             ],
         },
@@ -38,7 +39,8 @@ const About = () => {
             tasks: [
                 "User Authentication",
                 "Profile Page and Routes",
-                "Favorites Implementation",
+                "Favorites and Reviews Implementation",
+                "Nearby amenities Implementation",
             ],
         },
         {
@@ -48,6 +50,7 @@ const About = () => {
                 "External API Research",
                 "Station Model Implementation",
                 "Station Routes Implementation",
+                "CSS Responsive Fixes",
             ],
         },
     ];
@@ -81,7 +84,7 @@ const About = () => {
         <div className="about">
             <h1>About the Creators</h1>
             <p>
-                We are three junior developers with a passion for technology and
+                We are three developers with a passion for technology and
                 planning sub-details for trips. This project is birthed from the
                 knowledge that charging electric vehicles take time to charge
                 before making the next leg on a trip. Together, we have crafted
