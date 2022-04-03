@@ -7,6 +7,7 @@ import {
     getFavorites,
     deleteRemoveFavorite,
     postFavorite,
+    getStationAmenities,
 } from "../../util/axiosConfig";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import StationsMap from "./StationsMap";
@@ -39,7 +40,11 @@ const StationDetails = () => {
     };
 
     const handleGetStation = async () => {
-        station = await getStationDetails(params.id);
+        await getStationDetails(params.id);
+    };
+
+    const handleGetAmenities = async () => {
+        await getStationAmenities(params.id);
     };
 
     const connections =
@@ -49,7 +54,7 @@ const StationDetails = () => {
                 <div key={index} className="plug-container">
                     <h4>{plug.type}</h4>
                     <p>Speed: {plug.speed}</p>
-                    <p>Quantity: {plug.Quantity}</p>
+                    <p>Quantity: {plug.quantity}</p>
                 </div>
             );
         });
@@ -58,7 +63,10 @@ const StationDetails = () => {
         console.log("favorite click");
         if (isFavorite && user.username) {
             // delete the favorite
-            const res = await deleteRemoveFavorite(user.username, station.externalId);
+            const res = await deleteRemoveFavorite(
+                user.username,
+                station.externalId
+            );
             console.log(res);
             if (res) {
                 console.log("responded, deleted");
@@ -70,7 +78,7 @@ const StationDetails = () => {
             const res = await postFavorite(
                 user.username,
                 station.externalId,
-                station.AddressInfo.Title,
+                station.name,
                 address
             );
             if (res) {
@@ -83,12 +91,18 @@ const StationDetails = () => {
     useEffect(() => {
         if (!station) {
             handleGetStation();
+            // 2073600000 ms in a day
+        } else if (
+            !station.amenities.lastUpdated ||
+            Date.now() - station.amenities.lastUpdated > 2073600000
+        ) {
+            handleGetAmenities();
         }
+
         if (station && user.username) {
             getUserFavorties();
         }
-        console.log("STATION", station)
-    }, [station]);
+    }, []);
 
     return (
         <>

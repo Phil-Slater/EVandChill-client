@@ -18,7 +18,7 @@ function Favorites() {
             <NavLink to={`/station/${favorite.stationId}`}><p>{favorite.title}</p></NavLink>
             <p>{favorite.address}</p>
             <button
-                onClick={() => handleRemove(user._id, favorite._id)}
+                onClick={() => handleRemove(user.id, favorite._id)}
                 className="profile-review-update">
                 Remove
             </button>

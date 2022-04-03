@@ -10,13 +10,21 @@ const stationsReducer = (state = initialState, action) => {
         case actionTypes.SET_STATIONS:
             return {
                 ...state,
-                stations: action.payload
+                stations: action.payload,
             };
         case actionTypes.SET_STATION:
             return {
                 ...state,
-                station: action.payload
-            }
+                station: action.payload,
+            };
+        case actionTypes.SET_AMENITIES:
+            return {
+                ...state,
+                station: {
+                    ...state.station,
+                    amenities: action.payload,
+                },
+            };
         default:
             return state;
     }

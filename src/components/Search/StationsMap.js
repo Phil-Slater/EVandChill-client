@@ -60,12 +60,13 @@ const StationsMap = ({ center, zoom, stations, searchLocation }) => {
         map.setCenter(center);
         map.setZoom(zoom);
     }
+
     return (
         <div ref={mapRef} className="search-map">
             {markerItems}
             {map && (
                 <MapMarker
-                    position={searchLocation}
+                    position={searchLocation || { lat: station.latitude, lng: station.longitude }}
                     map={map}
                     icon={CenterIcon}
                 />
