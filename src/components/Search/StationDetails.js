@@ -25,6 +25,7 @@ const StationDetails = () => {
 
     let station = useSelector((state) => state.stations.station);
     let user = useSelector((state) => state.auth.user);
+console.log("STATION", station)
 
     const getUserFavorties = async () => {
         const favorites = await getFavorites(user);
@@ -143,9 +144,9 @@ const StationDetails = () => {
                                     Add Reveiew
                                 </Link>
                             </div>
-                            
-                            <Reviews reviews={station.reviews}/>
-
+                            <div>
+                                <Reviews reviews={station.reviews}/>
+                            </div>
                             <div className="google-map">
                                 <Wrapper apiKey={apiKey}>
                                     <StationsMap
