@@ -153,6 +153,19 @@ export const postStationsByCity = async (cityState) => {
     }
 };
 
+export const getProfile = async (username) => {
+    try {
+        const response = await apiAxios.get(`/profile/${username}`);
+        if (response.data.success) {
+            store.dispatch(setUser(response.data.user));
+        } else {
+            throw new Error();
+        }
+    } catch {
+        store.dispatch(addError("Unable to get profile info"));
+    }
+};
+
 export const getFavorites = async (user) => {
     const { username } = user;
     try {
@@ -252,21 +265,21 @@ export const postAddReview = async ({
 };
 
 export const removeReview = async (data) => {
-  try {
-    const response = await apiAxios.delete("/profile/reviews", {
-      data: {
-        userId: data.userId,
-        stationId: data.stationId,
-        reviewId: data.reviewId,
-      },
-    });
-    if (response.data.userSuccess) {
-      store.dispatch(deleteReview(data.reviewId));
-      return { success: true };
+    try {
+        const response = await apiAxios.delete("/profile/reviews", {
+            data: {
+                userId: data.userId,
+                stationId: data.stationId,
+                reviewId: data.reviewId,
+            },
+        });
+        if (response.data.userSuccess) {
+            store.dispatch(deleteReview(data.reviewId));
+            return { success: true };
+        }
+    } catch {
+        store.dispatch(addError("Unable to remove favorite"));
     }
-  } catch {
-    store.dispatch(addError("Unable to remove favorite"));
-  }
 };
 
 // export const getUserReviews = async (user) => {
@@ -293,7 +306,6 @@ export const removeReview = async (data) => {
 //         store.dispatch(addError("Unable to load favorites"));
 //     }
 // };
-
 
 export const getStationDetails = async (stationId) => {
     try {
