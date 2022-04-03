@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# EV and Chill: client
+[Link to EV and Chill server repository](https://github.com/jon-cundiff/EVandChill-server)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Purpose of the app:
 
-## Available Scripts
+Allows users to find electric vehicle charging stations nearby or along their road trip route by searching for a city/zip code. Because of the time involved with charging an electric vehicle, our app also provides recommendations for nearby food, entertainment, and stores.
 
-In the project directory, you can run:
+## How to use:
 
-### `npm start`
+### Perform a search:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Search by location, zip code, or city/state (allow location access if searching by location)
+- Search can be performed in the top menu or in the hamburger menu (select Stations Near Me)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Search Results Page
 
-### `npm test`
+This page displays a list of stations sorted by distance and a Google map showing the position of individual charging stations. The location of your search is denoted by the red crosshair in the middle of the map.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Search results are stored in the database and if the requested search is less than 24 hours old, the results will be pulled from our database. If the search parameters are older than 24 hours or not in the database, the [Open Charge Map API](https://openchargemap.org/site/develop/api#/) will be called. 
 
-### `npm run build`
+Select a station from the list to zoom in on its location. The station icon can then be selected to view basic information about the station such as station title, address, type of connections, contact information, and operating hours. To view more information about a station, click the View Details button.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Station Details Page
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The station details page displays more in-depth inofrmation about a charging station specifically regarding plug types and speed. Users can also add a station to their list of favorites (click the heart icon next to the station title) or leave a review about the station to help inform users whether or not a station is operational. Note that you must be registered and logged in to add a favorite or review. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Below the station details and map section, a list of businesses near the stations are displayed. The businesses are separated into three categories: food, entertainment, and stores. Select a business to be redirected to its Google maps page. 
 
-### `npm run eject`
+#### Registration and Login
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Users can create an account with a username, email address, and password. Upon registration and login, users can add stations to their favorites list and add station reviews. A guest login is also implemented with sample favorites and reviews. 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Live link:  
+https://evandchill.pages.dev/
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Featured technologies: 
+React, Redux, node.js, Express, MongoDB, mongoose, axios, jsonwebtoken, bcrypt
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## External API:
+[Open Charge Map](https://openchargemap.org/site/develop/api#/)
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## This site was built by
+[Jon Cundiff](https://github.com/jon-cundiff), [Phil Slater](https://github.com/Phil-Slater), [Katie Freeman](https://github.com/katie-freeman)
