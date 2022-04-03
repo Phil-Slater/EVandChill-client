@@ -19,6 +19,7 @@ import Spinner from "./components/common/Spinner";
 import StationDetails from "./components/Search/StationDetails";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import AddReviews from "./components/Search/AddReview";
+import MyReviews from "./components/Profile/MyReviews";
 
 function App() {
     const dispatch = useDispatch();
@@ -57,7 +58,6 @@ function App() {
                         onExit={resetErrors}
                     >
                         <PageContainer forwardedRef={nodeRef}>
-                            {/* <Spinner /> */}
                             <Routes location={location}>
                                 <Route path="/" element={<HomePage />} />
 
@@ -87,6 +87,14 @@ function App() {
                                         </ProtectedRoute>
                                     }
                                 />
+                                <Route
+                                    path="/reviews"
+                                    element={
+                                        <ProtectedRoute auth>
+                                            <MyReviews />
+                                        </ProtectedRoute>
+                                    }
+                                />
                                 <Route path="/about" element={<About />} />
                                 <Route
                                     path="/results"
@@ -96,7 +104,10 @@ function App() {
                                     path="/station/:id"
                                     element={<StationDetails />}
                                 />
-                                <Route path="/:stationId/add-review" element={<AddReviews/>}/>
+                                <Route
+                                    path="/:stationId/add-review"
+                                    element={<AddReviews />}
+                                />
                             </Routes>
                         </PageContainer>
                     </CSSTransition>
