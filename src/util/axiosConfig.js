@@ -236,13 +236,6 @@ export const postAddReview = async ({
     isWorking,
     rating,
 }) => {
-    console.log("reqest args", {
-        stationNumber,
-        username,
-        review,
-        isWorking,
-    });
-
     try {
         const response = await apiAxios.post(
             `/station/${stationNumber}/add-review`,
