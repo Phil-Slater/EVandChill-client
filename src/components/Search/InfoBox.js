@@ -1,34 +1,34 @@
+
 const InfoBox = (station, index) => {
-    const {
-        operatingHours,
-        address,
-        cityStateZip,
-        supportEmail,
-        supportContact,
-        name,
-        plugTypes,
-    } = station;
+  const {
+    operatingHours,
+    address,
+    cityStateZip,
+    supportEmail,
+    supportContact,
+    name,
+    plugTypes,
+  } = station;
 
-    let connectionInfo = "No connection info available";
-    if (plugTypes && plugTypes.length > 0) {
-        const connectionsItems = plugTypes.map(
-            (connection) =>
-                `<li key="${connection.speed}">${connection.type}</li>`
-        );
-        connectionInfo = `<ul>${connectionsItems.join("")}</ul>`;
-    }
-    let contactInfo = "No Contact Information available";
-    if (supportEmail || supportContact) {
-        const info = [];
-        if (supportContact) info.push(`<p><b>Phone:</b> ${supportContact}<p>`);
-        if (supportEmail) info.push(`<p><b>Email:</b> ${supportEmail}<p>`);
-        contactInfo = info.join("");
-    }
+  let connectionInfo = "No connection info available";
+  if (plugTypes && plugTypes.length > 0) {
+    const connectionsItems = plugTypes.map(
+      (connection) => `<li key="${connection.speed}">${connection.type}</li>`
+    );
+    connectionInfo = `<ul>${connectionsItems.join("")}</ul>`;
+  }
+  let contactInfo = "No Contact Information available";
+  if (supportEmail || supportContact) {
+    const info = [];
+    if (supportContact) info.push(`<p><b>Phone:</b> ${supportContact}<p>`);
+    if (supportEmail) info.push(`<p><b>Email:</b> ${supportEmail}<p>`);
+    contactInfo = info.join("");
+  }
 
-    const hoursInfo = operatingHours
-        ? `<p>${operatingHours}</p>`
-        : "No information available";
-    return `<div id="content">
+  const hoursInfo = operatingHours
+    ? `<p>${operatingHours}</p>`
+    : "No information available";
+  return `<div id="content">
             <h1 id="firstHeading" className="firstHeading">
                 ${name}
             </h1>
@@ -43,7 +43,7 @@ const InfoBox = (station, index) => {
                 ${contactInfo}
                 <h3>Operating Hours</h3>                
                 ${hoursInfo}
-                <button onclick="new BroadcastChannel('google').postMessage(${index})">View Details</button>
+                <button class = "details-button" onclick="new BroadcastChannel('google').postMessage(${index})">View Details</button>
             </div>
         </div>`;
 };

@@ -144,7 +144,7 @@ console.log("STATION", station)
                                     Add Review
                                 </Link>
                             </div>
-                            <div>
+                            <div className="review-map-container">
                                 <Reviews reviews={station.reviews} context="station"/>
                             </div>
                             <div className="google-map">

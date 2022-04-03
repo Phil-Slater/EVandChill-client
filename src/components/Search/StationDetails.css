@@ -22,7 +22,7 @@
     cursor: pointer;
 }
 
-.plug-map-container {
+.plug-map-container, .review-map-container {
     display: flex;
     padding: 1rem;
     gap: 1rem;
@@ -32,7 +32,7 @@
     margin-bottom: 1rem;
 }
 
-.plug-container {
+.plug-container, .reviews-container {
     padding: 0.25rem;
     padding-left: 0.5rem;
     font-size: 1rem;
@@ -52,7 +52,8 @@
 .nearby-food,
 .nearby-entertainment,
 .nearby-stores,
-.business-details-container {
+.business-details-container,
+.reviews-container {
     border-radius: 1rem;
     box-shadow: 2px 2px 5px rgba(40, 40, 40, 0.6);
 }

@@ -29,3 +29,11 @@
     font-size: 1rem;
     background-color: var(--color-primary-light);
 }
+
+.delete-button, .details-button {
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        font-size: 1rem;
+        background-color: var(--color-primary-light);
+        cursor: pointer;
+}
