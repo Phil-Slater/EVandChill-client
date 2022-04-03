@@ -122,12 +122,12 @@ const About = () => {
                 </h2>
             </a>
             <p>
-                The backend server the supplies the data you see is built on
+                The backend server that supplies the data you see is built on
                 Express, and interacts with MongoDB via Mongoose. The server
                 interacts with{" "}
                 <a href="https://openchargemap.org/site">Open Charge Map</a> and{" "}
                 <a href="https://www.google.com/maps">Google Maps</a> to locate
-                charging stations and nearby ammenities.
+                charging stations and nearby amenities.
             </p>
         </div>
     );

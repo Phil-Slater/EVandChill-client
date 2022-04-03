@@ -14,7 +14,7 @@ const Profile = () => {
             <p className="profile-email">
                 <i>{email}</i>
             </p>
-            <Favorites favorites= {user.favorites}/>
+            {/* <Favorites favorites= {user.favorites}/> */}
             <Reviews reviews={user.reviews} />
         </div>
     );
