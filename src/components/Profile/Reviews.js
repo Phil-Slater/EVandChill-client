@@ -29,7 +29,7 @@ const Reviews = ({ reviews = [], context }) => {
             <h2>Reviews:</h2>
 
             {reviews.map((review) => (
-                <div>
+                <div key={review._id}>
                     {context === "profile" ? (
                         <h3>Station Id: {review.stationId}</h3>
                     ) : null}
