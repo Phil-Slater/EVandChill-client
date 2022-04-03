@@ -78,3 +78,10 @@ export const setAmenities = (amenties) => {
         payload: amenties,
     };
 };
+
+export const deleteReview = (data) => {
+  return {
+    type: actionTypes.DELETE_REVIEW,
+    payload: data,
+  };
+};

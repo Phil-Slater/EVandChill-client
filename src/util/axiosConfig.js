@@ -9,6 +9,7 @@ import {
     axiosResponseReceived,
     setStation,
     setAmenities,
+    deleteReview,
 } from "../store/actions/actionCreators";
 import store from "../store/store";
 import getCurrentLocation from "./getCurrentLocation";
@@ -214,6 +215,7 @@ export const deleteRemoveFavorite = async (username, stationNumber) => {
         store.dispatch(addError("Unable to remove favorite"));
     }
 };
+
 export const postAddReview = async ({
     stationNumber,
     username,
@@ -247,6 +249,24 @@ export const postAddReview = async ({
         store.dispatch(addError("Unable to add reivew"));
         return null;
     }
+};
+
+export const removeReview = async (data) => {
+  try {
+    const response = await apiAxios.delete("/profile/reviews", {
+      data: {
+        userId: data.userId,
+        stationId: data.stationId,
+        reviewId: data.reviewId,
+      },
+    });
+    if (response.data.userSuccess) {
+      store.dispatch(deleteReview(data.reviewId));
+      return { success: true };
+    }
+  } catch {
+    store.dispatch(addError("Unable to remove favorite"));
+  }
 };
 
 // export const getUserReviews = async (user) => {
