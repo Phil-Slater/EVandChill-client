@@ -46,7 +46,7 @@ const Reviews = ({reviews = [], context}) => {
           )}
           <p>{review.review}</p>
           <p>{review.isWorking}</p>
-          {context === "profile" && (<button onClick={()=>handleRemoveReview(review._id, user.id, review.stationId)}>Delete</button>)}
+          {context === "profile" && (<button classname = "delete-button" onClick={()=>handleRemoveReview(review.id, user.id, review.stationId)}>Delete</button>)}
         </div>
       ))}
     </div>
