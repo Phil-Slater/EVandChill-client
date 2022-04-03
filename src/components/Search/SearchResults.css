@@ -4,11 +4,11 @@
 
 .search-results {
     display: flex;
-    padding: 0.5rem 1rem;
+    margin: 0rem -2rem;
     gap: 1rem;
     font-size: 0.8rem;
     align-items: center;
-    flex-direction: column;
+    flex-direction: column-reverse;
 }
 
 .search-list-container {
@@ -65,5 +65,8 @@
 @media only screen and (min-width: 768px) {
     .search-results {
         flex-direction: row;
+        padding: 0.5rem 1rem;
+        margin: 0;
     }
+
 }
