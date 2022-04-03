@@ -10,6 +10,7 @@ import { useEffect } from "react";
 const SearchResults = () => {
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
+    const isLoading = useSelector((state) => state.display.isLoading);
     const stationsAndCoords = useSelector((state) => state.stations.stations);
     if (!stationsAndCoords) {
         return <Navigate to="/" />;
@@ -56,19 +57,21 @@ const SearchResults = () => {
     return (
         <div className="search-page">
             <h1>Search Results</h1>
-            <div className="search-results">
-                <div className="search-list-container">{stationItems}</div>
-                <div className="google-map">
-                    <Wrapper apiKey={apiKey}>
-                        <StationsMap
-                            center={center}
-                            searchLocation={location}
-                            zoom={zoom}
-                            stations={stations}
-                        />
-                    </Wrapper>
+            {!isLoading && (
+                <div className="search-results">
+                    <div className="search-list-container">{stationItems}</div>
+                    <div className="google-map">
+                        <Wrapper apiKey={apiKey}>
+                            <StationsMap
+                                center={center}
+                                searchLocation={location}
+                                zoom={zoom}
+                                stations={stations}
+                            />
+                        </Wrapper>
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

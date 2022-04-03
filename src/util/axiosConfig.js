@@ -31,10 +31,13 @@ const apiAxios = axios.create({
         },
         ...axios.defaults.transformRequest,
     ],
-    headers: {},
-    onDownloadProgress: () => {
-        store.dispatch(axiosResponseReceived());
-    },
+    transformResponse: [
+        (data) => {
+            store.dispatch(axiosResponseReceived());
+            return data;
+        },
+        ...axios.defaults.transformResponse,
+    ],
 });
 
 export function setAuthData(token, user) {
