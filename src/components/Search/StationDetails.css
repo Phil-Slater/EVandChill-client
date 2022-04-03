@@ -92,9 +92,7 @@
     column-gap: 1em;
     padding: 1em;
     border-radius: 6px;
-    /* flex-wrap: wrap; */
     padding: 1em;
-    justify-content: center;
     overflow-x: auto;
     width: 96%;
 }
