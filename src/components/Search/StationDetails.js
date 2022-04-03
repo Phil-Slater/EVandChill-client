@@ -141,7 +141,7 @@ console.log("STATION", station)
                                 {connections}
 
                                 <Link to={`/${station.externalId}/add-review`}>
-                                    Add Reveiew
+                                    Add Review
                                 </Link>
                             </div>
                             <div>
