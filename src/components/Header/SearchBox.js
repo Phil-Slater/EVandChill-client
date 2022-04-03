@@ -37,13 +37,14 @@ const SearchBox = () => {
 
     const handleTypeChange = (e) => {
         setSearchType(e.target.value);
+        setSearchTerm("");
     };
 
     const handleTermChange = (e) => {
         setSearchTerm(e.target.value);
     };
 
-    const handleSearchClicked = async () => {
+    const handleSearch = async () => {
         switch (searchType) {
             case "current":
                 const locationResults = await postStationsByLocation();
@@ -68,6 +69,12 @@ const SearchBox = () => {
         }
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter" && searchTerm !== "") {
+            handleSearch();
+        }
+    };
+
     return (
         <div className="header-search">
             <ReactDropdown
@@ -82,12 +89,10 @@ const SearchBox = () => {
                         )}`}
                         name={searchTerm}
                         onChange={handleTermChange}
+                        onKeyDown={handleKeyDown}
                     />
                 )}
-                <button
-                    onClick={() => handleSearchClicked()}
-                    disabled={isDisabled}
-                >
+                <button onClick={() => handleSearch()} disabled={isDisabled}>
                     Search
                 </button>
             </div>
