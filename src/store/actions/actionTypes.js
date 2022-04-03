@@ -10,3 +10,4 @@ export const DELETE_FAVORITE = "DELETE_FAVORITE";
 export const SET_STATIONS = "SET_STATIONS";
 export const SET_STATION = "SET_STATION";
 export const SET_AMENITIES = "SET_AMENITIES";
+export const DELETE_REVIEW = "DELETE_REVIEW"

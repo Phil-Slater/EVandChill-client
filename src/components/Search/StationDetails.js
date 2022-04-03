@@ -145,7 +145,7 @@ console.log("STATION", station)
                                 </Link>
                             </div>
                             <div>
-                                <Reviews reviews={station.reviews}/>
+                                <Reviews reviews={station.reviews} context="station"/>
                             </div>
                             <div className="google-map">
                                 <Wrapper apiKey={apiKey}>
