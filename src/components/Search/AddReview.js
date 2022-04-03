@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { postAddReview } from "../../util/axiosConfig";
 import { useNavigate, useParams } from "react-router-dom";

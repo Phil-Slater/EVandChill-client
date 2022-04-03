@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {
     getStationDetails,
@@ -25,19 +25,14 @@ const StationDetails = () => {
 
     let station = useSelector((state) => state.stations.station);
     let user = useSelector((state) => state.auth.user);
-console.log("STATION", station)
 
     const getUserFavorties = async () => {
         const favorites = await getFavorites(user);
-        station &&
-            favorites.forEach((favorite) => {
-                if (favorite.stationId === station.externalId) {
-                    console.log("in favorites");
-                    setIsFavorite(true);
-                } else {
-                    console.log("not a favorite");
-                }
-            });
+        console.log(station, favorites);
+        const favorite = favorites.find(
+            (fav) => fav.stationId.toString() === station.externalId
+        );
+        if (favorite) setIsFavorite(true);
     };
 
     const handleGetStation = async () => {
@@ -99,11 +94,13 @@ console.log("STATION", station)
         ) {
             handleGetAmenities();
         }
+    }, []);
 
+    useEffect(() => {
         if (station && user.username) {
             getUserFavorties();
         }
-    }, []);
+    }, [station]);
 
     return (
         <>
@@ -111,9 +108,17 @@ console.log("STATION", station)
                 <h1>
                     Station Details{" "}
                     {isFavorite ? (
-                        <img src={favorite} onClick={handleFavoriteClick} />
+                        <img
+                            src={favorite}
+                            onClick={handleFavoriteClick}
+                            alt="Station is favorited"
+                        />
                     ) : (
-                        <img src={unfavorite} onClick={handleFavoriteClick} />
+                        <img
+                            src={unfavorite}
+                            onClick={handleFavoriteClick}
+                            alt="Station is not favorited"
+                        />
                     )}
                 </h1>
                 {!station ? (
@@ -145,7 +150,10 @@ console.log("STATION", station)
                                 </Link>
                             </div>
                             <div>
-                                <Reviews reviews={station.reviews} context="station"/>
+                                <Reviews
+                                    reviews={station.reviews}
+                                    context="station"
+                                />
                             </div>
                             <div className="google-map">
                                 <Wrapper apiKey={apiKey}>
