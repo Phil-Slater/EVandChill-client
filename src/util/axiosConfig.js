@@ -258,47 +258,23 @@ export const postAddReview = async ({
 };
 
 export const removeReview = async (data) => {
-    try {
-        const response = await apiAxios.delete("/profile/reviews", {
-            data: {
-                userId: data.userId,
-                stationId: data.stationId,
-                reviewId: data.reviewId,
-            },
-        });
-        if (response.data.userSuccess) {
-            store.dispatch(deleteReview(data.reviewId));
-            return { success: true };
-        }
-    } catch {
-        store.dispatch(addError("Unable to remove favorite"));
+  try {
+    const response = await apiAxios.delete("/:username/reviews", {
+      data: {
+        userId: data.userId,
+        stationId: data.stationId,
+        reviewId: data.reviewId,
+      },
+    });
+    if (response.data.userSuccess) {
+      store.dispatch(deleteReview(data.reviewId));
+      return { success: true };
     }
+  } catch {
+    store.dispatch(addError("Unable to remove remove"));
+  }
 };
 
-// export const getUserReviews = async (user) => {
-//        const { username } = user;
-//     try {
-//         const response = await axios.get(`/profile/${username}/reviews`);
-//         if (response) {
-//             store.dispatch(setReviews(response.data.reviews));
-//             return response.data.reviews;
-//         }
-//     } catch {
-//         store.dispatch(addError("Unable to load reviews"));
-//     }
-// };
-
-// export const getStationReviews= async (stationId) =>{
-//     try {
-//         const response = await axios.get(`/station/${stationId}/reviews`);
-//         if (response) {
-//             store.dispatch(setReviews(response.data.reviews));
-//             return response.data.reviews;
-//         }
-//     } catch {
-//         store.dispatch(addError("Unable to load favorites"));
-//     }
-// };
 
 export const getStationDetails = async (stationId) => {
     try {
