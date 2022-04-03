@@ -263,13 +263,13 @@ export const postAddReview = async ({
 //         const response = await axios.get(`/station/${stationId}/reviews`);
 //         if (response) {
 //             store.dispatch(setReviews(response.data.reviews));
-//             return response.data.favorites;
+//             return response.data.reviews;
 //         }
 //     } catch {
 //         store.dispatch(addError("Unable to load favorites"));
 //     }
 // };
-// }
+
 
 export const getStationDetails = async (stationId) => {
     try {

@@ -35,7 +35,6 @@ const getDollarSigns=(level) => {
                     key={business.place_id}
                   >
                     <h4>{business.name}</h4>
-                    {/* <p>{business.opening_hours.open_now}Open</p> */}
                     {business.price_level ? (
                       <p>Price level:{getDollarSigns(business.price_level)}</p>
                     ) : (

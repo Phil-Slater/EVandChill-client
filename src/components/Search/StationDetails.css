@@ -40,8 +40,9 @@
 .nearby-containter {
     align-items: center;
     margin-bottom: 2em;
-    overflow-x: auto;
-    width: 96%;
+}
+.nearby-food{
+    margin-top: 2em;
 }
 
 .nearby-food,
@@ -54,17 +55,17 @@
     padding: 1em;
     border-radius: 6px;
     border: solid 2px black;
+    margin-bottom: 2em;
+    overflow-x: auto;
+    width: 96%;
 }
 
 .business-container {
+
     display: flex;
     column-gap: 1em;
-    flex-wrap: wrap;
-    width: fit-content;
     padding: 1em;
     border-radius: 6px;
-    overflow-x: auto;
-    width: 96vw;
 }
 
 .business-details-container {
@@ -72,6 +73,7 @@
     flex-direction: column;
     column-gap: 1em;
     padding: 1em;
+    width: fit-content;
     border-radius: 6px;
     border: solid 2px black;
 }

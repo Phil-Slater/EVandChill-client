@@ -1,13 +1,18 @@
 import React from "react";
 
-const Reviews = () => {
-    return (
-        <div className="profile-reviews">
-            <h3>My reviews</h3>
-            <p>Review title(maybe link here?)</p>
-            <button className="profile-review-update">Update Review</button>
+const Reviews = (reviews) => {
+  return (
+    <div>
+      <h3>Reviews:</h3>
+      {reviews.map((review) => (
+        <div>
+          <h4>{review.rating}</h4>
+          <p>{review.review}</p>
+          <p>{review.isWorking}</p>
         </div>
-    );
+      ))}
+    </div>
+  );
 };
 
 export default Reviews;
