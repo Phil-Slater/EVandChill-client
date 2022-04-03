@@ -60,6 +60,7 @@ const Nearby = ({ businesses }) => {
                 </div>
 
               ))}
+              
             </div>
           </div>
           <div className="nearby-entertainment">

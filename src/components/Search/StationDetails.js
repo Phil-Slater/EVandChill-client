@@ -13,6 +13,7 @@ import { Wrapper } from "@googlemaps/react-wrapper";
 import StationsMap from "./StationsMap";
 import Nearby from "./Nearby";
 import "./StationDetails.css";
+import Reviews from "../Profile/Reviews";
 const favorite = require("./images/favorite.png");
 const unfavorite = require("./images/unfavorite.png");
 
@@ -142,15 +143,9 @@ const StationDetails = () => {
                                     Add Reveiew
                                 </Link>
                             </div>
-                            <div>
-                                {/* <h3>Reviews:</h3>
-                    {station.reviews.map((review) =>
-                    <div>
-                        <h4> {review.rating}</h4>
-                        <p>{review.review}</p>
-                        <p>{review.isWorking}</p>
-                        </div>)} */}
-                            </div>
+                            
+                            <Reviews reviews={station.reviews}/>
+
                             <div className="google-map">
                                 <Wrapper apiKey={apiKey}>
                                     <StationsMap
