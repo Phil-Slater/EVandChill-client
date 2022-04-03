@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import InfoBox from "./InfoBox";
 
 const MapMarker = ({ station, map, position, icon, index }) => {
