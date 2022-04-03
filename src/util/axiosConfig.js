@@ -153,6 +153,19 @@ export const postStationsByCity = async (cityState) => {
     }
 };
 
+export const getProfile = async (username) => {
+    try {
+        const response = await apiAxios.get(`/profile/${username}`);
+        if (response.data.success) {
+            store.dispatch(setUser(response.data.user));
+        } else {
+            throw new Error();
+        }
+    } catch {
+        store.dispatch(addError("Unable to get profile info"));
+    }
+};
+
 export const getFavorites = async (user) => {
     const { username } = user;
     try {
@@ -223,13 +236,6 @@ export const postAddReview = async ({
     isWorking,
     rating,
 }) => {
-    console.log("reqest args", {
-        stationNumber,
-        username,
-        review,
-        isWorking,
-    });
-
     try {
         const response = await apiAxios.post(
             `/station/${stationNumber}/add-review`,
@@ -268,7 +274,6 @@ export const removeReview = async (data) => {
     store.dispatch(addError("Unable to remove remove"));
   }
 };
-
 
 
 export const getStationDetails = async (stationId) => {

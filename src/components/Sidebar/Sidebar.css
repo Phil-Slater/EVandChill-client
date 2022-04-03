@@ -43,6 +43,11 @@
     font-weight: bold;
 }
 
+.sidebar-near {
+    cursor: pointer;
+    font-weight: bold;
+}
+
 .sidebar-guest {
     padding: 0.5rem 1rem;
     border-radius: 1rem;

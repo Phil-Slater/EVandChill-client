@@ -3,18 +3,17 @@ import Favorites from "./Favorites";
 import Reviews from "./Reviews";
 import "./Profile.css";
 import { useSelector } from "react-redux";
+import { getProfile } from "../../util/axiosConfig";
 
 const Profile = () => {
     const user = useSelector((state) => state.auth.user);
 
     const { username, email, reviews } = user;
-    console.log('User - Profile page', user);
+    console.log("User - Profile page", user);
 
     useEffect(() => {
-
-    }, [user])
-
-
+        getProfile(username);
+    }, []);
 
     return (
         <div className="profile">
@@ -22,8 +21,8 @@ const Profile = () => {
             <p className="profile-email">
                 <i>{email}</i>
             </p>
-            <Favorites favorites= {user.favorites}/>
-            <Reviews reviews={reviews} context="profile"/>
+            <Favorites favorites={user.favorites} />
+            <Reviews reviews={reviews} context="profile" />
         </div>
     );
 };

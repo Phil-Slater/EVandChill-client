@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {
     getStationDetails,
@@ -14,30 +14,27 @@ import StationsMap from "./StationsMap";
 import Nearby from "./Nearby";
 import "./StationDetails.css";
 import Reviews from "../Profile/Reviews";
+import { setStation } from "../../store/actions/actionCreators";
 const favorite = require("./images/favorite.png");
 const unfavorite = require("./images/unfavorite.png");
 
 const StationDetails = () => {
     const [isFavorite, setIsFavorite] = useState(false);
+    const dispatch = useDispatch();
 
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const params = useParams();
 
     let station = useSelector((state) => state.stations.station);
     let user = useSelector((state) => state.auth.user);
-console.log("STATION", station)
 
     const getUserFavorties = async () => {
         const favorites = await getFavorites(user);
-        station &&
-            favorites.forEach((favorite) => {
-                if (favorite.stationId === station.externalId) {
-                    console.log("in favorites");
-                    setIsFavorite(true);
-                } else {
-                    console.log("not a favorite");
-                }
-            });
+        console.log(station, favorites);
+        const favorite = favorites.find(
+            (fav) => fav.stationId.toString() === station.externalId
+        );
+        if (favorite) setIsFavorite(true);
     };
 
     const handleGetStation = async () => {
@@ -100,10 +97,16 @@ console.log("STATION", station)
             handleGetAmenities();
         }
 
+        return function cleanup() {
+            dispatch(setStation(null));
+        };
+    }, []);
+
+    useEffect(() => {
         if (station && user.username) {
             getUserFavorties();
         }
-    }, []);
+    }, [station]);
 
     return (
         <>
@@ -111,9 +114,17 @@ console.log("STATION", station)
                 <h1>
                     Station Details{" "}
                     {isFavorite ? (
-                        <img src={favorite} onClick={handleFavoriteClick} />
+                        <img
+                            src={favorite}
+                            onClick={handleFavoriteClick}
+                            alt="Station is favorited"
+                        />
                     ) : (
-                        <img src={unfavorite} onClick={handleFavoriteClick} />
+                        <img
+                            src={unfavorite}
+                            onClick={handleFavoriteClick}
+                            alt="Station is not favorited"
+                        />
                     )}
                 </h1>
                 {!station ? (
@@ -141,10 +152,10 @@ console.log("STATION", station)
                                 {connections}
 
                                 <Link to={`/${station.externalId}/add-review`}>
-                                    Add Reveiew
+                                    Add Review
                                 </Link>
                             </div>
-                            <div>
+                            <div className="review-map-container">
                                 <Reviews reviews={station.reviews} context="station"/>
                             </div>
                             <div className="google-map">
