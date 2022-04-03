@@ -24,12 +24,12 @@
 
 .plug-map-container {
     display: flex;
-    padding: 1rem;
+    padding-top: 1rem;
     gap: 1rem;
     font-size: 0.8rem;
     align-items: center;
     flex-direction: column;
-    margin-bottom: 1rem;
+    margin: 0
 }
 
 .plug-container {
@@ -67,7 +67,8 @@
     margin-bottom: 2em;
 
 }
-.nearby-food{
+
+.nearby-food {
     margin-top: 2em;
 }
 
@@ -81,7 +82,7 @@
     border: solid 2px black;
     margin-bottom: 2em;
     overflow-x: auto;
-    width: 96%;
+    width: 100%;
     margin-top: 1rem;
     align-items: center;
 }
@@ -96,7 +97,6 @@
     justify-content: center;
     overflow-x: auto;
     width: 96%;
-
 }
 
 .business-details-container {
@@ -111,18 +111,17 @@
     padding: 0em 0.5em;
     margin-bottom: 1rem;
     cursor: pointer;
-
 }
 
 .google-map {
     width: 100%;
 }
 
-
-
 @media only screen and (min-width: 768px) {
     .plug-map-container {
         flex-direction: row;
+        padding-top: 0;
+        padding: 1rem;
     }
 
     .plug-container {
@@ -137,6 +136,7 @@
 @media only screen and (min-width: 1200px) {
     .plug-map-container {
         flex-direction: row;
+        margin-bottom: 1rem;
     }
 
     .plug-container {
