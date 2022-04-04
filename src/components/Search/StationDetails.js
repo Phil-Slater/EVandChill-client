@@ -147,29 +147,31 @@ const StationDetails = () => {
                                 : null}
                         </h3>
                         <div className="plug-map-container">
-                            <div>
-                                <h3>Plugs:</h3>
-                                {connections}
-
-                                <Link to={`/${station.externalId}/add-review`}>
-                                    Add Review
-                                </Link>
+                            <div className="plug-map">
+                                <div>
+                                    <h3>Plugs:</h3>
+                                    {connections}
+                                </div>
+                                <div className="google-map">
+                                    <Wrapper apiKey={apiKey}>
+                                        <StationsMap
+                                            center={{
+                                                lat: station.latitude,
+                                                lng: station.longitude,
+                                            }}
+                                            zoom={15}
+                                            stations={[station]}
+                                        />
+                                    </Wrapper>
+                                </div>
                             </div>
-                            <div className="review-map-container">
-                                <Reviews reviews={station.reviews} context="station"/>
-                            </div>
-                            <div className="google-map">
-                                <Wrapper apiKey={apiKey}>
-                                    <StationsMap
-                                        center={{
-                                            lat: station.latitude,
-                                            lng: station.longitude,
-                                        }}
-                                        zoom={15}
-                                        stations={[station]}
-                                    />
-                                </Wrapper>
-                            </div>
+                            <Link to={`/${station.externalId}/add-review`}>
+                                Add Review
+                            </Link>
+                            <Reviews
+                                reviews={station.reviews}
+                                context="station"
+                            />
                         </div>
                     </div>
                 )}
