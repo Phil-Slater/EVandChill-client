@@ -152,11 +152,11 @@ const StationDetails = () => {
                                 {connections}
 
                                 <Link to={`/${station.externalId}/add-review`}>
-                                    Add Review
+                                    <button className="add-review">Add Review</button>
                                 </Link>
                             </div>
                             <div className="review-map-container">
-                                <Reviews reviews={station.reviews} context="station"/>
+                                <Reviews reviews={station.reviews} context="station" />
                             </div>
                             <div className="google-map">
                                 <Wrapper apiKey={apiKey}>
