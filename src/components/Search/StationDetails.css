@@ -32,6 +32,22 @@
     margin: 0
 }
 
+.review-map-container {
+    width: 96%;
+}
+
+.review-map-container h3 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.plug-map {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
 .plug-container, .reviews-container {
     padding: 0.25rem;
     padding-left: 0.5rem;
@@ -114,17 +130,21 @@
 
 .google-map {
     width: 100%;
+    flex-grow: 4;
 }
 
 @media only screen and (min-width: 768px) {
     .plug-map-container {
-        flex-direction: row;
         padding-top: 0;
         padding: 1rem;
     }
 
     .plug-container {
         width: 10rem;
+    }
+
+    .plug-map {
+        flex-direction: row;
     }
 
     .business-container {
@@ -134,7 +154,6 @@
 
 @media only screen and (min-width: 1200px) {
     .plug-map-container {
-        flex-direction: row;
         margin-bottom: 1rem;
     }
 
