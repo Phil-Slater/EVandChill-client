@@ -275,11 +275,7 @@ export const removeReview = async (data) => {
     } catch {
         store.dispatch(addError("Unable to remove review"));
     }
-  } catch {
-    store.dispatch(addError("Unable to remove remove"));
-  }
 };
-
 
 export const getStationDetails = async (stationId) => {
     try {
