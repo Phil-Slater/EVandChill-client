@@ -258,23 +258,24 @@ export const postAddReview = async ({
 };
 
 export const removeReview = async (data) => {
-  try {
-    const response = await apiAxios.delete("/:username/reviews", {
-      data: {
-        userId: data.userId,
-        stationId: data.stationId,
-        reviewId: data.reviewId,
-      },
-    });
-    if (response.data.userSuccess) {
-      store.dispatch(deleteReview(data.reviewId));
-      return { success: true };
+    try {
+        const response = await apiAxios.delete(
+            `/profile/${data.username}/reviews`,
+            {
+                data: {
+                    stationId: data.stationId,
+                    reviewId: data.reviewId,
+                },
+            }
+        );
+        if (response.data.success) {
+            store.dispatch(deleteReview(data.reviewId));
+            return { success: true };
+        }
+    } catch {
+        store.dispatch(addError("Unable to remove review"));
     }
-  } catch {
-    store.dispatch(addError("Unable to remove remove"));
-  }
 };
-
 
 export const getStationDetails = async (stationId) => {
     try {
