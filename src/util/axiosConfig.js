@@ -10,6 +10,7 @@ import {
     setStation,
     setAmenities,
     deleteReview,
+    clearErrors,
 } from "../store/actions/actionCreators";
 import store from "../store/store";
 import getCurrentLocation from "./getCurrentLocation";
@@ -28,6 +29,7 @@ const apiAxios = axios.create({
             } else {
                 store.dispatch(axiosRequestSent());
             }
+            store.dispatch(clearErrors());
             return data;
         },
         ...axios.defaults.transformRequest,
