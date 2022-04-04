@@ -86,6 +86,22 @@ const StationDetails = () => {
         }
     };
 
+    let favoriteDisplay = null;
+    if (user.username) {
+        favoriteDisplay = isFavorite ? (
+            <img
+                src={favorite}
+                onClick={handleFavoriteClick}
+                alt="Station is favorited"
+            />
+        ) : (
+            <img
+                src={unfavorite}
+                onClick={handleFavoriteClick}
+                alt="Station is not favorited"
+            />
+        );
+    }
     useEffect(() => {
         if (!station) {
             handleGetStation();
@@ -111,22 +127,7 @@ const StationDetails = () => {
     return (
         <>
             <div className="details">
-                <h1>
-                    Station Details{" "}
-                    {isFavorite ? (
-                        <img
-                            src={favorite}
-                            onClick={handleFavoriteClick}
-                            alt="Station is favorited"
-                        />
-                    ) : (
-                        <img
-                            src={unfavorite}
-                            onClick={handleFavoriteClick}
-                            alt="Station is not favorited"
-                        />
-                    )}
-                </h1>
+                <h1>Station Details {favoriteDisplay}</h1>
                 {!station ? (
                     <h2>Loading...</h2>
                 ) : (
@@ -165,9 +166,13 @@ const StationDetails = () => {
                                     </Wrapper>
                                 </div>
                             </div>
-                            <Link to={`/${station.externalId}/add-review`}>
-                                <button className="add-review">Add Review</button>
-                            </Link>
+                            {user.username && (
+                                <Link to={`/${station.externalId}/add-review`}>
+                                    <button className="add-review">
+                                        Add Review
+                                    </button>
+                                </Link>
+                            )}
                             <Reviews
                                 reviews={station.reviews}
                                 context="station"

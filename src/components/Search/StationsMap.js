@@ -24,7 +24,6 @@ const StationsMap = ({ center, zoom, stations, searchLocation }) => {
                 stations[index] &&
                 JSON.stringify(station) !== JSON.stringify(stations[index])
             ) {
-                dispatch(setStation(stations[index]));
                 navigate(`/station/${stations[index].externalId}`);
             }
         };
@@ -66,7 +65,12 @@ const StationsMap = ({ center, zoom, stations, searchLocation }) => {
             {markerItems}
             {map && (
                 <MapMarker
-                    position={searchLocation || { lat: station.latitude, lng: station.longitude }}
+                    position={
+                        searchLocation || {
+                            lat: station.latitude,
+                            lng: station.longitude,
+                        }
+                    }
                     map={map}
                     icon={CenterIcon}
                 />
