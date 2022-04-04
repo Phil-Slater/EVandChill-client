@@ -275,32 +275,11 @@ export const removeReview = async (data) => {
     } catch {
         store.dispatch(addError("Unable to remove review"));
     }
+  } catch {
+    store.dispatch(addError("Unable to remove remove"));
+  }
 };
 
-// export const getUserReviews = async (user) => {
-//        const { username } = user;
-//     try {
-//         const response = await axios.get(`/profile/${username}/reviews`);
-//         if (response) {
-//             store.dispatch(setReviews(response.data.reviews));
-//             return response.data.reviews;
-//         }
-//     } catch {
-//         store.dispatch(addError("Unable to load reviews"));
-//     }
-// };
-
-// export const getStationReviews= async (stationId) =>{
-//     try {
-//         const response = await axios.get(`/station/${stationId}/reviews`);
-//         if (response) {
-//             store.dispatch(setReviews(response.data.reviews));
-//             return response.data.reviews;
-//         }
-//     } catch {
-//         store.dispatch(addError("Unable to load favorites"));
-//     }
-// };
 
 export const getStationDetails = async (stationId) => {
     try {
