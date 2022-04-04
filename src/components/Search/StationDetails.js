@@ -166,7 +166,7 @@ const StationDetails = () => {
                                 </div>
                             </div>
                             <Link to={`/${station.externalId}/add-review`}>
-                                Add Review
+                                <button className="add-review">Add Review</button>
                             </Link>
                             <Reviews
                                 reviews={station.reviews}
