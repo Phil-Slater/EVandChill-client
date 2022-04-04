@@ -32,7 +32,7 @@ const Reviews = ({ reviews = [], context }) => {
             {reviews.map((review) => (
                 <div key={review._id} className="reviews-container">
                     {context === "profile" ? (
-                        <h4>Station Id: {review.stationId}</h4>
+                        <h4>Station: {review.stationName}</h4>
                     ) : null}
                     {review.rating ? (
                         <StarRatingComponent
